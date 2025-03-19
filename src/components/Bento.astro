@@ -1,0 +1,35 @@
+---
+import { Image } from "astro:assets";
+import icon from "../assets/icon-menu.svg";
+---
+
+<div class="grid grid-cols-3 grid-rows-6 gap-4">
+    <div class="row-span-4 border-4 rounded-md p-4 border-theme-gray">
+        <h2 class="text-6xl font-bold mb-14 text-theme-gray">Explora la galería de diseños</h2>
+        <p class="text-xl mb-5">Relájate con una auténtica experta que te brindá una atención personalizada</p>
+        <a class="bg-theme-gray text-white px-4 py-2 rounded-lg mt-4 inline-block font-bold" href="/gallery">Explorar</a>
+    </div> 
+
+    <div class="row-span-6 col-start-3 row-start-1 border-4 rounded-md"></div>
+    <div class="row-span-2 col-start-2 row-start-1 rounded-md p-2 bg-primary text-theme-white">
+        <h2 class="text-6xl font-bold mb-2">Agenda tu cita ahora mismo!</h2>
+        <div class="flex justify-center ">
+            <a class="bg-theme-red text-white px-4 py-2 rounded-lg mt-4 inline-block font-bold mb-4" href="/contact">Agendar</a>
+        </div>
+    </div>
+    <div class="row-span-2 col-start-2 row-start-3 border-4 rounded-md border-theme-red">
+        <div  class="flex flex-col items-center justify-center h-full">
+            <h2 class="text-5xl font-bold mb-4 text-theme-red">Erling Nails</h2>
+            <Image src={icon} alt="Erling Nails" class="w-12 h-12 hover:scale-105 transition-all duration-300 hover:cursor-pointer" />
+            <h1 class="text-center mt-2 text-lg font-medium">Un espacio dedicado al cuidado de tus manos y pies.</h1>
+        </div>
+    </div>
+    <div class="col-span-2 row-span-2 row-start-5  rounded-md bg-primary text-theme-white p-8">
+        <div  class="flex flex-col items-center justify-center h-full">
+            <h2 class="text-5xl font-bold mb-4">¿Quieres conocerme un poco más?</h2>
+        <p class="text-xl mb-5">Averigua más sobre mi trayectoria en el mundo de la manicura y pedicura!</p>
+        </div>
+        
+    </div>
+</div>
+    
