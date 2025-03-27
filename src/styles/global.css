@@ -6,6 +6,14 @@
     --color-theme-red:#F70F12;
     --color-theme-gray:#214B52;
     --color-theme-white:#F8F2F2;
-   
+    --font-special: 'JollyLodger', sans-serif;
 
+}
+
+@font-face {
+    font-family: 'JollyLodger';
+    src: url('/fonts/JollyLodger.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
 }
