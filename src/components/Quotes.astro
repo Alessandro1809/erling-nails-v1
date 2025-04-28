@@ -1,0 +1,75 @@
+---
+---
+
+<div class="mb-32">
+
+    <h2 class="text-6xl font-bold mb-14 font-special tracking-wider">Testimonios</h2>
+    <p class="text-2xl mb-5">¿Quieres saber qué opinan mis clientes sobre mi trabajo? Aquí tienes algunos de los comentarios que he recibido.</p>
+
+      <swiper-container class="mySwiper" space-between="30" slides-per-view="auto" pagination="true"
+        pagination-clickable="true">
+        <swiper-slide class="flex flex-col font-semibold">
+            <p>"¡Simplemente la mejor! Desde que empecé a atenderme con ella, mis uñas duran semanas intactas. Siempre me recomienda lo mejor para mi tipo de uña y sus diseños son una obra de arte. 100% recomendada."</p>
+          </br>
+           — Camila R.
+            </swiper-slide>
+                    <swiper-slide class="flex flex-col font-semibold">
+                        <p>"No solo salí con unas uñas hermosas, también me sentí súper bien atendida. El ambiente es relajante, limpio, y ella es súper profesional. Se nota que ama lo que hace."</p></br>
+            — Valentina M.
+                    </swiper-slide>
+                    <swiper-slide  class="flex flex-col font-semibold">
+                        <p>"Soy muy exigente con mis uñas, y puedo decir que encontré a mi manicurista ideal. Puntual, detallista y con productos de excelente calidad. ¡No la cambio por nada!"</p></br>
+            — Andrea L.
+                    </swiper-slide>
+                    <swiper-slide class="flex flex-col font-semibold">
+                      <p>"Cada cita es una experiencia. Me relajo, me consiento y salgo feliz con mis uñas hermosas."</p></br>
+            — Lucía T.
+                    </swiper-slide>
+                    <swiper-slide class="flex flex-col font-semibold">
+                        <p>"No solo es talentosa, también es súper amable. Se siente como visitar a una amiga."</p></br>
+            — Belén T.
+                    
+                    </swiper-slide>
+                  </swiper-container>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
+<style>
+
+
+    swiper-container {
+      width: 100%;
+      height: 40vh;
+    }
+
+    swiper-slide {
+      
+      border-radius: 2%;
+      padding: 4%;
+      text-align: center;
+      font-size: large;
+      background: #161616;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    swiper-slide img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    swiper-slide {
+      width: 80%;
+    }
+
+    swiper-slide:nth-child(2n) {
+      width: 60%;
+    }
+
+    swiper-slide:nth-child(3n) {
+      width: 40%;
+    }
+  </style>
