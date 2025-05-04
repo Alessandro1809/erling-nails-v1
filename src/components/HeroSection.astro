@@ -1,0 +1,26 @@
+---
+import HeroVideo from '../assets/video/HeroVideo.mp4'
+---
+
+<section class="hero-section relative h-screen overflow-hidden">
+    <!-- Video de fondo -->
+    <video 
+      class="absolute inset-0 w-full h-full object-cover z-0"
+      autoplay 
+      muted 
+      loop 
+      playsinline 
+      preload="auto"
+    >
+      <source src={HeroVideo} type="video/webm" />
+      Tu navegador no soporta el video.
+    </video>
+  
+    <!-- Contenido sobre el video -->
+    <div class="relative z-10 flex justify-center items-center h-full px-4">
+      <h1 class="text-4xl md:text-6xl lg:text-8xl font-bold text-center text-theme-white font-special tracking-wider mix-blend-difference">
+        Manicura y pedicura profesional en Playas del Coco para realzar tu belleza natural
+      </h1>
+    </div>
+  </section>
+  
