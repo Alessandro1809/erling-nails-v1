@@ -2,12 +2,14 @@
 import { Image } from "astro:assets";
 import icon from "../assets/icon-menu.svg";
 ---
-
-<header>
-    <div class="flex  relative z-10">
+<header class="relative z-10">
+    <div class="flex items-center">
+      <a href="/" aria-label="Ir al inicio - Erling Nails">
         <Image 
-        src={icon} 
-        alt="Erling Nails" 
-        class="w-12 h-12 hover:scale-105 transition-all duration-300 hover:cursor-pointer" />
+          src={icon} 
+          alt="Logo de Erling Nails" 
+          class="w-12 h-12 hover:scale-105 transition-all duration-300 hover:cursor-pointer" />
+      </a>
     </div>
-</header>
+  </header>
+  

@@ -2,25 +2,38 @@
 import HeroVideo from '../assets/video/HeroVideo.mp4'
 ---
 
-<section class="hero-section absolute inset-0 z-0 left-4 right-4 top-4 bottom-12 h-screen overflow-hidden">
-    <!-- Video de fondo -->
-    <video 
-      class="absolute inset-0 w-full h-full object-cover z-0 rounded-2xl"
-      autoplay 
-      muted 
-      loop 
-      playsinline 
-      preload="auto"
-    >
-      <source src={HeroVideo} type="video/webm" />
-      Tu navegador no soporta el video.
-    </video>
-  
-    <!-- Contenido sobre el video -->
-    <div class="relative z-10 flex justify-center items-center h-full px-4 mix-blend-normal ">
-      <h1 class="text-4xl md:text-6xl lg:text-8xl font-bold text-white/90 text-center font-special tracking-wider drop-shadow-xl">
-        Manicura y pedicura profesional en Playas del Coco para realzar tu belleza natural
-      </h1>
-    </div>
+<section 
+  class="hero-section absolute inset-0 z-0 left-4 right-4 top-4 bottom-12 h-screen overflow-hidden"
+  aria-label="Video de presentación sobre manicura y pedicura en Playas del Coco"
+  itemscope 
+  itemtype="https://schema.org/VideoObject"
+>
+  <!-- Video de fondo -->
+  <video 
+    class="absolute inset-0 w-full h-full object-cover z-0 rounded-2xl"
+    autoplay 
+    muted 
+    loop 
+    playsinline 
+    preload="auto"
+    aria-hidden="true"
+    itemprop="contentUrl"
+  >
+    <source src={HeroVideo} type="video/webm" />
+    Tu navegador no soporta el video.
+  </video>
+
+  <!-- Microdatos adicionales -->
+  <meta itemprop="name" content="Video de presentación de Erling Nails" />
+  <meta itemprop="description" content="Muestra de servicios de manicura y pedicura profesional en Playas del Coco, Guanacaste." />
+  <meta itemprop="uploadDate" content="2025-05-06" />
+  <meta itemprop="thumbnailUrl" content="https://tusitio.com/preview.jpg" />
+
+  <!-- Contenido sobre el video -->
+  <div class="relative z-10 flex justify-center items-center h-full px-4 mix-blend-normal">
+    <h1 class="text-4xl md:text-6xl lg:text-8xl font-bold text-white/90 text-center font-special tracking-wider drop-shadow-xl">
+      Manicura y pedicura profesional en Playas del Coco para realzar tu belleza natural
+    </h1>
+  </div>
 </section>
-  
+
