@@ -7,6 +7,12 @@ import Footer from '@/components/Footer.astro';
 <!doctype html>
 <html lang="en">
 	<head>
+		
+		
+		<script  type="text/javascript" src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+		<script  type="text/javascript" src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+		<!-- <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+		<script type="text/javascript" src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script> -->
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -37,14 +43,62 @@ import Footer from '@/components/Footer.astro';
 	</head>
 	<body class="relative -z-20 h-full w-full bg-gray-800 text-theme-white">
 		<div class="absolute -z-10 inset-0 bg-secondary bg-[size:20px_20px] opacity-90 blur-[100px]"></div>
-		<main class="container mx-auto max-w-5xl p-4"> 
+		<main class="container mx-auto max-w-6xl p-4"> 
 			
 			<Header />
 				<slot />
 			<Footer />
 		
 		</main>
-	
+		<script>
+		gsap.registerPlugin(ScrollTrigger);
+
+		window.addEventListener("load", () => {
+			gsap.timeline({
+				scrollTrigger: {
+					trigger: ".bento-section",
+					start: "60% 60%",
+					ease: "power2.inOut",
+					end: "+= 100%",
+					scrub:0.5,
+					pin: true,
+					refreshPriority: 1,
+					toggleActions: "play none none reverse",
+				},
+			}).to([".bento-section"], {
+				scale: 1.5,
+				opacity: 0,
+				height: 900,
+				lazy: true,
+			
+			})
+			gsap.fromTo(
+			".gallery-section",
+			{ opacity: 0, x: -1200,rotate: -55, scale:0.5 },
+			{
+			opacity: 1,
+			x: 0,
+			y: 0,
+			duration: 0.5,
+			rotate:0,
+			 scale:1,
+			ease: "power2.inOut",
+			scrollTrigger: {
+				trigger: ".gallery-section",
+				start: "top 340%",
+				end: "bottom 60%",
+				scrub: true,
+				toggleActions: "play none none reverse",
+			},
+			}
+		);
+
+			});
+			
+		</script>
+		<!-- <script>
+		AOS.init();
+		</script> -->
 	</body>
 </html>
 
