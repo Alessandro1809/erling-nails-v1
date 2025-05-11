@@ -86,12 +86,30 @@ import Footer from '@/components/Footer.astro';
 			scrollTrigger: {
 				trigger: ".gallery-section",
 				start: "top 340%",
-				end: "bottom 60%",
-				scrub: true,
+				end: "50% 60%",
+				scrub: 1,
 				toggleActions: "play none none reverse",
 			},
-			}
-		);
+			})
+			gsap.fromTo(
+				".opinion-section",
+				{ opacity: 0, x: -1200,rotate: 55, scale:0.5 },
+				{
+				opacity: 1,
+				x: 0,
+				y: 0,
+				duration: 0.5,
+				rotate:0,
+				scale:1,
+				ease: "power2.inOut",
+				scrollTrigger: {
+					trigger: ".opinion-section",
+					start: "top 50%",
+					end: "100% 100%",
+					scrub: 2,
+					toggleActions: "play none none reverse",
+				},
+				})
 
 			});
 			
