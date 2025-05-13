@@ -67,7 +67,7 @@ export function initScrollAnimations() {
   // Contact Section
   gsap.fromTo(
     ".contact-section",
-    { opacity: 0, y: 300, scale: 0.5 },
+    { opacity: 0, y: 200, scale: 0.5 },
     {
       opacity: 1,
       y: 0,
