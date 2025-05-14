@@ -83,6 +83,7 @@ export function initScrollAnimations() {
       },
     }
   );
+
 }
 
 window.addEventListener("load", initScrollAnimations);

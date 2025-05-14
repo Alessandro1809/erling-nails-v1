@@ -5,8 +5,11 @@ import StellarIcon from './icons/Stellar.svg'
 import { Image } from 'astro:assets';
 
 ---
-<footer class="text-theme-white">
-    <div class="flex flex-col items-center justify-center h-full text-theme-white p-4 mt-32">
+
+<footer class="text-theme-white bg-black relative">
+  <div class="absolute -top-2 left-0 w-full h-12 bg-theme-white rounded-b-[100%] z-0  "></div>
+  <section class="container mx-auto max-w-6xl">
+    <div class="flex flex-col items-center justify-center h-full p-4 pt-24 mt-10 ">
       <h2 class="text-3xl font-bold mb-4 font-special tracking-wider text-center">
         Erling Nails</br> Experta en uñas acrílicas, gel y mucho más
       </h2>
@@ -24,7 +27,7 @@ import { Image } from 'astro:assets';
     <div class="flex justify-between mt-4">
       <div>
         <nav aria-label="Navegación del pie de página">
-          <ul class="flex flex-col space-x-4 mt-4 text-theme-white">
+          <ul class="flex flex-col space-x-4 mt-4 ">
             <li><a href="/gallery">Gallery</a></li>
           </ul>
         </nav>
@@ -70,5 +73,6 @@ import { Image } from 'astro:assets';
         </a>
       </div>
     </div>
+    </section>
   </footer>
   

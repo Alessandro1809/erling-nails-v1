@@ -1,13 +1,16 @@
 ---
+
 ---
 
-<section class="mb-60 mt-48 opinion-section text-theme-white">
+<section class="mb-60 mt-48 opinion-section ">
+  
   <h2 class="text-6xl font-bold mb-14 font-special tracking-wider">
-    Opiniones de mis clientes
+    Opiniones de <span class="text-theme-red">mis clientes</span>
   </h2>
 
   <p class="text-2xl mb-5">
-    ¿Quieres saber qué opinan mis clientes sobre mi trabajo? Aquí tienes algunos de los comentarios que he recibido.
+    ¿Quieres saber qué opinan mis clientes sobre mi trabajo? Aquí tienes algunos
+    de los comentarios que he recibido.
   </p>
 
   <swiper-container
@@ -20,56 +23,76 @@
     autoplay-delay="3000"
     loop="true"
   >
-    <swiper-slide class="testimonial-slide flex flex-col ">
-      <p>“¡Simplemente la mejor! Desde que empecé a atenderme con ella, mis uñas duran semanas intactas. Siempre me recomienda lo mejor para mi tipo de uña y sus diseños son una obra de arte. 100% recomendada.”</p>
+    <swiper-slide class="testimonial-slide flex flex-col overflow-hidden">
+      <p>
+        “¡Simplemente la mejor! Desde que empecé a atenderme con ella, mis uñas
+        duran semanas intactas. Siempre me recomienda lo mejor para mi tipo de
+        uña y sus diseños son una obra de arte. 100% recomendada.”
+      </p>
       <span class="mt-4 font-light">— Camila R.</span>
     </swiper-slide>
 
-    <swiper-slide class="testimonial-slide flex flex-col ">
-      <p>“No solo salí con unas uñas hermosas, también me sentí súper bien atendida. El ambiente es relajante, limpio, y ella es súper profesional. Se nota que ama lo que hace.”</p>
+    <swiper-slide class="testimonial-slide flex flex-col overflow-hidden">
+      <p>
+        “No solo salí con unas uñas hermosas, también me sentí súper bien
+        atendida. El ambiente es relajante, limpio, y ella es súper profesional.
+        Se nota que ama lo que hace.”
+      </p>
       <span class="mt-4 font-light">— Valentina M.</span>
     </swiper-slide>
 
-    <swiper-slide class="testimonial-slide flex flex-col ">
-      <p>“Soy muy exigente con mis uñas, y puedo decir que encontré a mi manicurista ideal. Puntual, detallista y con productos de excelente calidad. ¡No la cambio por nada!”</p>
+    <swiper-slide class="testimonial-slide flex flex-col overflow-hidden">
+      <p>
+        “Soy muy exigente con mis uñas, y puedo decir que encontré a mi
+        manicurista ideal. Puntual, detallista y con productos de excelente
+        calidad. ¡No la cambio por nada!”
+      </p>
       <span class="mt-4 font-light">— Andrea L.</span>
     </swiper-slide>
 
-    <swiper-slide class="testimonial-slide flex flex-col ">
-      <p>“Cada cita es una experiencia. Me relajo, me consiento y salgo feliz con mis uñas hermosas.”</p>
+    <swiper-slide class="testimonial-slide flex flex-col overflow-hidden">
+      <p>
+        “Cada cita es una experiencia. Me relajo, me consiento y salgo feliz con
+        mis uñas hermosas.”
+      </p>
       <span class="mt-4 font-light">— Lucía T.</span>
     </swiper-slide>
 
-    <swiper-slide class="testimonial-slide flex flex-col ">
-      <p>“No solo es talentosa, también es súper amable. Se siente como visitar a una amiga.”</p>
+    <swiper-slide class="testimonial-slide flex flex-col overflow-hidden">
+      <p>
+        “No solo es talentosa, también es súper amable. Se siente como visitar a
+        una amiga.”
+      </p>
       <span class="mt-4 font-light">— Belén T.</span>
     </swiper-slide>
   </swiper-container>
 </section>
 
-  <script 
-  src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js">
-  </script>
+<script
+  src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"
+></script>
 
-  <style>
+<style>
   swiper-container {
     width: 100%;
     height: 40vh;
   }
 
   swiper-slide {
+    overflow: hidden;
     width: 80%;
-    border-radius: 1rem;
     padding: 2rem;
     text-align: center;
-    font-size: large;
+    
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(6px) saturate(180%);
+    background-color: rgba(229, 72, 75, 0.135);
 
-    background: rgba(245, 9, 9, 0.08); /* semi-transparent */
-    backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px); /* Safari support */
 
     border: 1px solid rgba(255, 255, 255, 0.2);
-    
 
     display: flex;
     flex-direction: column;
@@ -78,7 +101,33 @@
 
     /* transition: transform 0.3s ease; */
   }
-
+  swiper-slide::before {
+    content: "";
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 500px;
+    height: 300px;
+    background: rgba(252, 0, 0, 0.5);
+    border-radius: 50%;
+    filter: blur(100px);
+    transform: translate(-50%, -50%);
+    z-index: -1;
+  }
+  swiper-slide::after {
+    content: "";
+    position: absolute;
+    top: 80%; /* Ajusta según el lugar deseado */
+    left: 80%;
+    width: 200px;
+    height: 200px;
+    background: rgba(141, 0, 212, 0.488);
+    border-radius: 50%;
+    filter: blur(80px);
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    opacity: 0.3; /* Opcional: menos visible que el primero */
+  }
 
   swiper-slide:nth-child(2n) {
     width: 60%;
@@ -88,10 +137,4 @@
     width: 40%;
   }
 
-  swiper-slide img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
 </style>
