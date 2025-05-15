@@ -1,1 +1,29 @@
-    
+---
+import { NeonGradientCard } from '@/components/NeonGradientCard';
+---
+
+<section class=" mb-44">
+  <div class="flex justify-center items-center gap-12">
+
+ <NeonGradientCard client:load className="max-w-sm items-center justify-center text-center">
+      <span class="pointer-events-none z-10 h-full whitespace-pre-wrap bg-gradient-to-br from-[#ff2975] from-35% to-[#7a00b3] bg-clip-text text-center text-6xl font-bold leading-none tracking-tighter text-transparent dark:drop-shadow-[0_5px_5px_rgba(0,0,0,0.8)]">
+        Agenda Tu Cita!
+      </span>
+      <a href="tel:+506876554321" class="button-red mt-8"> Agendar </a>
+    </NeonGradientCard>
+
+    <div class="flex flex-col items-center">
+      <h2 class="text-6xl font-bold mb-14 font-special tracking-wider">
+        ¿Quieres saber más sobre mí?
+      </h2>
+      <p class="text-2xl mb-5">
+        Conoce más sobre mi experiencia y pasión por el mundo de la belleza.
+      </p>
+      <a
+        class="transition-background button-red text-lg"
+        href="/about"
+        >Conóceme</a
+      >
+    </div>
+  </div>
+</section>

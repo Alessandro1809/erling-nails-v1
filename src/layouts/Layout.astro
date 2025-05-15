@@ -43,12 +43,10 @@ import Footer from '@/components/Footer.astro';
 	<body class="relative -z-20 h-full w-full bg-theme-white text-black">
 		<!-- <div class="absolute -z-10 inset-0 bg-secondary bg-[size:20px_20px] opacity-90 blur-[100px]"></div> -->
 		<!-- <div class="absolute inset-0 -z-10 h-full w-full bg-white [background:radial-gradient(125%_80%_at_50%_10%,#FFF_50%,#000000_100%)]"></div> -->
-		<main class="container mx-auto max-w-6xl p-4"> 
+		<main class="container mx-auto max-w-7xl p-4"> 
 			
 			<Header />
-				<slot />
-				
-				
+				<slot />	
 			</main>
 			<Footer />
 		<script type="module" src="./src/utils/gsapConfig.js"></script>

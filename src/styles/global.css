@@ -1,7 +1,19 @@
 @import "tailwindcss";
 
 @plugin "@midudev/tailwind-animations";
-
+@theme inline {
+  --animate-background-position-spin: background-position-spin 3000ms infinite
+    alternate;
+ 
+  @keyframes background-position-spin {
+    0% {
+      background-position: top center;
+    }
+    100% {
+      background-position: bottom center;
+    }
+  }
+}
 @theme{
     --color-primary:#252525;
     --color-secondary:#111111;
@@ -12,6 +24,7 @@
     --font-special: 'JollyLodger', sans-serif;
 
 }
+
 
 .button-red {
     @apply inline-flex h-auto items-center justify-center rounded-md border border-theme-red bg-gradient-to-r from-red-700 via-button to-secondary bg-[length:200%_200%] bg-[0%_0%] px-8 font-medium text-theme-white/70 hover:text-theme-white duration-500 hover:bg-[99%_200%] focus:outline-none focus:ring-2 focus:ring-theme-red focus:ring-offset-2 focus:ring-offset-theme-red font-special text-lg
