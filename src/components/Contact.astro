@@ -1,10 +1,10 @@
 ---
-
+import { VelocityScroll } from '@/components/ParallaxText'
 import FacebookIcon from "./icons/FacebookIcon.astro";
 import UbiIcon from "./icons/UbiIcon.astro";
-
+// import { MarqueeDemo } from "./MarQueeDemo";
 ---
-
+  
 <section class="contact-section">
     <header>
       <h2 class="text-6xl font-bold mb-14 font-special tracking-wider">
@@ -65,5 +65,10 @@ import UbiIcon from "./icons/UbiIcon.astro";
       </p>
     </aside>
   </section>
-  
-    
+<!--   
+<section>
+    <MarqueeDemo client:load />
+  </section> -->
+  <section class="">
+<VelocityScroll client:only="react" >Profesional Manicure & Pedicure</VelocityScroll>
+</section>
