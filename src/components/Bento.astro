@@ -5,11 +5,57 @@ import { Image } from "astro:assets";
 import icon from "@/assets/icon-menu.svg";
 import worldIconWhite from "../components/icons/WorldLogoWhite.svg"
 ---
-<section class="z-0 mt-[1140px] bento-section hidden md:flex">
+
+<style>
+  .bento-item {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .bento-item::before,
+  .bento-item::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(90deg, #ff0000, #ff6b6b, #ff0000);
+    background-size: 200% 100%;
+    animation: borderGlow 4s linear infinite;
+  }
+
+  .bento-item::before {
+    filter: blur(8px);
+    opacity: 0.5;
+  }
+
+  .bento-item::after {
+    background: none;
+    border: 2px solid rgba(255, 0, 0, 0.6);
+    border-radius: 0.375rem;
+    animation: borderPulse 2s ease-in-out infinite;
+  }
+
+  .bento-item > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  @keyframes borderGlow {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 200% 0%; }
+  }
+
+  @keyframes borderPulse {
+    0% { opacity: 0.4; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.02); }
+    100% { opacity: 0.4; transform: scale(1); }
+  }
+</style>
+
+<section class="z-0 mt-[1240px] bento-section hidden md:block">
     <div class="grid grid-cols-3 grid-rows-6 gap-4">
   
       <!-- Sección de galería -->
-      <article class="row-span-4 border-2 rounded-md p-4">
+      <article class="row-span-4 rounded-md p-4 bento-item bg-white">
         <h2 class="text-6xl font-bold mb-14 font-special tracking-wider">
           Explora la <span class="text-theme-red">galería</span> de diseños
         </h2>
@@ -24,7 +70,7 @@ import worldIconWhite from "../components/icons/WorldLogoWhite.svg"
       </article>
   
       <!-- Ubicación -->
-      <section class="row-span-6 col-start-3 row-start-1 border-2 rounded-md p-4">
+      <section class="row-span-6 col-start-3 row-start-1 rounded-md p-4 bento-item bg-white">
         <h3 class="text-5xl font-special text-center mb-4">
           Costa Rica
         </h3>
@@ -53,7 +99,7 @@ import worldIconWhite from "../components/icons/WorldLogoWhite.svg"
       </section>
   
       <!-- CTA de agenda -->
-      <aside class="row-span-2 col-start-2 row-start-1 rounded-md p-2 bg-theme-red text-theme-white">
+      <aside class="row-span-2 col-start-2 row-start-1 rounded-md p-2 bg-theme-red text-theme-white bento-item">
         <h2 class="text-6xl font-bold mb-2 font-special tracking-wider text-center">
           ¡Agenda tu cita ahora mismo!
         </h2>
@@ -65,7 +111,7 @@ import worldIconWhite from "../components/icons/WorldLogoWhite.svg"
       </aside>
   
       <!-- Identidad / marca -->
-      <section class="row-span-2 col-start-2 row-start-3 border-2 rounded-md border-theme-red hover:scale-105 transition-all duration-300">
+      <section class="row-span-2 col-start-2 row-start-3 rounded-md border-theme-red hover:scale-105 transition-all duration-300 bento-item bg-white">
         <div class="flex flex-col items-center justify-center h-full">
           <h2 class="text-5xl font-bold mb-4 text-theme-red font-special tracking-wider">
             Erling Nails
@@ -82,7 +128,7 @@ import worldIconWhite from "../components/icons/WorldLogoWhite.svg"
       </section>
   
       <!-- Sobre mí -->
-      <article class="col-span-2 row-span-2 row-start-5 rounded-md bg-theme-red text-theme-white p-8">
+      <article class="col-span-2 row-span-2 row-start-5 rounded-md bg-theme-red text-theme-white p-8 bento-item">
         <h2 class="text-5xl font-bold font-special tracking-wide">
           ¿Quieres conocerme un poco más?
         </h2>

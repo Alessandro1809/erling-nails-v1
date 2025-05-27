@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./animations.css";
 
 @plugin "@midudev/tailwind-animations";
 @theme inline {
@@ -46,11 +47,25 @@
 
 
 .button-red {
-    @apply inline-flex h-auto items-center justify-center rounded-md border border-theme-red bg-gradient-to-r from-red-700 via-button to-secondary bg-[length:200%_200%] bg-[0%_0%] px-8 font-medium text-theme-white/70 hover:text-theme-white duration-500 hover:bg-[99%_200%] focus:outline-none focus:ring-2 focus:ring-theme-red focus:ring-offset-2 focus:ring-offset-theme-red font-special text-lg
+    @apply inline-flex h-auto items-center justify-center rounded-md border-2 border-theme-red/20 
+    bg-gradient-to-r from-red-600/90 via-red-500/90 to-red-600/90 bg-[length:200%_200%] bg-[0%_0%] 
+    px-8 font-medium text-theme-white shadow-md
+    hover:border-theme-red/40 hover:from-red-500/90 hover:via-red-400/90 hover:to-red-500/90
+    hover:text-theme-white hover:shadow-lg
+    duration-300 hover:bg-[99%_200%] 
+    focus:outline-none focus:ring-2 focus:ring-theme-red focus:ring-offset-2 
+    focus:ring-offset-theme-red font-special text-lg
 }
 
-.button-maps{
-    @apply inline-flex h-12 items-center justify-center rounded-md border border-theme-red bg-gradient-to-r from-theme-white via-red-300 to-secondary bg-[length:200%_200%] bg-[0%_0%] px-6 font-medium text-primary hover:text-theme-white duration-500 hover:bg-[99%_200%] focus:outline-none focus:ring-2 focus:ring-theme-red focus:ring-offset-2 focus:ring-offset-theme-red font-special text-lg
+.button-maps {
+    @apply inline-flex h-12 items-center justify-center rounded-md border-2 border-theme-red/20
+    bg-gradient-to-r from-white via-red-50 to-red-100 bg-[length:200%_200%] bg-[0%_0%]
+    px-6 font-medium text-red-700 shadow-sm
+    hover:border-theme-red/40 hover:from-red-100 hover:via-red-50 hover:to-white
+    hover:text-red-800 hover:shadow-md
+    duration-300 hover:bg-[99%_200%]
+    focus:outline-none focus:ring-2 focus:ring-theme-red/40 focus:ring-offset-2
+    focus:ring-offset-theme-red/40 font-special text-lg
 }
 @font-face {
     font-family: 'JollyLodger';

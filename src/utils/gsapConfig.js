@@ -24,12 +24,11 @@ export function initScrollAnimations() {
   // Gallery Section
   gsap.fromTo(
     ".gallery-section",
-    { opacity: 0, y:200, scale: 0.5 },
+    { opacity: 0, y:200 },
     {
       opacity: 1,
       x: 0,
       y: 0,
-      scale: 1,
       duration: 1,
       ease: "power2.inOut",
       scrollTrigger: {
@@ -64,25 +63,7 @@ export function initScrollAnimations() {
     }
   );
 
-  // Contact Section
-  gsap.fromTo(
-    ".contact-section",
-    { opacity: 0, y: 200, scale: 0.5 },
-    {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      duration: 0.5,
-      ease: "power2.inOut",
-      scrollTrigger: {
-        trigger: ".contact-section",
-        start: "top 100%",
-        end: "10% 80%",
-        scrub: 1.5,
-        toggleActions: "play none none reverse",
-      },
-    }
-  );
+  
 
 }
 

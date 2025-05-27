@@ -1,0 +1,105 @@
+---
+import { Image } from "astro:assets";
+---
+<section class="py-8 mt-[1040px] transition-all ">
+  <!-- Título principal con efecto de degradado -->
+  <h2 class="text-4xl font-bold text-center mb-8 bg-gradient-to-r from-[#ff2975] to-[#7a00b3] text-transparent bg-clip-text font-special">
+    Servicios Exclusivos
+  </h2>
+
+  <!-- Contenedor principal de la cuadrícula -->
+  <div class="grid grid-cols-2 gap-4">
+    <!-- Tarjeta 1: Diseños Personalizados -->
+    <div class="col-span-2 bg-[#2a2a2a] rounded-xl p-4 transform hover:scale-[1.02] transition-transform">
+      <div class="flex flex-col items-center text-center space-y-3">
+        <div class="w-16 h-16 bg-gradient-to-br from-[#ff2975] to-[#7a00b3] rounded-full flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+          </svg>
+        </div>
+        <h3 class="text-xl font-bold text-white">Diseños Personalizados</h3>
+        <p class="text-gray-300">Creaciones únicas adaptadas a tu estilo</p>
+      </div>
+    </div>
+
+    <!-- Tarjeta 2: Técnicas Avanzadas -->
+    <div class="bg-[#2a2a2a] rounded-xl p-4 transform hover:scale-[1.02] transition-transform">
+      <div class="flex flex-col items-center text-center space-y-3">
+        <div class="w-12 h-12 bg-gradient-to-br from-[#ff2975] to-[#7a00b3] rounded-full flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+          </svg>
+        </div>
+        <h3 class="text-lg font-bold text-white">Técnicas Avanzadas</h3>
+        <p class="text-sm text-gray-300">Lo último en tendencias</p>
+      </div>
+    </div>
+
+    <!-- Tarjeta 3: Productos Premium -->
+    <div class="bg-[#2a2a2a] rounded-xl p-4 transform hover:scale-[1.02] transition-transform">
+      <div class="flex flex-col items-center text-center space-y-3">
+        <div class="w-12 h-12 bg-gradient-to-br from-[#ff2975] to-[#7a00b3] rounded-full flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
+          </svg>
+        </div>
+        <h3 class="text-lg font-bold text-white">Productos Premium</h3>
+        <p class="text-sm text-gray-300">Calidad garantizada</p>
+      </div>
+    </div>
+
+    <!-- Tarjeta 4: Agenda Online -->
+    <div class="col-span-2 bg-gradient-to-r from-[#ff2975] to-[#7a00b3] rounded-xl p-4 transform hover:scale-[1.02] transition-transform">
+      <div class="flex flex-col items-center text-center space-y-3">
+        <div class="w-16 h-16 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+        </div>
+        <h3 class="text-xl font-bold text-white">¡Agenda tu cita ahora!</h3>
+        <a href="/contact" class="bg-white/20 backdrop-blur-sm text-white px-6 py-2 rounded-full hover:bg-white/30 transition-colors">
+          Reservar
+        </a>
+      </div>
+    </div>
+
+    <!-- Tarjeta 5: Ubicación -->
+    <div class="col-span-2 bg-[#2a2a2a] rounded-xl p-4 transform hover:scale-[1.02] transition-transform">
+      <div class="flex flex-col items-center text-center space-y-3">
+        <div class="w-16 h-16 bg-gradient-to-br from-[#ff2975] to-[#7a00b3] rounded-full flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+        </div>
+        <div class="space-y-1">
+          <h3 class="text-xl font-bold text-white">Visítanos</h3>
+          <p class="text-gray-300">Playas del Coco, Guanacaste</p>
+          <p class="text-gray-300">Costa Rica</p>
+        </div>
+        <a href="/location" class="text-[#ff2975] hover:text-[#7a00b3] transition-colors">
+          Ver en mapa →
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .bg-gradient-to-b {
+    background-size: 200% 200%;
+    animation: gradientMove 8s ease infinite;
+  }
+
+  @keyframes gradientMove {
+    0% {
+      background-position: 0% 0%;
+    }
+    50% {
+      background-position: 0% 100%;
+    }
+    100% {
+      background-position: 0% 0%;
+    }
+  }
+</style> 
