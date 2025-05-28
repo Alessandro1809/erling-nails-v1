@@ -44,20 +44,18 @@ export function initScrollAnimations() {
   // Opinion Section
   gsap.fromTo(
     ".opinion-section",
-    { opacity: 0, x: -500, rotate: 55, scale: 0.5 },
+    { opacity: 0, y:200 },
     {
       opacity: 1,
       x: 0,
       y: 0,
-      rotate: 0,
-      scale: 1,
-      duration: 0.5,
+      duration: 1,
       ease: "power2.inOut",
       scrollTrigger: {
         trigger: ".opinion-section",
-        start: "top 50%",
+        start: "top 200%",
         end: "100% 100%",
-        scrub: 2,
+        scrub: 1,
         toggleActions: "play none none reverse",
       },
     }
