@@ -1,0 +1,260 @@
+---
+import { server } from '../actions';
+import Layout from '@/layouts/Layout.astro';
+import { ImageModal } from './ImageModal';
+import Contact from './Contact.astro';
+
+interface Imagen {
+  url: string;
+  alt: string;
+}
+
+const response = await Astro.callAction(server.obtenerImagenesNails, {});
+const imagenes: Imagen[] = Array.isArray(response?.data) ? response.data : [];
+
+// Verificar si hay una imagen en la URL para abrir el modal
+const urlParams = new URL(Astro.request.url).searchParams;
+const sharedImageUrl = urlParams.get('image');
+
+console.log('Imágenes recibidas:', imagenes);
+---
+
+<Layout>
+{imagenes.length === 0 && (
+  <div class="text-gray-500 text-center my-8 p-4 bg-gray-50 rounded-lg">
+    <p class="font-semibold">No hay imágenes disponibles</p>
+    <p class="text-sm mt-2">Asegúrate de tener imágenes en el folder "Nails" de Cloudinary.</p>
+  </div>
+)}
+
+<section aria-label="Galleria de imagenes" class="relative mt-32 z-0 mb-20 md:mt-52">
+  <header>
+    <h2 class="font-special text-5xl md:text-7xl mb-10">
+      Galería completa de 
+      <span class="bg-gradient-to-r from-theme-red to-[#7a00b3] bg-clip-text text-transparent">diseños</span>
+    </h2>
+  </header>
+
+  <section 
+    class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-10" 
+    aria-label="Galería completa de diseños de uñas"
+    id="gallery-grid"
+  >
+    {imagenes.map((imagen, index) => (
+      <figure 
+        class="relative h-96 overflow-hidden rounded-md transform transition-all duration-500 hover:scale-[1.02] hover:shadow-xl cursor-pointer bg-gray-100 opacity-0 translate-y-4" 
+        data-image={imagen.url}
+        data-alt={imagen.alt}
+        data-index={index}
+      >
+        <div class="absolute inset-0 bg-gray-200 animate-pulse transition-opacity duration-500"></div>
+        <img
+          class="absolute inset-0 h-full w-full object-cover opacity-0 transition-all duration-500"
+          src={`${imagen.url.replace('/upload/', '/upload/w_800,c_scale/')}`}
+          alt={imagen.alt.replace('Nails/', '')}
+          loading="eager"
+          decoding="async"
+        />
+        <figcaption class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 translate-y-full transition-transform duration-300 group-hover:translate-y-0">
+          <span class="text-white font-special text-lg">{imagen.alt.split('/').pop()}</span>
+        </figcaption>
+      </figure>
+    ))}
+  </section>
+</section>
+
+<a 
+  href="/" 
+  class="fixed bottom-8 right-8 button-red shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 z-50 flex items-center gap-2"
+  aria-label="Volver al inicio"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+    <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+  </svg>
+  Volver
+</a>
+
+<ImageModal client:load />
+
+<Contact/>
+</Layout>
+
+<script is:inline>
+  console.log('Script iniciado');
+
+  // Función para actualizar la URL sin recargar la página
+  function updateUrlWithImage(imageUrl) {
+    const url = new URL(window.location.href);
+    if (imageUrl) {
+      url.searchParams.set('image', imageUrl);
+    } else {
+      url.searchParams.delete('image');
+    }
+    window.history.replaceState({}, '', url.toString());
+  }
+
+  // Función para abrir el modal
+  function openModal(imageUrl, alt) {
+    updateUrlWithImage(imageUrl);
+    const event = new CustomEvent('openModal', { 
+      detail: { imageUrl, alt }
+    });
+    window.dispatchEvent(event);
+  }
+
+  // Función para cerrar el modal y limpiar la URL
+  function closeModal() {
+    updateUrlWithImage(null);
+  }
+
+  // Escuchar el evento de cierre del modal
+  window.addEventListener('closeModal', () => {
+    closeModal();
+  });
+
+  // También escuchar el evento de clic fuera del modal
+  window.addEventListener('click', (e) => {
+    const modalBackdrop = document.querySelector('.fixed.inset-0.z-50');
+    if (modalBackdrop && e.target === modalBackdrop) {
+      closeModal();
+    }
+  });
+
+  // Configurar las animaciones y carga de imágenes
+  document.querySelectorAll('figure').forEach((figure, index) => {
+    const img = figure.querySelector('img');
+    if (!img) return;
+
+    // Cuando la imagen se carga
+    img.addEventListener('load', () => {
+      setTimeout(() => {
+        animateImageEntry(figure);
+      }, index * 100);
+    });
+
+    // Agregar el evento click para abrir el modal
+    figure.addEventListener('click', () => {
+      const imageUrl = figure.getAttribute('data-image');
+      const alt = figure.getAttribute('data-alt');
+      if (imageUrl && alt) {
+        console.log('Click en imagen:', imageUrl);
+        openModal(imageUrl, alt);
+      }
+    });
+  });
+
+  // Función para animar la entrada de una imagen
+  function animateImageEntry(figure) {
+    const img = figure.querySelector('img');
+    const placeholder = figure.querySelector('.animate-pulse');
+    
+    if (img && placeholder) {
+      img.classList.remove('opacity-0');
+      setTimeout(() => {
+        placeholder.classList.add('opacity-0');
+        figure.classList.remove('opacity-0', 'translate-y-4');
+      }, 50);
+    }
+  }
+
+  // Observer para la aparición progresiva
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const figure = entry.target;
+          const img = figure.querySelector('img');
+          if (img && img.complete) {
+            animateImageEntry(figure);
+          }
+          observer.unobserve(figure);
+        }
+      });
+    },
+    {
+      root: null,
+      rootMargin: '50px',
+      threshold: 0.1
+    }
+  );
+
+  // Observar todas las figuras
+  document.querySelectorAll('figure').forEach(figure => {
+    observer.observe(figure);
+  });
+
+  // Función para manejar la apertura inicial del modal
+  function handleSharedImage() {
+    console.log('Ejecutando handleSharedImage');
+    const urlParams = new URLSearchParams(window.location.search);
+    const sharedImageUrl = urlParams.get('image');
+    console.log('URL compartida encontrada:', sharedImageUrl);
+    
+    if (sharedImageUrl) {
+      const figure = document.querySelector(`figure[data-image="${sharedImageUrl}"]`);
+      console.log('Figura encontrada:', figure);
+      
+      if (figure) {
+        const alt = figure.getAttribute('data-alt') || 'Diseño de uñas';
+        console.log('Abriendo modal con:', sharedImageUrl, alt);
+        // Pequeño retraso para asegurar que todos los componentes estén montados
+        setTimeout(() => {
+          openModal(sharedImageUrl, alt);
+        }, 100);
+      }
+    }
+  }
+
+  // Asegurarnos de que el componente ImageModal esté listo
+  window.addEventListener('load', () => {
+    console.log('Ventana cargada completamente');
+    handleSharedImage();
+  });
+
+  // También intentar cuando el DOM esté listo
+  document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM Content Loaded');
+    handleSharedImage();
+  });
+</script>
+
+<style>
+  figure {
+    will-change: transform, opacity;
+  }
+
+  .gallery-section figure:hover img {
+    transform: scale(1.05);
+  }
+
+  .gallery-section figure:hover figcaption {
+    transform: translateY(0);
+  }
+
+  img {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: opacity, transform;
+  }
+
+  figcaption {
+    transition: transform 0.3s ease;
+  }
+
+  .animate-pulse {
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  @media (min-width: 768px) {
+    .gallery-section figure:nth-child(3n+1) {
+      grid-column: span 1;
+    }
+    
+    .gallery-section figure:nth-child(3n+2) {
+      grid-column: span 1;
+    }
+    
+    .gallery-section figure:nth-child(3n) {
+      grid-column: span 1;
+    }
+  }
+</style>

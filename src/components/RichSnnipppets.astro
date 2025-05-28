@@ -1,138 +1,135 @@
 ---
 const siteUrl = "https://tusitio.com"; // cámbialo por tu URL real
+
+const schemaData = {
+  beautySalon: {
+    "@context": "https://schema.org",
+    "@type": "BeautySalon",
+    "name": "Erling Nails",
+    "image": `${siteUrl}/images/logo.png`,
+    "description": "Manicura y pedicura profesional en Playas del Coco, Guanacaste, Costa Rica. Uñas decoradas, cuidado de pies, atención personalizada.",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Five Star Salón & Spa",
+      "addressLocality": "Playas del Coco",
+      "addressRegion": "Guanacaste",
+      "addressCountry": "CR"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 10.55069,
+      "longitude": -85.69696
+    },
+    "telephone": "+506876554321",
+    "url": `${siteUrl}`,
+    "sameAs": [
+      "https://www.facebook.com/tu-pagina"
+    ],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+506876554321",
+      "contactType": "customer service",
+      "areaServed": "CR",
+      "availableLanguage": ["Spanish", "English"]
+    }
+  },
+  person: {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Erling",
+    "jobTitle": "Especialista en manicura y pedicura",
+    "image": `${siteUrl}/images/erling.jpg`,
+    "description": "Experta en uñas decoradas, cuidado de manos y pies, con atención personalizada en Playas del Coco, Guanacaste.",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Erling Nails"
+    },
+    "url": `${siteUrl}/sobre-mi`,
+    "sameAs": [
+      "https://www.instagram.com/erling_nails",
+      "https://www.facebook.com/erlingnails"
+    ]
+  },
+  services: [
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": "Pedicura profesional",
+      "provider": {
+        "@type": "BeautySalon",
+        "name": "Erling Nails",
+        "url": siteUrl
+      },
+      "areaServed": {
+        "@type": "Place",
+        "name": "Playas del Coco, Guanacaste, Costa Rica"
+      },
+      "description": "Pedicura profesional con técnicas relajantes, exfoliación y esmaltado perfecto. Ideal para pies cansados y cuidado estético."
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": "Manicura profesional",
+      "provider": {
+        "@type": "BeautySalon",
+        "name": "Erling Nails",
+        "url": siteUrl
+      },
+      "areaServed": {
+        "@type": "Place",
+        "name": "Playas del Coco, Guanacaste, Costa Rica"
+      },
+      "description": "Manicura profesional con esmaltado de larga duración, cuidado de cutículas y atención personalizada en un ambiente relajado."
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": "Uñas acrílicas decoradas",
+      "provider": {
+        "@type": "BeautySalon",
+        "name": "Erling Nails",
+        "url": siteUrl
+      },
+      "areaServed": {
+        "@type": "Place",
+        "name": "Playas del Coco, Guanacaste, Costa Rica"
+      },
+      "description": "Diseños únicos en uñas acrílicas con formas modernas, colores vibrantes y aplicación duradera."
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": "Spa para pies",
+      "provider": {
+        "@type": "BeautySalon",
+        "name": "Erling Nails",
+        "url": siteUrl
+      },
+      "areaServed": {
+        "@type": "Place",
+        "name": "Playas del Coco, Guanacaste, Costa Rica"
+      },
+      "description": "Tratamiento relajante para pies que incluye baño tibio, exfoliación, mascarilla hidratante y masaje revitalizante."
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": "Nail art personalizado",
+      "provider": {
+        "@type": "BeautySalon",
+        "name": "Erling Nails",
+        "url": siteUrl
+      },
+      "areaServed": {
+        "@type": "Place",
+        "name": "Playas del Coco, Guanacaste, Costa Rica"
+      },
+      "description": "Diseños únicos y creativos en tus uñas con técnicas de arte profesional adaptadas a tu estilo."
+    }
+  ]
+};
 ---
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BeautySalon",
-  "name": "Erling Nails",
-  "image": `${siteUrl}/images/logo.png`,
-  "description": "Manicura y pedicura profesional en Playas del Coco, Guanacaste, Costa Rica. Uñas decoradas, cuidado de pies, atención personalizada.",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Five Star Salón & Spa",
-    "addressLocality": "Playas del Coco",
-    "addressRegion": "Guanacaste",
-    "addressCountry": "CR"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": 10.55069,
-    "longitude": -85.69696
-  },
-  "telephone": "+506876554321",
-  "url": `${siteUrl}`,
-  "sameAs": [
-    "https://www.facebook.com/tu-pagina"
-  ],
-  "contactPoint": {
-    "@type": "ContactPoint",
-    "telephone": "+506876554321",
-    "contactType": "customer service",
-    "areaServed": "CR",
-    "availableLanguage": ["Spanish", "English"]
-  }
-}
-</script>
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Erling",
-  "jobTitle": "Especialista en manicura y pedicura",
-  "image": `${siteUrl}/images/erling.jpg`,
-  "description": "Experta en uñas decoradas, cuidado de manos y pies, con atención personalizada en Playas del Coco, Guanacaste.",
-  "worksFor": {
-    "@type": "Organization",
-    "name": "Erling Nails"
-  },
-  "url": `${siteUrl}/sobre-mi`,
-  "sameAs": [
-    "https://www.instagram.com/erling_nails",
-    "https://www.facebook.com/erlingnails"
-  ]
-}
-</script>
-
-<!-- Servicios -->
-<script type="application/ld+json">
-[
-  {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "serviceType": "Pedicura profesional",
-    "provider": {
-      "@type": "BeautySalon",
-      "name": "Erling Nails",
-      "url": siteUrl
-    },
-    "areaServed": {
-      "@type": "Place",
-      "name": "Playas del Coco, Guanacaste, Costa Rica"
-    },
-    "description": "Pedicura profesional con técnicas relajantes, exfoliación y esmaltado perfecto. Ideal para pies cansados y cuidado estético."
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "serviceType": "Manicura profesional",
-    "provider": {
-      "@type": "BeautySalon",
-      "name": "Erling Nails",
-      "url": siteUrl
-    },
-    "areaServed": {
-      "@type": "Place",
-      "name": "Playas del Coco, Guanacaste, Costa Rica"
-    },
-    "description": "Manicura profesional con esmaltado de larga duración, cuidado de cutículas y atención personalizada en un ambiente relajado."
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "serviceType": "Uñas acrílicas decoradas",
-    "provider": {
-      "@type": "BeautySalon",
-      "name": "Erling Nails",
-      "url": siteUrl
-    },
-    "areaServed": {
-      "@type": "Place",
-      "name": "Playas del Coco, Guanacaste, Costa Rica"
-    },
-    "description": "Diseños únicos en uñas acrílicas con formas modernas, colores vibrantes y aplicación duradera."
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "serviceType": "Spa para pies",
-    "provider": {
-      "@type": "BeautySalon",
-      "name": "Erling Nails",
-      "url": siteUrl
-    },
-    "areaServed": {
-      "@type": "Place",
-      "name": "Playas del Coco, Guanacaste, Costa Rica"
-    },
-    "description": "Tratamiento relajante para pies que incluye baño tibio, exfoliación, mascarilla hidratante y masaje revitalizante."
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "serviceType": "Nail art personalizado",
-    "provider": {
-      "@type": "BeautySalon",
-      "name": "Erling Nails",
-      "url": siteUrl
-    },
-    "areaServed": {
-      "@type": "Place",
-      "name": "Playas del Coco, Guanacaste, Costa Rica"
-    },
-    "description": "Diseños únicos y creativos en tus uñas con técnicas de arte profesional adaptadas a tu estilo."
-  }
-]
-</script>
+<script type="application/ld+json" set:html={JSON.stringify(schemaData.beautySalon)} />
+<script type="application/ld+json" set:html={JSON.stringify(schemaData.person)} />
+<script type="application/ld+json" set:html={JSON.stringify(schemaData.services)} />
