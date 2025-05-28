@@ -12,7 +12,12 @@ export default defineConfig({
     session: true
   },
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
+    build: {
+      rollupOptions: {
+        external: ['url', 'crypto', 'querystring', 'fs', 'path', 'stream', 'http', 'https']
+      }
+    }
   },
   integrations: [react()],
   image: {
