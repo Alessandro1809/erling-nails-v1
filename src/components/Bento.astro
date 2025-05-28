@@ -17,7 +17,7 @@ import worldIconWhite from "../components/icons/WorldLogoWhite.svg"
     content: '';
     position: absolute;
     inset: -2px;
-    background: linear-gradient(90deg, #ff0000, #ff6b6b, #ff0000);
+    background: linear-gradient(90deg, #b40b0b, #d4008e, #b40b0b);
     background-size: 200% 100%;
     animation: borderGlow 4s linear infinite;
   }
@@ -29,7 +29,7 @@ import worldIconWhite from "../components/icons/WorldLogoWhite.svg"
 
   .bento-item::after {
     background: none;
-    border: 2px solid rgba(255, 0, 0, 0.6);
+    border: 2px solid rgba(253, 190, 190, 0.301);
     border-radius: 0.375rem;
     animation: borderPulse 2s ease-in-out infinite;
   }
@@ -51,48 +51,48 @@ import worldIconWhite from "../components/icons/WorldLogoWhite.svg"
   }
 </style>
 
-<section class="z-0 mt-[1240px] bento-section hidden md:block">
+<section class="z-0 sm:mt-[1500px] mt-[1040px] bento-section hidden md:block">
     <div class="grid grid-cols-3 grid-rows-6 gap-4">
   
       <!-- Sección de galería -->
-      <article class="row-span-4 rounded-md p-4 bento-item bg-white">
-        <h2 class="text-6xl font-bold mb-14 font-special tracking-wider">
-          Explora la <span class="text-theme-red">galería</span> de diseños
+      <article class="row-span-4 rounded-md p-4 bento-item text-theme-white bg-white">
+        <h2 class="sm:text-5xl text-6xl font-bold mb-14 font-special tracking-wider">
+          Explora la <span class="text-theme-white">galería</span> de diseños
         </h2>
   
         <p class="text-xl mb-5">
           Relájate con una auténtica experta que te brindá una atención personalizada
         </p>
   
-        <a class="transition-background button-red text-lg" href="/gallery">
+        <a class="transition-background button-red text-lg sm:text-sm sm:text-center" href="/gallery">
             Explora nuestros diseños de uñas
         </a>
       </article>
   
       <!-- Ubicación -->
-      <section class="row-span-6 col-start-3 row-start-1 rounded-md p-4 bento-item bg-white">
-        <h3 class="text-5xl font-special text-center mb-4">
-          Costa Rica
+      <section class="group row-span-6 col-start-3 row-start-1 rounded-md p-4 bento-item bg-white">
+        <h3 class="text-5xl  sm:text-4xl font-special text-center mb-4">
+          <span class="text-theme-white">Costa Rica</span>
         </h3>
-        <h3 class="text-7xl font-special text-center mb-4">
-          Guanacaste
+        <h3 class="text-7xl  sm:text-5xl font-special text-center mb-4">
+          <span class="text-theme-white">Guanacaste</span>
         </h3>
-        <h3 class="text-5xl font-special text-center mb-4">
-          Playas del Coco
+        <h3 class="text-5xl  sm:text-4xl font-special text-center mb-4">
+          <span class="text-theme-white">Playas del Coco</span>
         </h3>
   
         <div class="flex flex-col justify-center mt-10">
           <Image
             src={worldIconWhite}
             alt="Erling Nails"
-            class="w-auto h-32 hover:scale-105 transition-all duration-300 hover:cursor-pointer mb-10"
+            class="w-auto h-32 group-hover:scale-105 group-hover:-rotate-12 transition-all duration-300 hover:cursor-pointer mb-10"
           />
   
-          <a class="transition-background button-maps" href="/ubication">
+          <a class="transition-background button-maps sm:text-sm sm:text-center" href="/ubication">
             Ver ubicación del salón en Google Maps
           </a>
   
-          <a class="mt-4 transition-background button-red" href="/ubication">
+          <a class="mt-4 transition-background button-red sm:text-sm sm:text-center" href="/ubication">
             Contacto
           </a>
         </div>
@@ -100,7 +100,7 @@ import worldIconWhite from "../components/icons/WorldLogoWhite.svg"
   
       <!-- CTA de agenda -->
       <aside class="row-span-2 col-start-2 row-start-1 rounded-md p-2 bg-theme-red text-theme-white bento-item">
-        <h2 class="text-6xl font-bold mb-2 font-special tracking-wider text-center">
+        <h2 class="text-6xl font-bold mb-2 font-special tracking-wider text-center sm:text-5xl">
           ¡Agenda tu cita ahora mismo!
         </h2>
         <div class="flex justify-center">
@@ -111,9 +111,9 @@ import worldIconWhite from "../components/icons/WorldLogoWhite.svg"
       </aside>
   
       <!-- Identidad / marca -->
-      <section class="row-span-2 col-start-2 row-start-3 rounded-md border-theme-red hover:scale-105 transition-all duration-300 bento-item bg-white">
+      <section class="text-theme-white row-span-2 col-start-2 row-start-3 rounded-md border-theme-red bento-item bg-white">
         <div class="flex flex-col items-center justify-center h-full">
-          <h2 class="text-5xl font-bold mb-4 text-theme-red font-special tracking-wider">
+          <h2 class="text-5xl font-bold mb-4  font-special tracking-wider">
             Erling Nails
           </h2>
           <Image
@@ -128,16 +128,16 @@ import worldIconWhite from "../components/icons/WorldLogoWhite.svg"
       </section>
   
       <!-- Sobre mí -->
-      <article class="col-span-2 row-span-2 row-start-5 rounded-md bg-theme-red text-theme-white p-8 bento-item">
-        <h2 class="text-5xl font-bold font-special tracking-wide">
+      <article class="col-span-2 row-span-2 row-start-5 rounded-md bg-theme-red text-theme-white p-8 bento-item h-auto">
+        <h2 class="text-5xl font-bold font-special tracking-wide sm:text-5xl mb-4 text-center">
           ¿Quieres conocerme un poco más?
         </h2>
-        <div class="flex items-center justify-center h-full">
-          <p class="text-xl mb-5">
+        <div class="flex items-center h-auto sm:flex-col ">
+          <p class="text-xl pr-5 sm:text-sm">
             Averigua más sobre mi trayectoria en el mundo de la manicura y pedicura!
           </p>
-          <a class="transition-background button-red text-center w-[60%] " href="/about">
-            Conoce a Erling, </br>tu especialista en manicura
+          <a class="transition-background button-red sm:text-center items-center sm:w-[80%] md:w-auto lg:w-auto sm:mt-4 sm:text-sm " href="/about">
+            Conoce a Erling, tu especialista en manicura
           </a>
         </div>
       </article>
@@ -145,11 +145,3 @@ import worldIconWhite from "../components/icons/WorldLogoWhite.svg"
     </div>
   </section>
   
-<!-- <section class="mt-36 ">
-<VelocityScroll client:only="react" >Profesional Manicure & Pedicure</VelocityScroll>
-</section> -->
-
-  
-<!-- <section class="mt-36 ">
-    <MarqueeDemo client:load />
-  </section> -->

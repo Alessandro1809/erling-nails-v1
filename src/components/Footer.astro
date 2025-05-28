@@ -4,13 +4,44 @@ import StellarIcon from './icons/Stellar.svg'
 import { Image } from 'astro:assets';
 ---
 
+<style>
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .footer-animate {
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+
+  .footer-animate-delay-1 {
+    animation-delay: 0.2s;
+  }
+
+  .footer-animate-delay-2 {
+    animation-delay: 0.4s;
+  }
+
+  .footer-animate-delay-3 {
+    animation-delay: 0.6s;
+  }
+</style>
+
 <footer class="text-theme-white bg-black relative">
   <div class="absolute -top-2 left-0 w-full h-12 bg-theme-white rounded-b-[100%] z-0"></div>
   
   <section class="container mx-auto px-4 py-8">
-    <div class="flex flex-col items-center justify-center h-full pt-16">
-      <h2 class="text-2xl md:text-3xl font-bold mb-4 font-special tracking-wider text-center">
-        Erling Nails</br> Experta en uñas acrílicas, gel y mucho más
+    <div class="flex flex-col items-center justify-center h-full pt-16 footer-animate">
+      <h2 class="text-4xl md:text-5xl font-bold mb-4 font-special tracking-wider text-center">
+        <span class="bg-gradient-to-r from-theme-red to-[#7a00b3] bg-clip-text text-transparent">Erling Nails</span>
+        </br> 
+        <span class="text-2xl md:text-3xl">Experta en uñas acrílicas, gel y mucho más</span>
       </h2>
   
       <p class="text-center mt-4 text-sm md:text-base">
@@ -24,8 +55,11 @@ import { Image } from 'astro:assets';
     </div>
   
     <div class="flex flex-col md:flex-row justify-between mt-8 gap-8">
-      <div class="space-y-6">
+      <div class="space-y-6 footer-animate footer-animate-delay-1">
         <nav aria-label="Navegación del pie de página">
+          <h3 class="text-2xl font-special mb-4 bg-gradient-to-r from-theme-red to-[#7a00b3] bg-clip-text text-transparent">
+            Enlaces Rápidos
+          </h3>
           <ul class="flex flex-col space-y-2">
             <li><a href="/gallery" class="hover:text-theme-red transition-colors">Gallery</a></li>
           </ul>
@@ -37,6 +71,10 @@ import { Image } from 'astro:assets';
           <meta itemprop="description" content="Manicura y pedicura profesional en Playas del Coco, Guanacaste. Diseños únicos, atención personalizada y resultados que enamoran." />
           <meta itemprop="url" content="https://tusitio.com" />
   
+          <h3 class="text-2xl font-special mb-4 bg-gradient-to-r from-theme-red to-[#7a00b3] bg-clip-text text-transparent">
+            Ubicación
+          </h3>
+
           <address itemprop="address" itemscope itemtype="https://schema.org/PostalAddress" class="not-italic">
             <p class="text-sm md:text-base"><strong>Dirección:</strong> 
               <span itemprop="streetAddress">Five Star Salón & Spa</span>, 
@@ -62,13 +100,15 @@ import { Image } from 'astro:assets';
           </div>
   
           <div class="space-y-2">
-            <p class="text-sm md:text-base"><strong>Redes sociales:</strong></p>
+            <h3 class="text-2xl font-special mb-4 bg-gradient-to-r from-theme-red to-[#7a00b3] bg-clip-text text-transparent">
+              Redes Sociales
+            </h3>
             <a href="https://www.facebook.com/tu-pagina" itemprop="sameAs" class="hover:text-theme-red transition-colors">Facebook</a>
           </div>
         </section>
       </div>
   
-      <div class="flex items-center justify-center md:justify-end pt-4 md:pt-0 border-t md:border-t-0 border-gray-800">
+      <div class="flex items-center justify-center md:justify-end pt-4 md:pt-0 border-t md:border-t-0 border-gray-800 footer-animate footer-animate-delay-2">
         <a class="font-special flex items-center text-sm md:text-base hover:text-theme-red transition-colors" href="#">
           Powered by <Image src={StellarIcon} alt="Diseño web por Stellar" class="mx-2 w-auto h-6" />
         </a>

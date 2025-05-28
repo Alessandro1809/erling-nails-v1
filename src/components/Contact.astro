@@ -5,70 +5,131 @@ import UbiIcon from "./icons/UbiIcon.astro";
 // import { MarqueeDemo } from "./MarQueeDemo";
 ---
   
-<section class="contact-section mt-32">
-    <header>
-      <h2 class="text-6xl font-bold mb-14 font-special tracking-wider">
-        Contactame para tu <span class="text-theme-red">manicura y pedicura</span> en Guanacaste, Playas del Coco
-      </h2>
-    </header>
-  
-    <article>
-      <p class="text-xl mb-5">
-        ¿Lista para lucir unas uñas espectaculares?</br>
-        Agenda con una de las mejores especialista en uñas de Guanacaste atenta detalle para que te sientas única en cada visita. Ya sea que busques un diseño delicado, algo atrevido o simplemente un momento para vos, estás en el lugar indicado.
-      </p>
-  
-      <p class="text-xl mb-5">
-        Agenda tu manicura o pedicura hoy mismo en y descubrí por qué nuestras clientas siempre vuelven.
-      </p>
-  
-      <p class="text-xl mb-5">
-        ¡Escribinos y empecemos a crear magia juntas!
-      </p>
-    </article>
-  
-    <figure>
-      <iframe
-        class="rounded-2xl"
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d980.5909064680815!2d-85.69696103519345!3d10.550691863949071!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f9e299b81d6d64d%3A0x6f5d864160be0d4a!2sFive%20Star%20Sal%C3%B3n%20%26%20Spa!5e0!3m2!1ses-419!2scr!4v1745365275790!5m2!1ses-419!2scr"
-        width="100%"
-        height="450"
-        style="border:0;"
-        allowfullscreen=""
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-      ></iframe>
-      
-      <figcaption class="flex gap-2 items-center mt-4 mb-8">
-        <UbiIcon />
-        <p>Playas del Coco, Guanacaste, Costa Rica</p>
-      </figcaption>
-    </figure>
-  
-    <article>
-      <p class="text-2xl mb-5">
-        Puedes consultar mi disponibilidad y agendar una cita conmigo! <br />
-        Si deseas contactarme o agendar puedes llamar al:
-      </p>
-  
-      <p class="text-4xl font-special">
-        <a href="tel:+506876554321">(+506) 876554321</a>
-      </p>
-    </article>
-  
-    <aside class="flex flex-col gap-2 items-center mt-20  text-2xl">
-      <p>También puedes seguir mi trabajo en:</p>
-      <FacebookIcon class="w-8 h-8" />
-  
-      <p class="text-lg">
-        En mi página de facebook podrás ver trabajos recientes además de información exclusiva sobre mis servicios.
-      </p>
-    </aside>
-  </section>
-<!--   
-<section>
-    <MarqueeDemo client:load />
-  </section> -->
-  <section class="mt-6">
-<VelocityScroll client:only="react" >Profesional Manicure & Pedicure</VelocityScroll>
+<section class="contact-section mt-32 max-w-7xl mx-auto px-4">
+  <header class="text-center md:text-left animate-fade-in">
+    <h2 class="text-5xl md:text-6xl font-bold mb-14 font-special tracking-wider">
+      Contactame para tu <span class="bg-gradient-to-r from-theme-red to-[#7a00b3] bg-clip-text text-transparent">manicura y pedicura</span> 
+      <span class="block mt-2">en Guanacaste, Playas del Coco</span>
+    </h2>
+  </header>
+
+  <div class="grid md:grid-cols-2 gap-12 items-start">
+    <!-- Columna de información -->
+    <div class="space-y-8 animate-slide-up" style="--delay: 0.2s">
+      <article class="prose prose-lg">
+        <p class="text-xl mb-5 hover:transform hover:translate-x-1 transition-transform">
+          ¿Lista para lucir unas uñas espectaculares?</br>
+          Agenda con una de las mejores especialista en uñas de Guanacaste atenta detalle para que te sientas única en cada visita. Ya sea que busques un diseño delicado, algo atrevido o simplemente un momento para vos, estás en el lugar indicado.
+        </p>
+
+        <p class="text-xl mb-5 hover:transform hover:translate-x-1 transition-transform">
+          Agenda tu manicura o pedicura hoy mismo en y descubrí por qué nuestras clientas siempre vuelven.
+        </p>
+
+        <p class="text-xl mb-5 hover:transform hover:translate-x-1 transition-transform">
+          ¡Escribinos y empecemos a crear magia juntas!
+        </p>
+      </article>
+
+      <!-- Información de contacto -->
+      <article class="bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-gray-100/20 hover:border-[#ff2975]/20 transition-all duration-300 animate-slide-up" style="--delay: 0.4s">
+        <p class="text-2xl mb-5">
+          Puedes consultar mi disponibilidad y agendar una cita conmigo! <br />
+          Si deseas contactarme o agendar puedes llamar al:
+        </p>
+
+        <a href="tel:+506876554321" class="group">
+          <p class="text-4xl font-special bg-gradient-to-r from-[#ff2975] to-[#7a00b3] bg-clip-text text-transparent inline-flex items-center gap-3 hover:scale-105 transition-transform">
+            (+506) 876554321
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-[#ff2975] group-hover:rotate-12 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            </svg>
+          </p>
+        </a>
+      </article>
+
+      <!-- Redes sociales -->
+      <aside class="bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-gray-100/20 hover:border-[#ff2975]/20 transition-all duration-300 animate-slide-up" style="--delay: 0.6s">
+        <div class="flex flex-col gap-4 items-center text-2xl">
+          <p>También puedes seguir mi trabajo en:</p>
+          <FacebookIcon class="w-12 h-12 hover:scale-110 transition-transform text-[#ff2975]" />
+          <p class="text-lg text-center">
+            En mi página de facebook podrás ver trabajos recientes además de información exclusiva sobre mis servicios.
+          </p>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Columna del mapa -->
+    <div class="space-y-8 animate-slide-up" style="--delay: 0.4s">
+      <figure class="rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 bg-white/5 backdrop-blur-sm border border-gray-100/20">
+        <iframe
+          class="w-full h-[450px] rounded-t-xl hover:opacity-95 transition-opacity"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d980.5909064680815!2d-85.69696103519345!3d10.550691863949071!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f9e299b81d6d64d%3A0x6f5d864160be0d4a!2sFive%20Star%20Sal%C3%B3n%20%26%20Spa!5e0!3m2!1ses-419!2scr!4v1745365275790!5m2!1ses-419!2scr"
+          style="border:0;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+        
+        <figcaption class="flex items-center gap-3 p-4 bg-gradient-to-r from-[#ff2975]/10 to-[#7a00b3]/10">
+          <UbiIcon class="w-6 h-6 text-[#ff2975]" />
+          <p class="text-lg">Playas del Coco, Guanacaste, Costa Rica</p>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
 </section>
+
+<section class="mt-6">
+  <VelocityScroll client:only="react">Profesional Manicure & Pedicure</VelocityScroll>
+</section>
+
+<style>
+  .animate-fade-in {
+    opacity: 0;
+    animation: fadeIn 1s ease-out forwards;
+  }
+
+  .animate-slide-up {
+    opacity: 0;
+    animation: slideUp 0.8s ease-out forwards;
+    animation-delay: var(--delay, 0s);
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Aseguramos que las animaciones se desactiven si el usuario lo prefiere */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-fade-in,
+    .animate-slide-up {
+      animation: none;
+      opacity: 1;
+    }
+  }
+
+  /* Mejoras para dispositivos móviles */
+  @media (max-width: 768px) {
+    .contact-section {
+      padding: 0 1rem;
+    }
+  }
+</style>

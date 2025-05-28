@@ -44,7 +44,7 @@ export function initScrollAnimations() {
   // Opinion Section
   gsap.fromTo(
     ".opinion-section",
-    { opacity: 0, x: -1200, rotate: 55, scale: 0.5 },
+    { opacity: 0, x: -500, rotate: 55, scale: 0.5 },
     {
       opacity: 1,
       x: 0,
