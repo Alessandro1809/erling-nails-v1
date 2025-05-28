@@ -8,7 +8,7 @@ pages_build_output_dir = "dist"
 
 [build.upload]
 format = "modules"
-main = "./_worker.js"
+main = "_worker.js"
 dir = "dist"
 
 [site]
