@@ -64,6 +64,4 @@ if (typeof MessageChannel === 'undefined') {
       }
     };
   }
-}
-
-export default MessageChannel; 
+} 
