@@ -7,7 +7,10 @@ import Footer from '@/components/Footer.astro';
 <!doctype html>
 <html lang="en" class="overflow-x-hidden light [color-scheme:light]">
 	<head>
-		
+		<script>
+			// Importar el polyfill de MessageChannel
+			import('../polyfills/messageChannel.js').catch(console.error);
+		</script>
 		
 		<script is:inline type="text/javascript" src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
 		<script is:inline type="text/javascript" src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
