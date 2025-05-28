@@ -7,9 +7,22 @@ import Footer from '@/components/Footer.astro';
 <!doctype html>
 <html lang="en" class="overflow-x-hidden light [color-scheme:light]">
 	<head>
-		<script>
-			// Importar el polyfill de MessageChannel
-			import('../polyfills/messageChannel.js').catch(console.error);
+		<script is:inline>
+			// Cargar el polyfill inmediatamente
+			(async function() {
+				try {
+					const module = await import('../polyfills/messageChannel.js');
+					if (typeof MessageChannel === 'undefined' && module.default) {
+						Object.defineProperty(globalThis, 'MessageChannel', {
+							value: module.default,
+							writable: false,
+							configurable: false
+						});
+					}
+				} catch (error) {
+					console.warn('Error loading MessageChannel polyfill:', error);
+				}
+			})();
 		</script>
 		
 		<script is:inline type="text/javascript" src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
