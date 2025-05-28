@@ -27,6 +27,7 @@
   },
   "packageManager": "pnpm@9.0.6+sha1.648f6014eb363abb36618f2ba59282a9eeb3e879",
   "devDependencies": {
+    "undici": "^7.10.0",
     "wrangler": "^4.17.0"
   }
 }
