@@ -23,7 +23,10 @@ export default defineConfig({
   integrations: [react()],
   image: {
     service: {
-      entrypoint: 'astro/assets/services/noop'
-    }
+      entrypoint: 'astro/assets/services/compile'
+    },
+    // Configuración específica para el servicio compile
+    domains: [], // Dominios permitidos para imágenes externas
+    remotePatterns: [] // Patrones de URLs remotas permitidas
   }
 });
