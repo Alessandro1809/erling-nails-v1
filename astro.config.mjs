@@ -9,6 +9,10 @@ import cloudflare from '@astrojs/cloudflare';
 
 // https://astro.build/config
 export default defineConfig({
+  output: 'server',
+  experimental: {
+    session: true
+  },
   vite: {
     plugins: [tailwindcss()]
   },
