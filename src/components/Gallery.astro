@@ -1,6 +1,38 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 
+interface Imagen {
+  url: string;
+  alt: string;
+}
+
+interface ImagenResponse {
+  data: Imagen[];
+  error?: string;
+}
+
+// Obtener las imágenes usando el endpoint API
+const response = await fetch(new URL('/api/images', Astro.url).href);
+const { data = [] } = await response.json() as ImagenResponse;
+
+// Tomar solo las primeras 6 imágenes
+const imagenes = data.slice(0, 6);
+
+// Configuración de las posiciones en el grid para cada imagen
+const gridPositions = [
+  'md:row-span-3',
+  'md:row-span-3 md:col-start-2 md:row-start-2',
+  'md:row-span-3 md:col-start-3 md:row-start-1',
+  'md:row-span-3 md:row-start-4',
+  'md:row-span-3 md:col-start-2 md:row-start-5',
+  'md:row-span-3 md:col-start-3 md:row-start-4'
+];
+
+// Imagen por defecto en caso de que falten imágenes
+const defaultImage = {
+  url: 'https://res.cloudinary.com/drwd1wtvt/image/upload/v1725497288/unas4_pawj3w.jpg',
+  alt: 'Diseño de uñas profesional'
+};
 ---
 
 <section aria-label="Galleria de imagenes" class="gallery-section relative mt-32 z-0 mb-20 md:mt-52">
@@ -17,51 +49,23 @@ import Layout from "@/layouts/Layout.astro";
   </p>
 
   <section class="grid grid-cols-1 md:grid-cols-3 md:grid-rows-7 gap-4 mt-10" aria-label="Galería de imágenes de uñas">
-    <figure class="relative h-96 overflow-hidden rounded-md md:row-span-3">
-      <img 
-        class="absolute inset-0 h-full w-full object-cover" 
-        src="https://res.cloudinary.com/drwd1wtvt/image/upload/v1725497288/unas4_pawj3w.jpg" 
-        alt="Diseño de uñas profesional - Diseño de uñas estilo francés rojo y blanco" />
-    </figure>
-
-    <figure class="relative h-96 overflow-hidden rounded-md md:row-span-3 md:col-start-2 md:row-start-2">
-      <img 
-        class="absolute inset-0 h-full w-full object-cover" 
-        src="https://res.cloudinary.com/drwd1wtvt/image/upload/v1725497288/unas4_pawj3w.jpg" 
-        alt="Diseño de uñas profesional - estilo 2" />
-    </figure>
-
-    <figure class="relative h-96 overflow-hidden rounded-md md:row-span-3 md:col-start-3 md:row-start-1">
-      <img 
-        class="absolute inset-0 h-full w-full object-cover" 
-        src="https://res.cloudinary.com/drwd1wtvt/image/upload/v1725497288/unas4_pawj3w.jpg" 
-        alt="Diseño de uñas profesional - estilo 3" />
-    </figure>
-
-    <figure class="relative h-96 overflow-hidden rounded-md md:row-span-3 md:row-start-4">
-      <img 
-        class="absolute inset-0 h-full w-full object-cover" 
-        src="https://res.cloudinary.com/drwd1wtvt/image/upload/v1725497288/unas4_pawj3w.jpg" 
-        alt="Diseño de uñas profesional - estilo 4" />
-    </figure>
-
-    <figure class="relative h-96 overflow-hidden rounded-md md:row-span-3 md:col-start-2 md:row-start-5">
-      <img 
-        class="absolute inset-0 h-full w-full object-cover" 
-        src="https://res.cloudinary.com/drwd1wtvt/image/upload/v1725497288/unas4_pawj3w.jpg" 
-        alt="Diseño de uñas profesional - estilo 5" />
-    </figure>
-
-    <figure class="relative h-96 overflow-hidden rounded-md md:row-span-3 md:col-start-3 md:row-start-4">
-      <img 
-        class="absolute inset-0 h-full w-full object-cover" 
-        src="https://res.cloudinary.com/drwd1wtvt/image/upload/v1725497288/unas4_pawj3w.jpg" 
-        alt="Diseño de uñas profesional - estilo 6" />
-    </figure>
+    {gridPositions.map((position, index) => {
+      const imagen = imagenes[index] || defaultImage;
+      return (
+        <figure class={`relative h-96 overflow-hidden rounded-md ${position}`}>
+          <img 
+            class="absolute inset-0 h-full w-full object-cover" 
+            src={imagen.url} 
+            alt={imagen.alt}
+            loading={index < 2 ? "eager" : "lazy"}
+          />
+        </figure>
+      );
+    })}
   </section>
 
   <div class="flex justify-center mt-10 mb-20">
-    <a class="button-red" href="/NailGallery">Ver más</a>
+    <a class="button-red" href="/nailgallery">Ver más</a>
   </div>
 </section>
 
