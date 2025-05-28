@@ -14,19 +14,7 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
     build: {
-      target: 'esnext',
-      modulePreload: false,
-      minify: false,
-      rollupOptions: {
-        external: [],
-        output: {
-          format: 'es',
-          inlineDynamicImports: true
-        }
-      }
-    },
-    ssr: {
-      external: []
+      target: 'esnext'
     }
   },
   integrations: [react()],
