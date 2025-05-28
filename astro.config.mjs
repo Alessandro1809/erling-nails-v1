@@ -20,7 +20,14 @@ export default defineConfig({
   integrations: [react()],
   image: {
     service: {
-      entrypoint: 'astro/assets/services/noop'
-    }
+      entrypoint: '@astrojs/cloudflare/image-endpoint'
+    },
+    domains: ['res.cloudinary.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**.cloudinary.com'
+      }
+    ]
   }
 });

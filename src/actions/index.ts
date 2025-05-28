@@ -25,7 +25,11 @@ export const server = {
         const apiKey = import.meta.env.CLOUDINARY_API_KEY;
         const apiSecret = import.meta.env.CLOUDINARY_API_SECRET;
 
-        // Crear la firma para la autenticación
+        if (!cloudName || !apiKey || !apiSecret) {
+          console.error('Faltan variables de entorno de Cloudinary');
+          return [];
+        }
+
         const timestamp = Math.floor(Date.now() / 1000);
         const signature = await generateSignature(timestamp, apiSecret);
 
@@ -63,7 +67,7 @@ export const server = {
   }),
 };
 
-async function generateSignature(timestamp: number, apiSecret: string): Promise<string> {
+async function generateSignature(timestamp: number, apiSecret: string) {
   const encoder = new TextEncoder();
   const data = encoder.encode(`timestamp=${timestamp}${apiSecret}`);
   const hashBuffer = await crypto.subtle.digest('SHA-1', data);
