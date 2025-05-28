@@ -15,6 +15,9 @@ export default defineConfig({
     plugins: [tailwindcss()],
     build: {
       target: 'esnext'
+    },
+    ssr: {
+      target: 'webworker'
     }
   },
   integrations: [react()],
