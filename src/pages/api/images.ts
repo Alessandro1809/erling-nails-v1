@@ -8,18 +8,30 @@ interface CloudinaryListResponse {
   resources: CloudinaryResource[];
 }
 
+function parseCloudinaryUrl(url: string) {
+  // Formato esperado: cloudinary://api_key:api_secret@cloud_name
+  const matches = url.match(/cloudinary:\/\/([^:]+):([^@]+)@(.+)/);
+  if (!matches) {
+    throw new Error('URL de Cloudinary inválida');
+  }
+  return {
+    apiKey: matches[1],
+    apiSecret: matches[2],
+    cloudName: matches[3]
+  };
+}
+
 export async function GET() {
   try {
-    const cloudName = import.meta.env.CLOUDINARY_CLOUD_NAME;
-    const apiKey = import.meta.env.CLOUDINARY_API_KEY;
-    const apiSecret = import.meta.env.CLOUDINARY_API_SECRET;
+    const cloudinaryUrl = 'cloudinary://227831484292533:Jay7TIiVYi_pZdSdKA5bFEC5YcY@drwd1wtvt';
+    const { apiKey, apiSecret, cloudName } = parseCloudinaryUrl(cloudinaryUrl);
 
     if (!cloudName || !apiKey || !apiSecret) {
-      console.error('Faltan variables de entorno de Cloudinary');
+      console.error('Error al parsear la URL de Cloudinary');
       return new Response(
         JSON.stringify({ 
           data: [], 
-          error: 'Faltan credenciales de Cloudinary' 
+          error: 'Error en la configuración de Cloudinary' 
         }),
         { 
           status: 500,
