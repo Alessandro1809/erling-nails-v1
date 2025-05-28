@@ -1,10 +1,13 @@
 name = "erling-nails"
+
 compatibility_date = "2024-01-01"
 compatibility_flags = ["nodejs_compat"]
 
+# Required for Pages build
+pages_build_output_dir = "dist"
+
 [build]
 command = "npm run build"
-pages_build_output_dir = "dist"
 
 [build.upload]
 format = "modules"
@@ -17,4 +20,4 @@ bucket = "./dist"
 [[kv_namespaces]]
 binding = "SESSION"
 id = "e8aecf58377e4840a6af1c9e30a13728"
-preview_id = "0f7f4b228aab4a40bfffaf921ffe5e04" 
+preview_id = "0f7f4b228aab4a40bfffaf921ffe5e04"
