@@ -1,5 +1,4 @@
 ---
-import { server } from '../actions';
 import Layout from '@/layouts/Layout.astro';
 import { ImageModal } from './ImageModal';
 import Contact from './Contact.astro';
@@ -9,14 +8,21 @@ interface Imagen {
   alt: string;
 }
 
-const response = await Astro.callAction(server.obtenerImagenesNails, {});
-const imagenes: Imagen[] = Array.isArray(response?.data) ? response.data : [];
+interface ImagenResponse {
+  data: Imagen[];
+  error?: string;
+}
+
+// Obtener las imágenes usando el nuevo endpoint API
+const response = await fetch(new URL('/api/images', Astro.url).href);
+const { data: imagenes = [], error } = await response.json() as ImagenResponse;
 
 // Verificar si hay una imagen en la URL para abrir el modal
 const urlParams = new URL(Astro.request.url).searchParams;
 const sharedImageUrl = urlParams.get('image');
 
 console.log('Imágenes recibidas:', imagenes);
+console.log('Error si existe:', error);
 ---
 
 <Layout>
@@ -217,7 +223,6 @@ console.log('Imágenes recibidas:', imagenes);
     handleSharedImage();
   });
 </script>
-
 <style>
   figure {
     will-change: transform, opacity;
@@ -258,3 +263,4 @@ console.log('Imágenes recibidas:', imagenes);
     }
   }
 </style>
+
