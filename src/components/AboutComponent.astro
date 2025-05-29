@@ -48,10 +48,12 @@ import AboutImage from '../assets/AboutImage.jpeg';
         <!-- Desktop image -->
         <figure class="hidden md:block w-full aspect-square max-w-[400px] rounded-full bg-gradient-to-r from-theme-red to-[#7a00b3] p-2.5 shadow-xl animate-glow transform hover:scale-[1.02] transition-transform duration-500">
           <div class="w-full h-full rounded-full overflow-hidden">
-            <img 
-              src="/src/assets/AboutImage.jpeg"
+            <Image 
+              src={AboutImage}
               alt="Erling working on a nail design"
               class="w-full h-full object-cover"
+              width={400}
+              height={400}
             />
           </div>
         </figure>
