@@ -33,6 +33,29 @@ import { Image } from 'astro:assets';
   }
 </style>
 
+<script>
+  const handleShare = async () => {
+    try {
+      const shareData = {
+        title: 'Erling Nails - Diseño de uñas',
+        text: 'Visita el sitio web de Erling Nails para ver nuestros hermosos diseños de uñas',
+        url: window.location.href
+      };
+
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        await navigator.clipboard.writeText(shareData.url);
+        alert('¡Enlace copiado al portapapeles!');
+      }
+    } catch (error) {
+      console.error('Error al compartir:', error);
+    }
+  };
+
+  document.querySelector('#share-button')?.addEventListener('click', handleShare);
+</script>
+
 <footer class="text-theme-white bg-black relative">
   <div class="absolute -top-2 left-0 w-full h-12 bg-theme-white rounded-b-[100%] z-0"></div>
   
@@ -51,7 +74,13 @@ import { Image } from 'astro:assets';
         If you liked my content, feel free to leave a review on our social media and share our website.   
       </p>
   
-      <ShareIcon class="w-10 h-10 md:w-12 md:h-12 mt-4 hover:scale-105 transition-all duration-300 hover:cursor-pointer" />
+      <button 
+        id="share-button"
+        class="flex items-center justify-center hover:scale-105 transition-all duration-300 hover:cursor-pointer"
+        aria-label="Compartir sitio web"
+      >
+        <ShareIcon class="w-10 h-10 md:w-12 md:h-12 mt-4" />
+      </button>
     </div>
   
     <div class="flex flex-col md:flex-row justify-between mt-8 gap-8">
@@ -67,9 +96,9 @@ import { Image } from 'astro:assets';
   
         <section itemscope itemtype="https://schema.org/LocalBusiness" class="space-y-4">
           <meta itemprop="name" content="Erling Nails" />
-          <meta itemprop="image" content="https://tusitio.com/tu-logo-o-foto.jpg" />
+          <meta itemprop="image" content="https://erling-nails-v1.pages.dev/ENWhite.png" />
           <meta itemprop="description" content="Professional manicure and pedicure in Playas del Coco, Guanacaste. Unique designs, personalized attention and results that you'll love." />
-          <meta itemprop="url" content="https://tusitio.com" />
+          <meta itemprop="url" content="https://erling-nails-v1.pages.dev" />
   
           <h3 class="text-2xl font-special mb-4 bg-gradient-to-r from-theme-red to-[#7a00b3] bg-clip-text text-transparent">
             Location
@@ -89,11 +118,11 @@ import { Image } from 'astro:assets';
             <meta itemprop="longitude" content="-85.69696" />
           </div>
   
-          <p class="text-sm md:text-base"><strong>Phone:</strong> <a href="tel:+506876554321" itemprop="telephone" class="hover:text-theme-red transition-colors">(+506) 876554321</a></p>
+          <p class="text-sm md:text-base"><strong>Phone:</strong> <a href="tel:+50670967912" itemprop="telephone" class="hover:text-theme-red transition-colors">(+506) 7096 7912</a></p>
   
           <div itemprop="contactPoint" itemscope itemtype="https://schema.org/ContactPoint">
             <meta itemprop="contactType" content="customer service" />
-            <meta itemprop="telephone" content="+506876554321" />
+            <meta itemprop="telephone" content="+50670967912" />
             <meta itemprop="areaServed" content="CR" />
             <meta itemprop="availableLanguage" content="Spanish" />
             <meta itemprop="availableLanguage" content="English" />
@@ -103,13 +132,13 @@ import { Image } from 'astro:assets';
             <h3 class="text-2xl font-special mb-4 bg-gradient-to-r from-theme-red to-[#7a00b3] bg-clip-text text-transparent">
               Social Media
             </h3>
-            <a href="https://www.facebook.com/tu-pagina" itemprop="sameAs" class="hover:text-theme-red transition-colors">Facebook</a>
+            <a href="https://www.facebook.com/share/1AZsuy7ysc/" itemprop="sameAs" class="hover:text-theme-red transition-colors">Facebook</a>
           </div>
         </section>
       </div>
   
       <div class="flex items-center justify-center md:justify-end pt-4 md:pt-0 border-t md:border-t-0 border-gray-800 footer-animate footer-animate-delay-2">
-        <a class="font-special flex items-center text-sm md:text-base hover:text-theme-red transition-colors" href="#">
+        <a class="font-special flex items-center text-sm md:text-base hover:text-theme-red transition-colors" href="https://www.stellarcr.net">
           Powered by <Image src={StellarIcon} alt="Web design by Stellar" class="mx-2 w-auto h-6" />
         </a>
       </div>
