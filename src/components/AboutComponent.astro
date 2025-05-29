@@ -34,12 +34,11 @@ import AboutImage from '../assets/AboutImage.jpeg';
       <main class="flex flex-col md:grid md:grid-cols-2 gap-8 items-center">
         <!-- Mobile image -->
         <figure class="md:hidden w-52 h-52 mx-auto mb-6 rounded-full bg-gradient-to-r from-theme-red to-[#7a00b3] p-2 shadow-xl animate-glow transform hover:scale-[1.02] transition-transform duration-500">
-          <div class="w-full h-full rounded-full overflow-hidden image-container">
-            <div class="image-placeholder"></div>
+          <div class="w-full h-full rounded-full overflow-hidden">
             <Image 
               src={AboutImage}
               alt="Erling working on a nail design"
-              class="w-full h-full object-cover image-fade"
+              class="w-full h-full object-cover transition-opacity duration-300"
               width={208}
               height={208}
               loading="eager"
@@ -49,12 +48,11 @@ import AboutImage from '../assets/AboutImage.jpeg';
 
         <!-- Desktop image -->
         <figure class="hidden md:block w-full aspect-square max-w-[400px] rounded-full bg-gradient-to-r from-theme-red to-[#7a00b3] p-2.5 shadow-xl animate-glow transform hover:scale-[1.02] transition-transform duration-500">
-          <div class="w-full h-full rounded-full overflow-hidden image-container">
-            <div class="image-placeholder"></div>
+          <div class="w-full h-full rounded-full overflow-hidden">
             <Image 
               src={AboutImage}
               alt="Erling working on a nail design"
-              class="w-full h-full object-cover image-fade"
+              class="w-full h-full object-cover transition-opacity duration-300"
               width={400}
               height={400}
               loading="eager"
@@ -179,34 +177,6 @@ import AboutImage from '../assets/AboutImage.jpeg';
       box-shadow: 0 0 15px rgba(255, 41, 117, 0.3),
                   0 0 30px rgba(255, 41, 117, 0.2),
                   0 0 45px rgba(122, 0, 179, 0.1);
-    }
-  }
-
-  .image-container {
-    position: relative;
-    background: #f3f4f6;
-  }
-
-  .image-placeholder {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
-    background-size: 200% 100%;
-    animation: shimmer 1.5s linear infinite;
-  }
-
-  .image-fade {
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-  }
-
-  .image-fade.loaded {
-    opacity: 1;
-  }
-
-  @keyframes shimmer {
-    to {
-      background-position: 200% center;
     }
   }
 </style>
