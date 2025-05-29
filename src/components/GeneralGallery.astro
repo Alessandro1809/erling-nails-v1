@@ -12,11 +12,56 @@ const { data: images = [], error } = await fetchGalleryImages(Astro.url);
 const urlParams = new URL(Astro.request.url).searchParams;
 const sharedImageUrl = urlParams.get('image');
 
-console.log('Received images:', images);
-console.log('Error if exists:', error);
+
 ---
 
 <Layout>
+<style is:global>
+  /* Estilos críticos que necesitan estar disponibles inmediatamente */
+  .gallery-grid-item {
+    opacity: 0;
+    transform: translateY(4px);
+    background-color: #f3f4f6;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform, opacity;
+  }
+
+  .gallery-grid-item.loaded {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .gallery-grid-item img {
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: opacity, transform;
+  }
+
+  .gallery-grid-item.loaded img {
+    opacity: 1;
+  }
+
+  .gallery-grid-item .loading-placeholder {
+    position: absolute;
+    inset: 0;
+    background-color: #e5e7eb;
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .gallery-grid-item.loaded .loading-placeholder {
+    opacity: 0;
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: .5;
+    }
+  }
+</style>
+
 {images.length === 0 && (
   <div class="text-gray-500 text-center my-8 p-4 bg-gray-50 rounded-lg">
     <p class="font-semibold">No images available</p>
@@ -39,19 +84,19 @@ console.log('Error if exists:', error);
   >
     {images.map((image, index) => (
       <figure 
-        class="relative h-96 overflow-hidden rounded-md transform transition-all duration-500 hover:scale-[1.02] hover:shadow-xl cursor-pointer bg-gray-100 opacity-0 translate-y-4" 
+        class="gallery-grid-item relative h-96 overflow-hidden rounded-md transform transition-all duration-500 hover:scale-[1.02] hover:shadow-xl cursor-pointer" 
         data-image={image.url}
         data-alt={image.alt}
         data-index={index}
       >
-        <div class="absolute inset-0 bg-gray-200 animate-pulse transition-opacity duration-500"></div>
+        <div class="loading-placeholder"></div>
         <Image
           src={image.url.replace('/upload/', '/upload/w_800,c_scale/')}
           alt={image.alt.replace('Nails/', '')}
           width={800}
           height={600}
-          class="absolute inset-0 h-full w-full object-cover opacity-0 transition-all duration-500"
-          loading="eager"
+          class="absolute inset-0 h-full w-full object-cover"
+          loading={index < 6 ? "eager" : "lazy"}
         />
         <figcaption class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 translate-y-full transition-transform duration-300 group-hover:translate-y-0">
           <span class="text-white font-special text-lg">{image.alt.split('/').pop()}</span>
@@ -85,8 +130,6 @@ console.log('Error if exists:', error);
     handleSharedImage 
   } from '@/utils/gallery.utils';
 
-  console.log('Script started');
-
   // Function to open the modal
   function openModal(imageUrl: string, alt: string) {
     updateUrlWithImage(imageUrl);
@@ -110,14 +153,14 @@ console.log('Error if exists:', error);
   });
 
   // Set up image animations and loading
-  document.querySelectorAll('figure').forEach((figure, index) => {
+  document.querySelectorAll('.gallery-grid-item').forEach((figure, index) => {
     const img = figure.querySelector('img');
     if (!img) return;
 
     // When the image loads
     img.addEventListener('load', () => {
       setTimeout(() => {
-        animateImageEntry(figure as HTMLElement);
+        figure.classList.add('loaded');
       }, index * 100);
     });
 
@@ -126,10 +169,16 @@ console.log('Error if exists:', error);
       const imageUrl = figure.getAttribute('data-image');
       const alt = figure.getAttribute('data-alt');
       if (imageUrl && alt) {
-        console.log('Click on image:', imageUrl);
         openModal(imageUrl, alt);
       }
     });
+
+    // Si la imagen ya está cargada (desde caché)
+    if (img.complete) {
+      setTimeout(() => {
+        figure.classList.add('loaded');
+      }, index * 100);
+    }
   });
 
   // Observer for progressive appearance
@@ -139,7 +188,7 @@ console.log('Error if exists:', error);
         const figure = entry.target;
         const img = figure.querySelector('img');
         if (img && img.complete) {
-          animateImageEntry(figure as HTMLElement);
+          figure.classList.add('loaded');
         }
         observer.unobserve(figure);
       }
@@ -147,21 +196,12 @@ console.log('Error if exists:', error);
   });
 
   // Observe all figures
-  document.querySelectorAll('figure').forEach(figure => {
+  document.querySelectorAll('.gallery-grid-item').forEach(figure => {
     observer.observe(figure);
   });
 
-  // Make sure ImageModal component is ready
+  // Handle shared images
   window.addEventListener('load', () => {
-    console.log('Window fully loaded');
-    const urlParams = new URLSearchParams(window.location.search);
-    const sharedImageUrl = urlParams.get('image');
-    handleSharedImage(sharedImageUrl, openModal);
-  });
-
-  // Also try when DOM is ready
-  document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM Content Loaded');
     const urlParams = new URLSearchParams(window.location.search);
     const sharedImageUrl = urlParams.get('image');
     handleSharedImage(sharedImageUrl, openModal);
@@ -169,31 +209,6 @@ console.log('Error if exists:', error);
 </script>
 
 <style>
-  figure {
-    will-change: transform, opacity;
-  }
-
-  .gallery-section figure:hover img {
-    transform: scale(1.05);
-  }
-
-  .gallery-section figure:hover figcaption {
-    transform: translateY(0);
-  }
-
-  img {
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    will-change: opacity, transform;
-  }
-
-  figcaption {
-    transition: transform 0.3s ease;
-  }
-
-  .animate-pulse {
-    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
   @media (min-width: 768px) {
     .gallery-section figure:nth-child(3n+1) {
       grid-column: span 1;
