@@ -1,68 +1,60 @@
 ---
 import Layout from '@/layouts/Layout.astro';
+import { Image } from 'astro:assets';
 import { ImageModal } from './ImageModal';
 import Contact from './Contact.astro';
+import { fetchGalleryImages } from '@/utils/gallery.utils';
 
-interface Imagen {
-  url: string;
-  alt: string;
-}
+// Get images using the new API endpoint
+const { data: images = [], error } = await fetchGalleryImages(Astro.url);
 
-interface ImagenResponse {
-  data: Imagen[];
-  error?: string;
-}
-
-// Obtener las imágenes usando el nuevo endpoint API
-const response = await fetch(new URL('/api/images', Astro.url).href);
-const { data: imagenes = [], error } = await response.json() as ImagenResponse;
-
-// Verificar si hay una imagen en la URL para abrir el modal
+// Check if there's an image in the URL to open the modal
 const urlParams = new URL(Astro.request.url).searchParams;
 const sharedImageUrl = urlParams.get('image');
 
-console.log('Imágenes recibidas:', imagenes);
-console.log('Error si existe:', error);
+console.log('Received images:', images);
+console.log('Error if exists:', error);
 ---
 
 <Layout>
-{imagenes.length === 0 && (
+{images.length === 0 && (
   <div class="text-gray-500 text-center my-8 p-4 bg-gray-50 rounded-lg">
-    <p class="font-semibold">No hay imágenes disponibles</p>
-    <p class="text-sm mt-2">Asegúrate de tener imágenes en el folder "Nails" de Cloudinary.</p>
+    <p class="font-semibold">No images available</p>
+    <p class="text-sm mt-2">Make sure you have images in the "Nails" folder on Cloudinary.</p>
   </div>
 )}
 
-<section aria-label="Galleria de imagenes" class="relative mt-32 z-0 mb-20 md:mt-52">
+<section aria-label="Image gallery" class="relative mt-32 z-0 mb-20 md:mt-52">
   <header>
     <h2 class="font-special text-5xl md:text-7xl mb-10">
-      Galería completa de 
-      <span class="bg-gradient-to-r from-theme-red to-[#7a00b3] bg-clip-text text-transparent">diseños</span>
+      Complete gallery of 
+      <span class="bg-gradient-to-r from-theme-red to-[#7a00b3] bg-clip-text text-transparent">designs</span>
     </h2>
   </header>
 
   <section 
     class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-10" 
-    aria-label="Galería completa de diseños de uñas"
+    aria-label="Complete nail designs gallery"
     id="gallery-grid"
   >
-    {imagenes.map((imagen, index) => (
+    {images.map((image, index) => (
       <figure 
         class="relative h-96 overflow-hidden rounded-md transform transition-all duration-500 hover:scale-[1.02] hover:shadow-xl cursor-pointer bg-gray-100 opacity-0 translate-y-4" 
-        data-image={imagen.url}
-        data-alt={imagen.alt}
+        data-image={image.url}
+        data-alt={image.alt}
         data-index={index}
       >
         <div class="absolute inset-0 bg-gray-200 animate-pulse transition-opacity duration-500"></div>
-        <img
+        <Image
+          src={image.url.replace('/upload/', '/upload/w_800,c_scale/')}
+          alt={image.alt.replace('Nails/', '')}
+          width={800}
+          height={600}
           class="absolute inset-0 h-full w-full object-cover opacity-0 transition-all duration-500"
-          src={`${imagen.url.replace('/upload/', '/upload/w_800,c_scale/')}`}
-          alt={imagen.alt.replace('Nails/', '')}
           loading="eager"
-          decoding="async"
         />
         <figcaption class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 translate-y-full transition-transform duration-300 group-hover:translate-y-0">
-          <span class="text-white font-special text-lg">{imagen.alt.split('/').pop()}</span>
+          <span class="text-white font-special text-lg">{image.alt.split('/').pop()}</span>
         </figcaption>
       </figure>
     ))}
@@ -72,12 +64,12 @@ console.log('Error si existe:', error);
 <a 
   href="/" 
   class="fixed bottom-8 right-8 button-red shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 z-50 flex items-center gap-2"
-  aria-label="Volver al inicio"
+  aria-label="Back to home"
 >
   <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
     <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
   </svg>
-  Volver
+  Back
 </a>
 
 <ImageModal client:load />
@@ -85,22 +77,18 @@ console.log('Error si existe:', error);
 <Contact/>
 </Layout>
 
-<script is:inline>
-  console.log('Script iniciado');
+<script>
+  import { 
+    updateUrlWithImage, 
+    animateImageEntry, 
+    createIntersectionObserver, 
+    handleSharedImage 
+  } from '@/utils/gallery.utils';
 
-  // Función para actualizar la URL sin recargar la página
-  function updateUrlWithImage(imageUrl) {
-    const url = new URL(window.location.href);
-    if (imageUrl) {
-      url.searchParams.set('image', imageUrl);
-    } else {
-      url.searchParams.delete('image');
-    }
-    window.history.replaceState({}, '', url.toString());
-  }
+  console.log('Script started');
 
-  // Función para abrir el modal
-  function openModal(imageUrl, alt) {
+  // Function to open the modal
+  function openModal(imageUrl: string, alt: string) {
     updateUrlWithImage(imageUrl);
     const event = new CustomEvent('openModal', { 
       detail: { imageUrl, alt }
@@ -108,121 +96,78 @@ console.log('Error si existe:', error);
     window.dispatchEvent(event);
   }
 
-  // Función para cerrar el modal y limpiar la URL
-  function closeModal() {
-    updateUrlWithImage(null);
-  }
-
-  // Escuchar el evento de cierre del modal
+  // Listen for modal close event
   window.addEventListener('closeModal', () => {
-    closeModal();
+    updateUrlWithImage(null);
   });
 
-  // También escuchar el evento de clic fuera del modal
+  // Also listen for clicks outside the modal
   window.addEventListener('click', (e) => {
     const modalBackdrop = document.querySelector('.fixed.inset-0.z-50');
     if (modalBackdrop && e.target === modalBackdrop) {
-      closeModal();
+      updateUrlWithImage(null);
     }
   });
 
-  // Configurar las animaciones y carga de imágenes
+  // Set up image animations and loading
   document.querySelectorAll('figure').forEach((figure, index) => {
     const img = figure.querySelector('img');
     if (!img) return;
 
-    // Cuando la imagen se carga
+    // When the image loads
     img.addEventListener('load', () => {
       setTimeout(() => {
-        animateImageEntry(figure);
+        animateImageEntry(figure as HTMLElement);
       }, index * 100);
     });
 
-    // Agregar el evento click para abrir el modal
+    // Add click event to open modal
     figure.addEventListener('click', () => {
       const imageUrl = figure.getAttribute('data-image');
       const alt = figure.getAttribute('data-alt');
       if (imageUrl && alt) {
-        console.log('Click en imagen:', imageUrl);
+        console.log('Click on image:', imageUrl);
         openModal(imageUrl, alt);
       }
     });
   });
 
-  // Función para animar la entrada de una imagen
-  function animateImageEntry(figure) {
-    const img = figure.querySelector('img');
-    const placeholder = figure.querySelector('.animate-pulse');
-    
-    if (img && placeholder) {
-      img.classList.remove('opacity-0');
-      setTimeout(() => {
-        placeholder.classList.add('opacity-0');
-        figure.classList.remove('opacity-0', 'translate-y-4');
-      }, 50);
-    }
-  }
-
-  // Observer para la aparición progresiva
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const figure = entry.target;
-          const img = figure.querySelector('img');
-          if (img && img.complete) {
-            animateImageEntry(figure);
-          }
-          observer.unobserve(figure);
+  // Observer for progressive appearance
+  const observer = createIntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const figure = entry.target;
+        const img = figure.querySelector('img');
+        if (img && img.complete) {
+          animateImageEntry(figure as HTMLElement);
         }
-      });
-    },
-    {
-      root: null,
-      rootMargin: '50px',
-      threshold: 0.1
-    }
-  );
+        observer.unobserve(figure);
+      }
+    });
+  });
 
-  // Observar todas las figuras
+  // Observe all figures
   document.querySelectorAll('figure').forEach(figure => {
     observer.observe(figure);
   });
 
-  // Función para manejar la apertura inicial del modal
-  function handleSharedImage() {
-    console.log('Ejecutando handleSharedImage');
+  // Make sure ImageModal component is ready
+  window.addEventListener('load', () => {
+    console.log('Window fully loaded');
     const urlParams = new URLSearchParams(window.location.search);
     const sharedImageUrl = urlParams.get('image');
-    console.log('URL compartida encontrada:', sharedImageUrl);
-    
-    if (sharedImageUrl) {
-      const figure = document.querySelector(`figure[data-image="${sharedImageUrl}"]`);
-      console.log('Figura encontrada:', figure);
-      
-      if (figure) {
-        const alt = figure.getAttribute('data-alt') || 'Diseño de uñas';
-        console.log('Abriendo modal con:', sharedImageUrl, alt);
-        // Pequeño retraso para asegurar que todos los componentes estén montados
-        setTimeout(() => {
-          openModal(sharedImageUrl, alt);
-        }, 100);
-      }
-    }
-  }
-
-  // Asegurarnos de que el componente ImageModal esté listo
-  window.addEventListener('load', () => {
-    console.log('Ventana cargada completamente');
-    handleSharedImage();
+    handleSharedImage(sharedImageUrl, openModal);
   });
 
-  // También intentar cuando el DOM esté listo
+  // Also try when DOM is ready
   document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM Content Loaded');
-    handleSharedImage();
+    const urlParams = new URLSearchParams(window.location.search);
+    const sharedImageUrl = urlParams.get('image');
+    handleSharedImage(sharedImageUrl, openModal);
   });
 </script>
+
 <style>
   figure {
     will-change: transform, opacity;

@@ -1,40 +1,40 @@
 ---
-import { MarqueeDemo } from "./MarQueeDemo";
+import { MarqueeCallToAction } from "./MarQueeCallToAction";
 import { NeonGradientCard } from '@/components/NeonGradientCard';
 ---
 
 <section class="mb-20 md:mb-44 px-4 md:px-0">
   <div class="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-12">
-    <!-- Card de Agenda -->
+    <!-- Schedule Card -->
     <NeonGradientCard client:load className="w-full max-w-sm items-center justify-center text-center animate-fade-in">
       <span class="pointer-events-none z-10 h-full whitespace-pre-wrap bg-gradient-to-br from-[#ff2975] from-35% to-[#7a00b3] bg-clip-text text-center text-4xl md:text-6xl font-bold leading-none tracking-tighter text-transparent dark:drop-shadow-[0_5px_5px_rgba(0,0,0,0.8)]">
-        Agenda Tu Cita!
+        Book your appointment
       </span>
-      <a href="tel:+506876554321" class="button-red mt-6 md:mt-8 w-full md:w-auto animate-pulse-subtle"> 
-        Agendar 
+      <a href="https://wa.link/8xem3n" target="_blank" class="button-red mt-6 md:mt-8 w-full md:w-auto animate-pulse-subtle"> 
+        Schedule Now 
       </a>
     </NeonGradientCard>
 
-    <!-- Sección "Sobre mí" -->
+    <!-- About me section -->
     <div class="flex flex-col items-center text-center md:text-left animate-slide-up">
       <h2 class="text-4xl md:text-6xl font-bold mb-6 md:mb-14 font-special tracking-wider">
-        ¿Quieres saber más sobre mí?
+        Want to know more about me?
       </h2>
       <p class="text-xl md:text-2xl mb-5 max-w-md">
-        Conoce más sobre mi experiencia y pasión por el mundo de la belleza.
+        Learn more about my experience and passion for the beauty world.
       </p>
       <a
         class="transition-background button-red text-base md:text-lg w-full md:w-auto text-center"
         href="/About"
       >
-        Conóceme
+        Meet Me
       </a>
     </div>
   </div>
 </section>
 
 <section class="mt-20 md:mt-36">
-  <MarqueeDemo client:load />
+  <MarqueeCallToAction client:load />
 </section>
 
 

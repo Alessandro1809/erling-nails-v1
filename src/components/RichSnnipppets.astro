@@ -1,12 +1,12 @@
 ---
-const siteUrl = "https://tusitio.com"; // cámbialo por tu URL real
+const siteUrl = "https://erling-nails-v1.pages.dev";
 
 const schemaData = {
   beautySalon: {
     "@context": "https://schema.org",
     "@type": "BeautySalon",
     "name": "Erling Nails",
-    "image": `${siteUrl}/images/logo.png`,
+    "image": "https://erling-nails-v1.pages.dev/ENWhite.png",
     "description": "Manicura y pedicura profesional en Playas del Coco, Guanacaste, Costa Rica. Uñas decoradas, cuidado de pies, atención personalizada.",
     "address": {
       "@type": "PostalAddress",
@@ -21,9 +21,9 @@ const schemaData = {
       "longitude": -85.69696
     },
     "telephone": "+506876554321",
-    "url": `${siteUrl}`,
+    "url": "https://erling-nails-v1.pages.dev",
     "sameAs": [
-      "https://www.facebook.com/tu-pagina"
+      "https://www.facebook.com/share/1AZsuy7ysc/"
     ],
     "contactPoint": {
       "@type": "ContactPoint",
@@ -38,16 +38,15 @@ const schemaData = {
     "@type": "Person",
     "name": "Erling",
     "jobTitle": "Especialista en manicura y pedicura",
-    "image": `${siteUrl}/images/erling.jpg`,
+    "image": "https://erling-nails-v1.pages.dev/ENWhite.png",
     "description": "Experta en uñas decoradas, cuidado de manos y pies, con atención personalizada en Playas del Coco, Guanacaste.",
     "worksFor": {
       "@type": "Organization",
       "name": "Erling Nails"
     },
-    "url": `${siteUrl}/sobre-mi`,
+    "url": "https://erling-nails-v1.pages.dev/about",
     "sameAs": [
-      "https://www.instagram.com/erling_nails",
-      "https://www.facebook.com/erlingnails"
+      "https://www.facebook.com/share/1AZsuy7ysc/"
     ]
   },
   services: [
@@ -58,7 +57,7 @@ const schemaData = {
       "provider": {
         "@type": "BeautySalon",
         "name": "Erling Nails",
-        "url": siteUrl
+        "url": "https://erling-nails-v1.pages.dev"
       },
       "areaServed": {
         "@type": "Place",
@@ -73,7 +72,7 @@ const schemaData = {
       "provider": {
         "@type": "BeautySalon",
         "name": "Erling Nails",
-        "url": siteUrl
+        "url": "https://erling-nails-v1.pages.dev"
       },
       "areaServed": {
         "@type": "Place",
@@ -88,7 +87,7 @@ const schemaData = {
       "provider": {
         "@type": "BeautySalon",
         "name": "Erling Nails",
-        "url": siteUrl
+        "url": "https://erling-nails-v1.pages.dev"
       },
       "areaServed": {
         "@type": "Place",
@@ -103,7 +102,7 @@ const schemaData = {
       "provider": {
         "@type": "BeautySalon",
         "name": "Erling Nails",
-        "url": siteUrl
+        "url": "https://erling-nails-v1.pages.dev"
       },
       "areaServed": {
         "@type": "Place",
@@ -118,7 +117,7 @@ const schemaData = {
       "provider": {
         "@type": "BeautySalon",
         "name": "Erling Nails",
-        "url": siteUrl
+        "url": "https://erling-nails-v1.pages.dev"
       },
       "areaServed": {
         "@type": "Place",
@@ -130,6 +129,6 @@ const schemaData = {
 };
 ---
 
-<script type="application/ld+json" set:html={JSON.stringify(schemaData.beautySalon)} />
-<script type="application/ld+json" set:html={JSON.stringify(schemaData.person)} />
-<script type="application/ld+json" set:html={JSON.stringify(schemaData.services)} />
+<script type="application/ld+json" is:inline set:html={JSON.stringify(schemaData.beautySalon)} />
+<script type="application/ld+json" is:inline set:html={JSON.stringify(schemaData.person)} />
+<script type="application/ld+json" is:inline set:html={JSON.stringify(schemaData.services)} />

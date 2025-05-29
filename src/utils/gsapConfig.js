@@ -17,14 +17,14 @@ export function initScrollAnimations() {
   }).to(".bento-section", {
     scale: 1.5,
     opacity: 0,
-    height: 900,
+    height: 800,
     lazy: true,
   });
 
   // Gallery Section
   gsap.fromTo(
     ".gallery-section",
-    { opacity: 0, y:200 },
+    { opacity: 0.5, y:200 },
     {
       opacity: 1,
       x: 0,

@@ -1,75 +1,28 @@
 ---
 import { Image } from "astro:assets";
-// import { VelocityScroll } from '@/components/ParallaxText'
-// import { MarqueeDemo } from "./MarQueeDemo";
-import icon from "@/assets/icon-menu.svg";
+import icon from "@/assets/ENWhite.png";
 import worldIconWhite from "../components/icons/WorldLogoWhite.svg"
 ---
 
-<style>
-  .bento-item {
-    position: relative;
-    overflow: hidden;
-  }
-
-  .bento-item::before,
-  .bento-item::after {
-    content: '';
-    position: absolute;
-    inset: -2px;
-    background: linear-gradient(90deg, #b40b0b, #d4008e, #b40b0b);
-    background-size: 200% 100%;
-    animation: borderGlow 4s linear infinite;
-  }
-
-  .bento-item::before {
-    filter: blur(8px);
-    opacity: 0.5;
-  }
-
-  .bento-item::after {
-    background: none;
-    border: 2px solid rgba(253, 190, 190, 0.301);
-    border-radius: 0.375rem;
-    animation: borderPulse 2s ease-in-out infinite;
-  }
-
-  .bento-item > * {
-    position: relative;
-    z-index: 1;
-  }
-
-  @keyframes borderGlow {
-    0% { background-position: 0% 0%; }
-    100% { background-position: 200% 0%; }
-  }
-
-  @keyframes borderPulse {
-    0% { opacity: 0.4; transform: scale(1); }
-    50% { opacity: 1; transform: scale(1.02); }
-    100% { opacity: 0.4; transform: scale(1); }
-  }
-</style>
-
-<section class="z-0 sm:mt-[1500px] mt-[1040px] bento-section hidden md:block">
+<section class="z-0 sm:mt-[1500px] mt-[1040px] lg:mt-[1500px] bento-section hidden md:block">
     <div class="grid grid-cols-3 grid-rows-6 gap-4">
   
-      <!-- Sección de galería -->
+      <!-- Gallery section -->
       <article class="row-span-4 rounded-md p-4 bento-item text-theme-white bg-white">
         <h2 class="sm:text-5xl text-6xl font-bold mb-14 font-special tracking-wider">
-          Explora la <span class="text-theme-white">galería</span> de diseños
+          Explore the <span class="text-theme-white">gallery</span> of designs
         </h2>
   
         <p class="text-xl mb-5">
-          Relájate con una auténtica experta que te brindá una atención personalizada
+          Relax with a true expert who provides personalized attention
         </p>
   
         <a class="transition-background button-red text-lg sm:text-sm sm:text-center" href="/NailGallery">
-            Explora nuestros diseños de uñas
+            Explore our nail designs
         </a>
       </article>
   
-      <!-- Ubicación -->
+      <!-- Location -->
       <section class="group row-span-6 col-start-3 row-start-1 rounded-md p-4 bento-item bg-white">
         <h3 class="text-5xl  sm:text-4xl font-special text-center mb-4">
           <span class="text-theme-white">Costa Rica</span>
@@ -88,32 +41,32 @@ import worldIconWhite from "../components/icons/WorldLogoWhite.svg"
             class="w-auto h-32 group-hover:scale-105 group-hover:-rotate-12 transition-all duration-300 hover:cursor-pointer mb-10"
           />
   
-          <a class="transition-background button-maps sm:text-sm sm:text-center" href="https://shorturl.at/LXSKv">
-            Ver ubicación del salón en Google Maps
+          <a class="transition-background button-maps sm:text-sm sm:text-center" href="https://www.google.com/maps?ll=10.551524,-85.697851&z=19&t=m&hl=es-419&gl=CR&mapclient=embed&cid=8024717726398156106" target="_blank">
+            View salon location on Google Maps
           </a>
   
           <a 
             class="mt-4 transition-background button-red sm:text-sm sm:text-center cursor-pointer contact-scroll" 
             href="#contact"
           >
-            Contacto
+            Contact
           </a>
         </div>
       </section>
   
-      <!-- CTA de agenda -->
+      <!-- Schedule CTA -->
       <aside class="row-span-2 col-start-2 row-start-1 rounded-md p-2 bg-theme-red text-theme-white bento-item">
         <h2 class="text-6xl font-bold mb-2 font-special tracking-wider text-center sm:text-5xl">
-          ¡Agenda tu cita ahora mismo!
+          Schedule your appointment now!
         </h2>
         <div class="flex justify-center">
-          <a class="transition-background button-red w-[40%]" href="tel:+506876554321">
-            Agendar
+          <a class="transition-background button-red w-[40%]" href="https://wa.link/8xem3n">
+            Book Now
           </a>
         </div>
       </aside>
   
-      <!-- Identidad / marca -->
+      <!-- Identity / brand -->
       <section class="text-theme-white row-span-2 col-start-2 row-start-3 rounded-md border-theme-red bento-item bg-white">
         <div class="flex flex-col items-center justify-center h-full">
           <h2 class="text-5xl font-bold mb-4  font-special tracking-wider">
@@ -121,33 +74,78 @@ import worldIconWhite from "../components/icons/WorldLogoWhite.svg"
           </h2>
           <Image
             src={icon}
-            alt="Logo de Erling Nails"
-            class="w-12 h-12"
+            alt="Erling Nails Logo"
+            class="w-12 h-auto"
           />
           <p class="text-center mt-2 text-xl font-medium font-special">
-            Un espacio dedicado al cuidado de tus manos y pies.
+            A space dedicated to the care of your hands and feet.
           </p>
         </div>
       </section>
   
-      <!-- Sobre mí -->
+      <!-- About me -->
       <article class="col-span-2 row-span-2 row-start-5 rounded-md bg-theme-red text-theme-white p-8 bento-item h-auto">
         <h2 class="text-5xl font-bold font-special tracking-wide sm:text-5xl mb-4 text-center">
-          ¿Quieres conocerme un poco más?
+          Want to know more about me?
         </h2>
         <div class="flex items-center h-auto sm:flex-col ">
           <p class="text-xl pr-5 sm:text-sm">
-            Averigua más sobre mi trayectoria en el mundo de la manicura y pedicura!
+            Find out more about my journey in the world of manicure and pedicure!
           </p>
           <a class="transition-background button-red sm:text-center items-center sm:w-[80%] md:w-auto lg:w-auto sm:mt-4 sm:text-sm " href="/About">
-            Conoce a Erling, tu especialista en manicura
+            Meet Erling, your manicure specialist
           </a>
         </div>
       </article>
   
     </div>
   </section>
+
+  <style>
+    .bento-item {
+      position: relative;
+      overflow: hidden;
+    }
   
+    .bento-item::before,
+    .bento-item::after {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      background: linear-gradient(90deg, #b40b0b, #d4008e, #b40b0b);
+      background-size: 200% 100%;
+      animation: borderGlow 4s linear infinite;
+    }
+  
+    .bento-item::before {
+      filter: blur(8px);
+      opacity: 0.5;
+    }
+  
+    .bento-item::after {
+      background: none;
+      border: 2px solid rgba(253, 190, 190, 0.301);
+      border-radius: 0.375rem;
+      animation: borderPulse 2s ease-in-out infinite;
+    }
+  
+    .bento-item > * {
+      position: relative;
+      z-index: 1;
+    }
+  
+    @keyframes borderGlow {
+      0% { background-position: 0% 0%; }
+      100% { background-position: 200% 0%; }
+    }
+  
+    @keyframes borderPulse {
+      0% { opacity: 0.4; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.02); }
+      100% { opacity: 0.4; transform: scale(1); }
+    }
+  </style>
+
 <script>
   // Función para manejar el scroll suave
   document.querySelector('.contact-scroll')?.addEventListener('click', (e) => {

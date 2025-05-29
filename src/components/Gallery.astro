@@ -1,62 +1,40 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import { Image } from 'astro:assets';
+import { fetchGalleryImages } from '@/utils/gallery.utils';
+import { gridPositions, defaultImage } from '@/utils/gallery.types';
 
-interface Imagen {
-  url: string;
-  alt: string;
-}
+// Get images using the API endpoint
+const { data = [] } = await fetchGalleryImages(Astro.url);
 
-interface ImagenResponse {
-  data: Imagen[];
-  error?: string;
-}
-
-// Obtener las imágenes usando el endpoint API
-const response = await fetch(new URL('/api/images', Astro.url).href);
-const { data = [] } = await response.json() as ImagenResponse;
-
-// Tomar solo las primeras 6 imágenes
-const imagenes = data.slice(0, 6);
-
-// Configuración de las posiciones en el grid para cada imagen
-const gridPositions = [
-  'md:row-span-3',
-  'md:row-span-3 md:col-start-2 md:row-start-2',
-  'md:row-span-3 md:col-start-3 md:row-start-1',
-  'md:row-span-3 md:row-start-4',
-  'md:row-span-3 md:col-start-2 md:row-start-5',
-  'md:row-span-3 md:col-start-3 md:row-start-4'
-];
-
-// Imagen por defecto en caso de que falten imágenes
-const defaultImage = {
-  url: 'https://res.cloudinary.com/drwd1wtvt/image/upload/v1725497288/unas4_pawj3w.jpg',
-  alt: 'Diseño de uñas profesional'
-};
+// Take only the first 6 images
+const images = data.slice(0, 6);
 ---
 
-<section aria-label="Galleria de imagenes" class="gallery-section relative mt-32 z-0 mb-20 md:mt-52">
+<section aria-label="Image gallery" class="gallery-section relative mt-32 z-0 mb-20 md:mt-52">
   <header>
     <h2 class="font-special text-5xl md:text-7xl mb-10">
-      Diseños de uñas 
-      <span class="bg-gradient-to-r from-theme-red to-[#7a00b3] bg-clip-text text-transparent">profesionales,</span> 
-      lo mejor en manicura y pedicura en Playas del Coco
+      Professional 
+      <span class="bg-gradient-to-r from-theme-red to-[#7a00b3] bg-clip-text text-transparent">nail designs,</span> 
+      the best in manicure and pedicure in Playas del Coco
     </h2>
   </header>
 
   <p class="text-lg md:text-2xl">
-    ¿Te interesa ver distintos estilos y resultados de mi trabajo? Siéntete libre de ver la galería de arte en la que encontrarás resultados varios de diseños y trabajos impecables.
+    Interested in seeing different styles and results of my work? Feel free to browse the art gallery where you'll find various impeccable designs and work results.
   </p>
 
-  <section class="grid grid-cols-1 md:grid-cols-3 md:grid-rows-7 gap-4 mt-10" aria-label="Galería de imágenes de uñas">
+  <section class="grid grid-cols-1 md:grid-cols-3 md:grid-rows-7 gap-4 mt-10" aria-label="Nail designs gallery">
     {gridPositions.map((position, index) => {
-      const imagen = imagenes[index] || defaultImage;
+      const image = images[index] || defaultImage;
       return (
         <figure class={`relative h-96 overflow-hidden rounded-md ${position}`}>
-          <img 
-            class="absolute inset-0 h-full w-full object-cover" 
-            src={imagen.url} 
-            alt={imagen.alt}
+          <Image 
+            src={image.url}
+            alt={image.alt}
+            width={800}
+            height={600}
+            class="absolute inset-0 h-full w-full object-cover"
             loading={index < 2 ? "eager" : "lazy"}
           />
         </figure>
@@ -65,7 +43,7 @@ const defaultImage = {
   </section>
 
   <div class="flex justify-center mt-10 mb-20">
-    <a class="button-red" href="/NailGallery">Ver más</a>
+    <a class="button-red" href="/NailGallery">See more</a>
   </div>
 </section>
 

@@ -5,11 +5,11 @@ import HeroVideo from '../assets/video/HeroVideo.webm'
 
 <section 
   class="hero-section absolute inset-0 z-20 left-0 right-0 h-screen overflow-hidden shadow-xl shadow-black/40 animate-fade-in"
-  aria-label="Video de presentación sobre manicura y pedicura en Playas del Coco"
+  aria-label="Presentation video about manicure and pedicure in Playas del Coco"
   itemscope 
   itemtype="https://schema.org/VideoObject"
 >
-  <!-- Video de fondo -->
+  <!-- Background video -->
   <video 
     id="videoHero"
     class="video-area absolute inset-0 w-full h-full object-cover z-0 filter contrast-125 brightness-80 saturate-110 animate-fade-in"
@@ -22,19 +22,19 @@ import HeroVideo from '../assets/video/HeroVideo.webm'
     itemprop="contentUrl"
   >
     <source src={HeroVideo} type="video/webm" />
-    Tu navegador no soporta el video.
+    Your browser does not support the video.
   </video>
 
-  <!-- Microdatos adicionales -->
-  <meta itemprop="name" content="Video de presentación de Erling Nails" />
-  <meta itemprop="description" content="Muestra de servicios de manicura y pedicura profesional en Playas del Coco, Guanacaste." />
+  <!-- Additional microdata -->
+  <meta itemprop="name" content="Erling Nails Presentation Video" />
+  <meta itemprop="description" content="Professional manicure and pedicure services showcase in Playas del Coco, Guanacaste." />
   <meta itemprop="uploadDate" content="2025-05-06" />
   <meta itemprop="thumbnailUrl" content="https://tusitio.com/preview.jpg" />
 
-  <!-- Contenido sobre el video -->
+  <!-- Content over video -->
   <div class="relative z-10 flex justify-center items-center h-full px-4 mix-blend-normal">
     <h1 class="text-6xl md:text-6xl lg:text-8xl font-bold text-white/90 text-center font-special tracking-wider drop-shadow-[0_1.3px_3.3px_rgba(0,0,0,0.8)] animate-slide-up">
-      <WordRotate client:only="react" words={["Manicura y pedicura profesional en Playas del Coco para realzar tu belleza natural", "Descubre el mejor servicio de uñas en un ambiente cómodo y profesional", "Transformamos tus uñas con amor, detalle y estilo"]} /> 
+      <WordRotate client:only="react" words={["Professional manicure and pedicure in Playas del Coco to enhance your natural beauty", "Discover the best nail service in a comfortable and professional environment", "Transforming your nails with love, detail, and style"]} /> 
     </h1>
   </div>
 </section>

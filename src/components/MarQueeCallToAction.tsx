@@ -2,16 +2,16 @@ import { cn } from "@/utils/utils.ts";
 import { Marquee } from "@/components/MarQuee.tsx";
 
 const reviews = [
-    { id: 1, phrase: "Manicura" },
-    { id: 2, phrase: "Pedicura" },
-    { id: 3, phrase: "Uñas" },
-    { id: 4, phrase: "Gelish" },
-    { id: 5, phrase: "Acrílicas" },
-    { id: 6, phrase: "Diseños" },
-    { id: 7, phrase: "Nailart" },
+    { id: 1, phrase: "Manicure" },
+    { id: 2, phrase: "Pedicure" },
+    { id: 3, phrase: "Nails" },
+    { id: 4, phrase: "Gel" },
+    { id: 5, phrase: "Acrylics" },
+    { id: 6, phrase: "Designs" },
+    { id: 7, phrase: "Nail art" },
     { id: 8, phrase: "Spa" },
-    { id: 9, phrase: "Cuidado" },
-    { id: 10, phrase: "Estilo" },
+    { id: 9, phrase: "Care" },
+    { id: 10, phrase: "Style" },
 ];
 
 
@@ -44,7 +44,7 @@ const ReviewCard = ({
     );
 };
 
-export function MarqueeDemo() {
+export function MarqueeCallToAction() {
     return (
         <div className="relative flex w-full flex-col items-center justify-center overflow-hidden font-special"
         style={{
