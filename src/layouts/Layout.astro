@@ -3,9 +3,11 @@ import '../styles/global.css';
 import RichSnnipppets from '@/components/RichSnnipppets.astro';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
+
+const canonicalURL = new URL(Astro.url.pathname, "https://www.erlingnails.com/");
 ---
 <!doctype html>
-<html lang="en" class="overflow-x-hidden light [color-scheme:light]">
+<html lang="es" class="overflow-x-hidden light [color-scheme:light]">
 	<head>
 		<script is:inline>
 			// Cargar el polyfill inmediatamente
@@ -29,23 +31,58 @@ import Footer from '@/components/Footer.astro';
 		<script is:inline type="text/javascript" src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
 		
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
 		<link rel="icon" type="image/png" href="/ENWhite.png" />
 		<meta name="generator" content={Astro.generator} />
+		<link rel="canonical" href={canonicalURL} />
+		<link rel="manifest" href="/manifest.json" />
+		<meta name="theme-color" content="#f8bbd0" />
+		<link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
+
+		<!-- PWA y móvil -->
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+		<meta name="apple-mobile-web-app-title" content="Erling Nails" />
+		<meta name="mobile-web-app-capable" content="yes" />
+		<meta name="application-name" content="Erling Nails" />
+		<meta name="msapplication-TileColor" content="#f8bbd0" />
+		<meta name="msapplication-TileImage" content="/icons/icon-144x144.png" />
+
+		<!-- Prevención de cacheo telefónico -->
+		<meta name="format-detection" content="telephone=no" />
+		<link rel="alternate" hreflang="es" href="https://www.erlingnails.com" />
+		<link rel="alternate" hreflang="en" href="https://www.erlingnails.com/en" />
+		<link rel="alternate" hreflang="x-default" href="https://www.erlingnails.com" />
+
+		<!-- SEO Metatags -->
+		<meta name="description" content="Erling Nails - El mejor servicio de manicura y pedicura en Playas del Coco, Guanacaste. Diseños únicos, atención personalizada y productos premium. ¡Agenda tu cita hoy! | Professional nail services in Playas del Coco, unique designs and premium products." />
+		<meta name="keywords" content="uñas, manicura, pedicura, nail art, Playas del Coco, Guanacaste, Costa Rica, diseños de uñas, salon de belleza, nail salon, nails, manicure, pedicure, beauty salon, nail designs" />
+		<meta name="author" content="Erling Nails" />
+		<meta name="robots" content="index, follow" />
+		<meta name="googlebot" content="index, follow" />
+		<meta name="geo.region" content="CR-G" />
+		<meta name="geo.placename" content="Playas del Coco" />
+		<meta name="geo.position" content="10.55069;-85.69696" />
+		<meta name="ICBM" content="10.55069, -85.69696" />
 
 		<!-- Open Graph (Facebook, WhatsApp, LinkedIn, etc.) -->
-		<meta property="og:title" content="Erling Nails - Manicura y Pedicura en Playas del Coco" />
-		<meta property="og:description" content="Descubre nuestro servicio profesional de uñas en Guanacaste. Diseños únicos y atención personalizada. Mira el video de presentación." />
-		<meta property="og:type" content="video.other" />
-		<meta property="og:url" content="https://erling-nails-v1.pages.dev" />
-		<meta property="og:image" content="https://erling-nails-v1.pages.dev/EN.png" />
-		<meta property="og:video" content="https://erling-nails-v1.pages.dev/hero-video.webm" />
-		<meta property="og:video:type" content="video/webm" />
-		<meta property="og:video:width" content="1280" />
-		<meta property="og:video:height" content="720" />
+		<meta property="og:title" content="Erling Nails - Expertos en Manicura y Pedicura | Professional Nail Services" />
+		<meta property="og:description" content="Descubre nuestro servicio profesional de uñas en Guanacaste. Diseños únicos, productos premium y atención personalizada. | Discover our professional nail services in Guanacaste. Unique designs and personalized attention." />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="https://www.erlingnails.com" />
+		<meta property="og:image" content="https://www.erlingnails.com/EN.png" />
+		<meta property="og:locale" content="es_CR" />
+		<meta property="og:locale:alternate" content="en_US" />
+		<meta property="og:site_name" content="Erling Nails" />
 
-		<title>Erling Nails</title>
-	<RichSnnipppets />
+		<!-- Twitter Card -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content="Erling Nails - Professional Nail Services in Costa Rica" />
+		<meta name="twitter:description" content="Expert nail services in Playas del Coco. Premium products, unique designs, and personalized attention." />
+		<meta name="twitter:image" content="https://www.erlingnails.com/EN.png" />
+
+		<title>Erling Nails - Manicura y Pedicura Profesional | Professional Nail Services - Playas del Coco</title>
+		<RichSnnipppets />
 	</head>
 	<body class="relative -z-20 min-h-screen w-full overflow-x-hidden bg-theme-white text-black">
 		

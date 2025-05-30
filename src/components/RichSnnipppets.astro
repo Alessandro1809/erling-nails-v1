@@ -1,50 +1,90 @@
 ---
-const siteUrl = "https://erling-nails-v1.pages.dev";
+const siteUrl = "https://www.erlingnails.com";
 
 const schemaData = {
   beautySalon: {
     "@context": "https://schema.org",
     "@type": "BeautySalon",
     "name": "Erling Nails",
-    "image": "https://erling-nails-v1.pages.dev/ENWhite.png",
-    "description": "Manicura y pedicura profesional en Playas del Coco, Guanacaste, Costa Rica. Uñas decoradas, cuidado de pies, atención personalizada.",
+    "image": `${siteUrl}/ENWhite.png`,
+    "logo": `${siteUrl}/EN.png`,
+    "description": {
+      "@type": "Text",
+      "@language": "es",
+      "@value": "Manicura y pedicura profesional en Playas del Coco, Guanacaste, Costa Rica. Especialistas en uñas decoradas, diseños personalizados y cuidado integral de manos y pies."
+    },
+    "alternateName": "Erling Nails Salon & Spa",
+    "additionalType": "BeautyService",
+    "additionalProperties": [{
+      "@type": "PropertyValue",
+      "name": "description_en",
+      "value": "Professional manicure and pedicure services in Playas del Coco, Guanacaste, Costa Rica. Specialists in nail art, custom designs, and comprehensive hand and foot care."
+    }],
+    "priceRange": "$$",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Five Star Salón & Spa",
       "addressLocality": "Playas del Coco",
       "addressRegion": "Guanacaste",
-      "addressCountry": "CR"
+      "addressCountry": "CR",
+      "postalCode": "50503"
     },
     "geo": {
       "@type": "GeoCoordinates",
       "latitude": 10.55069,
       "longitude": -85.69696
     },
-    "telephone": "+506876554321",
-    "url": "https://erling-nails-v1.pages.dev",
+    "telephone": "+50670967912",
+    "url": siteUrl,
     "sameAs": [
       "https://www.facebook.com/share/1AZsuy7ysc/"
     ],
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        "opens": "09:00",
+        "closes": "18:00"
+      }
+    ],
     "contactPoint": {
       "@type": "ContactPoint",
-      "telephone": "+506876554321",
+      "telephone": "+50670967912",
       "contactType": "customer service",
-      "areaServed": "CR",
-      "availableLanguage": ["Spanish", "English"]
+      "areaServed": ["CR", "US"],
+      "availableLanguage": ["es", "en"],
+      "contactOption": ["HearingImpairedSupported", "TollFree"]
     }
   },
   person: {
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Erling",
-    "jobTitle": "Especialista en manicura y pedicura",
-    "image": "https://erling-nails-v1.pages.dev/ENWhite.png",
-    "description": "Experta en uñas decoradas, cuidado de manos y pies, con atención personalizada en Playas del Coco, Guanacaste.",
+    "jobTitle": {
+      "@language": "es",
+      "@value": "Especialista en manicura y pedicura"
+    },
+    "additionalProperties": [{
+      "@type": "PropertyValue",
+      "name": "jobTitle_en",
+      "value": "Professional Nail Specialist"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "description_en",
+      "value": "Expert in nail art and comprehensive hand and foot care. Over 5 years of experience providing personalized attention in Playas del Coco, Guanacaste."
+    }],
+    "image": `${siteUrl}/ENWhite.png`,
+    "description": {
+      "@language": "es",
+      "@value": "Experta en uñas decoradas y cuidado integral de manos y pies. Más de 5 años de experiencia brindando atención personalizada en Playas del Coco, Guanacaste."
+    },
     "worksFor": {
       "@type": "Organization",
-      "name": "Erling Nails"
+      "name": "Erling Nails",
+      "url": siteUrl
     },
-    "url": "https://erling-nails-v1.pages.dev/about",
+    "url": `${siteUrl}/about`,
     "sameAs": [
       "https://www.facebook.com/share/1AZsuy7ysc/"
     ]
@@ -53,82 +93,148 @@ const schemaData = {
     {
       "@context": "https://schema.org",
       "@type": "Service",
-      "serviceType": "Pedicura profesional",
+      "name": {
+        "@language": "es",
+        "@value": "Pedicura Profesional de Lujo"
+      },
+      "additionalProperties": [{
+        "@type": "PropertyValue",
+        "name": "name_en",
+        "value": "Luxury Professional Pedicure"
+      },
+      {
+        "@type": "PropertyValue",
+        "name": "description_en",
+        "value": "Professional pedicure with relaxing techniques, exfoliation, and perfect polish. Includes massage, deep hydration, and custom designs."
+      }],
+      "serviceType": "Professional Pedicure",
       "provider": {
         "@type": "BeautySalon",
         "name": "Erling Nails",
-        "url": "https://erling-nails-v1.pages.dev"
+        "url": siteUrl
       },
       "areaServed": {
         "@type": "Place",
         "name": "Playas del Coco, Guanacaste, Costa Rica"
       },
-      "description": "Pedicura profesional con técnicas relajantes, exfoliación y esmaltado perfecto. Ideal para pies cansados y cuidado estético."
+      "description": {
+        "@language": "es",
+        "@value": "Pedicura profesional con técnicas relajantes, exfoliación y esmaltado perfecto. Incluye masaje, hidratación profunda y diseños personalizados."
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "25000",
+        "priceCurrency": "CRC",
+        "availability": "https://schema.org/InStock"
+      }
     },
     {
       "@context": "https://schema.org",
       "@type": "Service",
+      "name": "Manicura Profesional Premium",
       "serviceType": "Manicura profesional",
       "provider": {
         "@type": "BeautySalon",
         "name": "Erling Nails",
-        "url": "https://erling-nails-v1.pages.dev"
+        "url": siteUrl
       },
       "areaServed": {
         "@type": "Place",
         "name": "Playas del Coco, Guanacaste, Costa Rica"
       },
-      "description": "Manicura profesional con esmaltado de larga duración, cuidado de cutículas y atención personalizada en un ambiente relajado."
+      "description": "Manicura profesional con esmaltado de larga duración, cuidado de cutículas y atención personalizada. Incluye masaje de manos y diseños exclusivos.",
+      "offers": {
+        "@type": "Offer",
+        "price": "20000",
+        "priceCurrency": "CRC",
+        "availability": "https://schema.org/InStock"
+      }
     },
     {
       "@context": "https://schema.org",
       "@type": "Service",
+      "name": "Uñas Acrílicas Artísticas",
       "serviceType": "Uñas acrílicas decoradas",
       "provider": {
         "@type": "BeautySalon",
         "name": "Erling Nails",
-        "url": "https://erling-nails-v1.pages.dev"
+        "url": siteUrl
       },
       "areaServed": {
         "@type": "Place",
         "name": "Playas del Coco, Guanacaste, Costa Rica"
       },
-      "description": "Diseños únicos en uñas acrílicas con formas modernas, colores vibrantes y aplicación duradera."
+      "description": "Diseños únicos en uñas acrílicas con las últimas tendencias, aplicación profesional y materiales de primera calidad.",
+      "offers": {
+        "@type": "Offer",
+        "price": "35000",
+        "priceCurrency": "CRC",
+        "availability": "https://schema.org/InStock"
+      }
     },
     {
       "@context": "https://schema.org",
       "@type": "Service",
+      "name": "Spa Terapéutico para Pies",
       "serviceType": "Spa para pies",
       "provider": {
         "@type": "BeautySalon",
         "name": "Erling Nails",
-        "url": "https://erling-nails-v1.pages.dev"
+        "url": siteUrl
       },
       "areaServed": {
         "@type": "Place",
         "name": "Playas del Coco, Guanacaste, Costa Rica"
       },
-      "description": "Tratamiento relajante para pies que incluye baño tibio, exfoliación, mascarilla hidratante y masaje revitalizante."
+      "description": "Experiencia spa completa para pies que incluye hidromasaje, exfoliación premium, mascarilla hidratante y masaje terapéutico.",
+      "offers": {
+        "@type": "Offer",
+        "price": "30000",
+        "priceCurrency": "CRC",
+        "availability": "https://schema.org/InStock"
+      }
     },
     {
       "@context": "https://schema.org",
       "@type": "Service",
+      "name": "Nail Art Exclusivo",
       "serviceType": "Nail art personalizado",
       "provider": {
         "@type": "BeautySalon",
         "name": "Erling Nails",
-        "url": "https://erling-nails-v1.pages.dev"
+        "url": siteUrl
       },
       "areaServed": {
         "@type": "Place",
         "name": "Playas del Coco, Guanacaste, Costa Rica"
       },
-      "description": "Diseños únicos y creativos en tus uñas con técnicas de arte profesional adaptadas a tu estilo."
+      "description": "Arte en uñas personalizado con técnicas avanzadas, pedrería premium y diseños exclusivos adaptados a tu estilo.",
+      "offers": {
+        "@type": "Offer",
+        "price": "15000",
+        "priceCurrency": "CRC",
+        "availability": "https://schema.org/InStock"
+      }
     }
-  ]
+  ],
+  aggregateRating: {
+    "@context": "https://schema.org",
+    "@type": "AggregateRating",
+    "itemReviewed": {
+      "@type": "BeautySalon",
+      "name": "Erling Nails",
+      "image": `${siteUrl}/ENWhite.png`
+    },
+    "ratingValue": "4.9",
+    "bestRating": "5",
+    "worstRating": "1",
+    "ratingCount": "124",
+    "reviewCount": "98"
+  }
 };
 ---
 
 <script type="application/ld+json" is:inline set:html={JSON.stringify(schemaData.beautySalon)} />
 <script type="application/ld+json" is:inline set:html={JSON.stringify(schemaData.person)} />
 <script type="application/ld+json" is:inline set:html={JSON.stringify(schemaData.services)} />
+<script type="application/ld+json" is:inline set:html={JSON.stringify(schemaData.aggregateRating)} />
