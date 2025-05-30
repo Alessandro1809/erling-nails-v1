@@ -3,6 +3,17 @@ import { WordRotate } from '@/components/WordRotate'
 import HeroVideo from '../assets/video/HeroVideo.webm'
 ---
 
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const video = document.getElementById('videoHero') as HTMLVideoElement;
+    if (video) {
+      video.play().catch((error: Error) => {
+        console.log("Video autoplay failed:", error);
+      });
+    }
+  });
+</script>
+
 <section 
   class="hero-section absolute inset-0 z-20 left-0 right-0 h-screen overflow-hidden shadow-xl shadow-black/40 animate-fade-in"
   aria-label="Presentation video about manicure and pedicure in Playas del Coco"
@@ -17,7 +28,7 @@ import HeroVideo from '../assets/video/HeroVideo.webm'
     muted 
     loop 
     playsinline 
-    preload="auto"
+    preload="metadata"
     aria-hidden="true"
     itemprop="contentUrl"
   >

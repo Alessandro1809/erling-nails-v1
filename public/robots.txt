@@ -5,9 +5,10 @@ Disallow: /api/
 Disallow: /private/
 
 # Permitir acceso a recursos estáticos
+Allow: /assets/
 Allow: /images/
 Allow: /styles/
-Allow: /assets/
+
 
 # Sitemap
 Sitemap: https://www.erlingnails.com/sitemap.xml

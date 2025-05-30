@@ -4,6 +4,11 @@ import { scale } from "motion";
 gsap.registerPlugin(ScrollTrigger);
 
 export function initScrollAnimations() {
+  // No inicializar animaciones si estamos en la página de la galería
+  if (window.location.pathname === '/NailGallery') {
+    return;
+  }
+
   // Bento Section
   gsap.timeline({
     scrollTrigger: {
@@ -63,9 +68,6 @@ export function initScrollAnimations() {
       },
     }
   );
-
-  
-
 }
 
-window.addEventListener("load", initScrollAnimations);
+document.addEventListener("DOMContentLoaded", initScrollAnimations);

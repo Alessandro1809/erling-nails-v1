@@ -10,12 +10,12 @@
   },
   "dependencies": {
     "@astrojs/cloudflare": "^12.5.3",
-    "@astrojs/react": "^4.2.7",
+    "@astrojs/react": "^4.3.0",
     "@midudev/tailwind-animations": "^0.2.0",
     "@tailwindcss/vite": "^4.0.14",
     "@types/react": "^18.2.55",
     "@types/react-dom": "^18.2.19",
-    "astro": "^5.5.3",
+    "astro": "^5.8.1",
     "cloudinary": "^2.6.1",
     "clsx": "^2.1.1",
     "gsap": "^3.13.0",
@@ -27,7 +27,6 @@
   },
   "packageManager": "pnpm@9.0.6+sha1.648f6014eb363abb36618f2ba59282a9eeb3e879",
   "devDependencies": {
-    "undici": "^7.10.0",
     "wrangler": "^4.17.0"
   }
 }
