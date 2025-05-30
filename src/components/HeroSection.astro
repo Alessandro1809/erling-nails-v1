@@ -5,9 +5,9 @@ import HeroVideo from '../assets/video/HeroVideo.webm'
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    const video = document.getElementById('videoHero') as HTMLVideoElement;
-    if (video) {
-      video.play().catch((error: Error) => {
+    const video = document.getElementById('videoHero');
+    if (video instanceof HTMLVideoElement) {
+      video.play().catch(error => {
         console.log("Video autoplay failed:", error);
       });
     }

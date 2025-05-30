@@ -9,6 +9,30 @@ const canonicalURL = new URL(Astro.url.pathname, "https://www.erlingnails.com/")
 <!doctype html>
 <html lang="es" class="overflow-x-hidden light [color-scheme:light]">
 	<head>
+		<!-- Video initialization - Máxima prioridad -->
+		<script is:inline type="module" async>
+			console.log('Iniciando carga de video...');
+			
+			const loadVideo = () => {
+				const video = document.getElementById('videoHero');
+				if (video instanceof HTMLVideoElement) {
+					console.log('Video encontrado, intentando reproducir');
+					video.play().catch(error => console.log('Error:', error));
+				} else {
+					console.log('Video no encontrado, reintentando...');
+					requestAnimationFrame(loadVideo);
+				}
+			};
+
+			// Intentar inmediatamente
+			loadVideo();
+			
+			// Backup si el elemento aún no existe
+			if (document.readyState === 'loading') {
+				document.addEventListener('DOMContentLoaded', loadVideo, { once: true });
+			}
+		</script>
+
 		<script is:inline>
 			// Cargar el polyfill inmediatamente
 			(async function() {
