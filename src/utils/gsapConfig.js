@@ -1,3 +1,5 @@
+import { scale } from "motion";
+
 // scrollAnimations.js
 gsap.registerPlugin(ScrollTrigger);
 
@@ -15,9 +17,10 @@ export function initScrollAnimations() {
       toggleActions: "play none none reverse",
     },
   }).to(".bento-section", {
-    scale: 1.5,
+    scale: 1.1,
     opacity: 0,
-    height: 800,
+    duration: 1,
+    height: 200,
     lazy: true,
   });
 
