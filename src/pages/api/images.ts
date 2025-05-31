@@ -36,7 +36,8 @@ export async function GET() {
         { 
           status: 500,
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Cache-Control': 'no-store'
           }
         }
       );
@@ -47,6 +48,7 @@ export async function GET() {
       {
         headers: {
           Authorization: `Basic ${btoa(`${apiKey}:${apiSecret}`)}`,
+          'Cache-Control': 'public, max-age=300'
         },
       }
     );
@@ -66,7 +68,9 @@ export async function GET() {
         { 
           status: 200,
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Cache-Control': 'public, max-age=300',
+            'Vary': 'Accept-Encoding'
           }
         }
       );
@@ -82,7 +86,11 @@ export async function GET() {
       { 
         status: 200,
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Cache-Control': 'public, max-age=300, stale-while-revalidate=60',
+          'Vary': 'Accept-Encoding',
+          'ETag': `"${Date.now().toString(36)}"`,
+          'Last-Modified': new Date().toUTCString()
         }
       }
     );
@@ -97,7 +105,8 @@ export async function GET() {
       { 
         status: 500,
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Cache-Control': 'no-store'
         }
       }
     );

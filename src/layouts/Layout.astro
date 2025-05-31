@@ -5,10 +5,12 @@ import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
 
 const canonicalURL = new URL(Astro.url.pathname, "https://www.erlingnails.com/");
+
 ---
 <!doctype html>
 <html lang="es" class="overflow-x-hidden light [color-scheme:light]">
 	<head>
+		
 		<!-- Video initialization - Máxima prioridad -->
 		<script is:inline type="module" async>
 			console.log('Iniciando carga de video...');
@@ -32,27 +34,8 @@ const canonicalURL = new URL(Astro.url.pathname, "https://www.erlingnails.com/")
 				document.addEventListener('DOMContentLoaded', loadVideo, { once: true });
 			}
 		</script>
-
-		<script is:inline>
-			// Cargar el polyfill inmediatamente
-			(async function() {
-				try {
-					const module = await import('/polyfills/messageChannel.js');
-					if (typeof MessageChannel === 'undefined' && module.default) {
-						Object.defineProperty(globalThis, 'MessageChannel', {
-							value: module.default,
-							writable: false,
-							configurable: false
-						});
-					}
-				} catch (error) {
-					console.warn('Error loading MessageChannel polyfill:', error);
-				}
-			})();
-		</script>
+		<RichSnnipppets />
 		
-		<script is:inline type="text/javascript" src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
-		<script is:inline type="text/javascript" src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
 		
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
@@ -104,9 +87,17 @@ const canonicalURL = new URL(Astro.url.pathname, "https://www.erlingnails.com/")
 		<meta name="twitter:title" content="Erling Nails - Professional Nail Services in Costa Rica" />
 		<meta name="twitter:description" content="Expert nail services in Playas del Coco. Premium products, unique designs, and personalized attention." />
 		<meta name="twitter:image" content="https://www.erlingnails.com/EN.png" />
-
+		<script type="module">
+			// Cargar el polyfill de manera asíncrona solo si es necesario
+			if (typeof MessageChannel === 'undefined') {
+				const script = document.createElement('script');
+				script.src = '/polyfills/messageChannel.js';
+				script.async = true;
+				document.head.appendChild(script);
+			}
+		</script>
 		<title>Erling Nails - Manicura y Pedicura Profesional | Professional Nail Services - Playas del Coco</title>
-		<RichSnnipppets />
+		
 	</head>
 	<body class="relative -z-20 min-h-screen w-full overflow-x-hidden bg-theme-white text-black">
 		
@@ -116,9 +107,15 @@ const canonicalURL = new URL(Astro.url.pathname, "https://www.erlingnails.com/")
 				<slot />	
 			</main>
 			<Footer />
-		<script src="../utils/gsapConfig.js"></script>
+		
 	</body>
 </html>
+
+<script>
+	import AOS from 'aos';
+	import 'aos/dist/aos.css';
+	AOS.init();
+</script>
 
 <style>
 	html, body {
