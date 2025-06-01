@@ -7,7 +7,7 @@
   "background_color": "#ffffff",
   "theme_color": "#f8bbd0",
   "orientation": "portrait",
-  "categories": ["beauty", "lifestyle", "health"],
+  "categories": ["beauty", "lifestyle", "health","nails","pedicure","manicure"],
   "lang": "es",
   "dir": "ltr",
   "prefer_related_applications": false,

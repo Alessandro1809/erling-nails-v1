@@ -4,7 +4,7 @@
   <url>
     <loc>https://www.erlingnails.com/</loc>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.erlingnails.com/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.erlingnails.com/en"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.erlingnails.com/"/>
     <lastmod>2024-03-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -12,7 +12,7 @@
   <url>
     <loc>https://www.erlingnails.com/NailGallery</loc>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.erlingnails.com/NailGallery"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.erlingnails.com/en/NailGallery"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.erlingnails.com/NailGallery"/>
     <lastmod>2024-03-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -20,7 +20,7 @@
   <url>
     <loc>https://www.erlingnails.com/About</loc>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.erlingnails.com/About"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.erlingnails.com/en/About"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.erlingnails.com/About"/>
     <lastmod>2024-03-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
