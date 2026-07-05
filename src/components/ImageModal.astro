@@ -1,0 +1,496 @@
+---
+interface Props {
+  initialImage?: string | null;
+  images?: Array<{
+    url: string;
+    alt: string;
+  }>;
+}
+
+const { initialImage = null, images = [] } = Astro.props;
+const modalImages = images.map((image) => ({
+  id: image.alt,
+  url: image.url,
+  alt: image.alt,
+}));
+const registryJson = JSON.stringify(modalImages).replace(/</g, "\\u003c");
+---
+
+<div
+  id="gallery-modal"
+  class="gallery-modal fixed inset-0 z-50 hidden place-items-center bg-[#171313]/0 p-4 opacity-0 transition duration-300"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Gallery image preview"
+  data-initial-image={initialImage ?? ""}
+  aria-hidden="true"
+>
+  <div class="gallery-modal-panel relative w-full max-w-6xl translate-y-4 scale-[0.98] overflow-hidden rounded-lg bg-[#f7f5f2] text-[#171313] opacity-0 shadow-[0_28px_80px_rgba(0,0,0,0.36)] transition duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]">
+    <button
+      type="button"
+      class="gallery-modal-top-close"
+      data-gallery-modal-close
+      aria-label="Close gallery preview"
+    >
+      Close
+    </button>
+    <div class="gallery-modal-layout grid md:grid-cols-[1fr_280px]">
+      <div class="gallery-modal-visual grid max-h-[84vh] place-items-center bg-[#11100f]">
+        <img
+          id="gallery-modal-image"
+          src=""
+          alt=""
+          class="max-h-[84vh] w-full object-contain"
+        />
+        <p
+          id="gallery-modal-error"
+          class="hidden max-w-md px-6 text-center text-sm leading-6 text-[#f7f5f2]/72"
+        >
+          This reference image could not be loaded. Please open the gallery and choose it again.
+        </p>
+      </div>
+      <aside class="gallery-modal-actions flex flex-col justify-between gap-8 p-5 md:p-6">
+        <div class="gallery-modal-copy">
+          <p class="text-xs font-semibold uppercase tracking-[0.18em] text-[#8f1713]">
+            Reference
+          </p>
+          <p class="mt-4 text-lg font-semibold leading-7">
+            Save or share this image for your next appointment.
+          </p>
+        </div>
+
+        <div class="gallery-modal-controls grid gap-3">
+          <button
+            id="gallery-modal-share"
+            type="button"
+            class="h-11 rounded-full bg-[#171313] px-5 text-sm font-semibold text-[#f7f5f2] transition-transform duration-300 hover:-translate-y-0.5 active:scale-[0.98]"
+          >
+            Share
+          </button>
+          <button
+            id="gallery-modal-save"
+            type="button"
+            class="h-11 rounded-full border border-[#171313]/14 px-5 text-sm font-semibold text-[#171313] transition-colors duration-300 hover:border-[#171313]/45"
+          >
+            Save Image
+          </button>
+          <button
+            id="gallery-modal-close"
+            type="button"
+            data-gallery-modal-close
+            class="h-11 rounded-full border border-[#171313]/14 px-5 text-sm font-semibold text-[#171313] transition-colors duration-300 hover:border-[#171313]/45"
+          >
+            Close
+          </button>
+        </div>
+      </aside>
+    </div>
+  </div>
+</div>
+
+<script id="gallery-modal-registry" type="application/json" set:html={registryJson}></script>
+
+<script>
+  type ModalImage = {
+    id: string;
+    url: string;
+    alt: string;
+  };
+
+  const modal = document.querySelector<HTMLElement>("#gallery-modal");
+  const panel = document.querySelector<HTMLElement>(".gallery-modal-panel");
+  const image = document.querySelector<HTMLImageElement>("#gallery-modal-image");
+  const imageError = document.querySelector<HTMLElement>("#gallery-modal-error");
+  const closeButton = document.querySelector<HTMLButtonElement>("#gallery-modal-close");
+  const closeButtons = document.querySelectorAll<HTMLButtonElement>("[data-gallery-modal-close]");
+  const shareButton = document.querySelector<HTMLButtonElement>("#gallery-modal-share");
+  const saveButton = document.querySelector<HTMLButtonElement>("#gallery-modal-save");
+  const registryElement = document.querySelector<HTMLScriptElement>("#gallery-modal-registry");
+  const registry = registryElement?.textContent
+    ? JSON.parse(registryElement.textContent) as ModalImage[]
+    : [];
+
+  let currentImage: ModalImage | null = null;
+  let previousFocus: HTMLElement | null = null;
+  let originalOverflow = "";
+  let closeTimer: number | undefined;
+  let attemptedOriginalSource = false;
+
+  function syncImageSizing() {
+    if (!image) return;
+
+    const isMobile = window.matchMedia("(max-width: 767px)").matches;
+
+    if (isMobile) {
+      image.style.height = "auto";
+      image.style.width = "auto";
+      image.style.maxWidth = "100%";
+      image.style.maxHeight = "100%";
+      return;
+    }
+
+    image.style.removeProperty("height");
+    image.style.removeProperty("width");
+    image.style.removeProperty("max-width");
+    image.style.removeProperty("max-height");
+  }
+
+  function setUrlImage(imageUrl: string | null) {
+    const url = new URL(window.location.href);
+
+    if (imageUrl) {
+      url.searchParams.set("image", imageUrl);
+    } else {
+      url.searchParams.delete("image");
+    }
+
+    window.history.replaceState({}, "", url.toString());
+  }
+
+  function decodeReference(reference: string) {
+    let decodedReference = reference.trim();
+
+    for (let index = 0; index < 3; index += 1) {
+      try {
+        const nextReference = decodeURIComponent(decodedReference);
+
+        if (nextReference === decodedReference) {
+          break;
+        }
+
+        decodedReference = nextReference;
+      } catch {
+        break;
+      }
+    }
+
+    return decodedReference;
+  }
+
+  function getCloudinaryIdFromUrl(imageUrl: string) {
+    try {
+      const url = new URL(imageUrl, window.location.origin);
+      const uploadMarker = "/image/upload/";
+      const uploadIndex = url.pathname.indexOf(uploadMarker);
+
+      if (!url.hostname.includes("cloudinary.com") || uploadIndex === -1) {
+        return null;
+      }
+
+      const uploadPath = url.pathname.slice(uploadIndex + uploadMarker.length);
+      const publicPath = decodeURIComponent(uploadPath.replace(/^(?:[^/]+,)*v\d+\//, ""));
+
+      return publicPath.replace(/\.[a-z0-9]+$/i, "");
+    } catch {
+      return null;
+    }
+  }
+
+  function normalizeImageReference(reference: string) {
+    const trimmedReference = decodeReference(reference);
+
+    try {
+      const url = new URL(trimmedReference, window.location.origin);
+      const optimizedSource = url.searchParams.get("href");
+
+      if (url.pathname === "/_image" && optimizedSource) {
+        return decodeReference(optimizedSource);
+      }
+
+      if ((url.protocol === "http:" || url.protocol === "https:") && trimmedReference.includes("://")) {
+        return url.href;
+      }
+    } catch {
+      return trimmedReference;
+    }
+
+    return trimmedReference;
+  }
+
+  function resolveImage(reference: string, fallbackAlt = "Erling Nails gallery image"): ModalImage {
+    const normalizedReference = normalizeImageReference(reference);
+    const decodedNormalizedReference = decodeReference(normalizedReference);
+    const cloudinaryId = getCloudinaryIdFromUrl(normalizedReference);
+    const registryMatch = registry.find((item) =>
+      item.id === reference ||
+      item.id === normalizedReference ||
+      item.id === cloudinaryId ||
+      normalizedReference.startsWith(`${item.id} `) ||
+      normalizedReference.startsWith(`${item.id}+`) ||
+      decodedNormalizedReference.startsWith(`${item.id} `) ||
+      decodedNormalizedReference.startsWith(`${item.id}+`) ||
+      normalizedReference.includes(`/${item.id}.`) ||
+      normalizedReference.includes(`/${item.id} `) ||
+      normalizedReference.includes(`/${item.id}+`) ||
+      decodedNormalizedReference.includes(`/${item.id}.`) ||
+      decodedNormalizedReference.includes(`/${item.id} `) ||
+      decodedNormalizedReference.includes(`/${item.id}+`) ||
+      item.url === reference ||
+      item.url === normalizedReference
+    );
+
+    if (registryMatch) {
+      return registryMatch;
+    }
+
+    const rawFallbackId = decodedNormalizedReference.startsWith("Nails/")
+      ? decodedNormalizedReference
+      : cloudinaryId || "";
+    const fallbackId = rawFallbackId.split(/\s|\+/)[0];
+
+    return {
+      id: fallbackId,
+      url: fallbackId
+        ? `https://res.cloudinary.com/drwd1wtvt/image/upload/${fallbackId}.jpg`
+        : normalizedReference,
+      alt: fallbackAlt,
+    };
+  }
+
+  function getDisplayUrl(imageUrl: string) {
+    if (!imageUrl.includes("res.cloudinary.com")) {
+      return imageUrl;
+    }
+
+    const displayUrl = new URL("/_image", window.location.origin);
+    displayUrl.searchParams.set("href", imageUrl);
+    displayUrl.searchParams.set("w", "1600");
+    displayUrl.searchParams.set("f", "webp");
+
+    return displayUrl.toString();
+  }
+
+  function showModal(reference: string, alt?: string) {
+    if (!modal || !panel || !image) return;
+
+    window.clearTimeout(closeTimer);
+    const resolvedImage = resolveImage(reference, alt);
+    previousFocus = document.activeElement instanceof HTMLElement
+      ? document.activeElement
+      : null;
+    currentImage = resolvedImage;
+    attemptedOriginalSource = false;
+    syncImageSizing();
+    image.classList.remove("hidden");
+    imageError?.classList.add("hidden");
+    image.src = getDisplayUrl(resolvedImage.url);
+    image.alt = resolvedImage.alt;
+    setUrlImage(resolvedImage.id || resolvedImage.url);
+    originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    modal.classList.remove("hidden");
+    modal.classList.add("grid");
+    modal.setAttribute("aria-hidden", "false");
+
+    requestAnimationFrame(() => {
+      modal.classList.remove("bg-[#171313]/0", "opacity-0");
+      modal.classList.add("bg-[#171313]/92", "opacity-100");
+      panel.classList.remove("translate-y-4", "scale-[0.98]", "opacity-0");
+      panel.classList.add("translate-y-0", "scale-100", "opacity-100");
+      closeButton?.focus();
+    });
+  }
+
+  function hideModal() {
+    if (!modal || !panel) return;
+
+    modal.classList.add("bg-[#171313]/0", "opacity-0");
+    modal.classList.remove("bg-[#171313]/92", "opacity-100");
+    panel.classList.add("translate-y-4", "scale-[0.98]", "opacity-0");
+    panel.classList.remove("translate-y-0", "scale-100", "opacity-100");
+    modal.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = originalOverflow;
+    currentImage = null;
+    setUrlImage(null);
+    window.dispatchEvent(new CustomEvent("closeModal"));
+
+    closeTimer = window.setTimeout(() => {
+      modal.classList.add("hidden");
+      modal.classList.remove("grid");
+      if (image) {
+        image.src = "";
+        image.alt = "";
+      }
+      previousFocus?.focus();
+    }, 260);
+  }
+
+  window.addEventListener("openModal", (event) => {
+    const customEvent = event as CustomEvent<{ imageUrl?: string; alt?: string }>;
+    const imageUrl = customEvent.detail?.imageUrl;
+    const alt = customEvent.detail?.alt || "Erling Nails gallery image";
+    const imageId = customEvent.detail?.imageId;
+
+    if (!imageId && !imageUrl) return;
+    showModal(imageId || imageUrl || "", alt);
+  });
+
+  window.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && currentImage) {
+      hideModal();
+    }
+  });
+
+  window.addEventListener("resize", () => {
+    if (currentImage) {
+      syncImageSizing();
+    }
+  });
+
+  modal?.addEventListener("mousedown", (event) => {
+    if (event.target === modal) {
+      hideModal();
+    }
+  });
+
+  closeButtons.forEach((button) => {
+    button.addEventListener("click", hideModal);
+  });
+
+  image?.addEventListener("load", () => {
+    image.classList.remove("hidden");
+    imageError?.classList.add("hidden");
+  });
+
+  image?.addEventListener("error", () => {
+    if (currentImage && !attemptedOriginalSource && image.src !== currentImage.url) {
+      attemptedOriginalSource = true;
+      image.src = currentImage.url;
+      return;
+    }
+
+    image.classList.add("hidden");
+    imageError?.classList.remove("hidden");
+  });
+
+  shareButton?.addEventListener("click", async () => {
+    if (!currentImage) return;
+
+    const url = new URL(window.location.href);
+    url.searchParams.set("image", currentImage.id || currentImage.url);
+    const shareUrl = url.toString();
+
+    if (navigator.share) {
+      await navigator.share({
+        url: shareUrl,
+      });
+      return;
+    }
+
+    await navigator.clipboard.writeText(shareUrl);
+  });
+
+  saveButton?.addEventListener("click", async () => {
+    if (!currentImage) return;
+
+    const response = await fetch(currentImage.url);
+    const blob = await response.blob();
+    const objectUrl = window.URL.createObjectURL(blob);
+    const anchor = document.createElement("a");
+    anchor.href = objectUrl;
+    anchor.download = `erling-nails-${currentImage.alt.replace(/[^a-z0-9]/gi, "-").toLowerCase()}.jpg`;
+    document.body.appendChild(anchor);
+    anchor.click();
+    document.body.removeChild(anchor);
+    window.URL.revokeObjectURL(objectUrl);
+  });
+
+  const initialImage = modal?.dataset.initialImage;
+  if (initialImage) {
+    showModal(initialImage, "Erling Nails gallery image");
+  }
+</script>
+
+<style>
+  .gallery-modal-top-close {
+    display: none;
+  }
+
+  @media (max-width: 767px) {
+    .gallery-modal {
+      padding: 0;
+      place-items: stretch;
+    }
+
+    .gallery-modal-panel {
+      height: 100dvh;
+      max-width: none;
+      border-radius: 0;
+    }
+
+    .gallery-modal-layout {
+      display: flex;
+      height: 100%;
+      min-height: 0;
+      flex-direction: column;
+    }
+
+    .gallery-modal-visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: clamp(300px, 52dvh, 520px);
+      max-height: none;
+      min-height: 0;
+      flex: 0 0 auto;
+      overflow: hidden;
+    }
+
+    #gallery-modal-image {
+      display: block;
+      height: 100% !important;
+      max-height: 100% !important;
+      width: auto !important;
+      max-width: 100% !important;
+      object-fit: contain;
+    }
+
+    .gallery-modal-actions {
+      position: relative;
+      z-index: 1;
+      min-height: 0;
+      flex: 1 1 auto;
+      gap: 1.25rem;
+      background: #f7f5f2;
+      overflow-y: auto;
+      padding: 1.5rem 1.25rem calc(1.25rem + env(safe-area-inset-bottom));
+      overscroll-behavior: contain;
+    }
+
+    .gallery-modal-copy {
+      flex: 0 0 auto;
+    }
+
+    .gallery-modal-controls {
+      position: sticky;
+      bottom: calc(env(safe-area-inset-bottom) * -1);
+      margin-top: auto;
+      padding-top: 0.75rem;
+      padding-bottom: env(safe-area-inset-bottom);
+      background: #f7f5f2;
+    }
+
+    .gallery-modal-controls button {
+      min-height: 3rem;
+    }
+
+    .gallery-modal-top-close {
+      position: fixed;
+      top: calc(0.75rem + env(safe-area-inset-top));
+      right: 0.75rem;
+      z-index: 1;
+      display: inline-flex;
+      height: 2.5rem;
+      align-items: center;
+      justify-content: center;
+      border-radius: 9999px;
+      background: rgb(247 245 242 / 0.94);
+      padding-inline: 1rem;
+      color: #171313;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      box-shadow: 0 12px 34px rgb(0 0 0 / 0.22);
+    }
+  }
+</style>

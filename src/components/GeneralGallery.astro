@@ -1,226 +1,336 @@
 ---
-import Layout from '@/layouts/Layout.astro';
-import { Image } from 'astro:assets';
-import { ImageModal } from './ImageModal';
-import Contact from './Contact.astro';
-import { fetchGalleryImages } from '@/utils/gallery.utils';
+import Layout from "@/layouts/Layout.astro";
+import { Image } from "astro:assets";
+import ImageModal from "./ImageModal.astro";
+import { fetchGalleryImages } from "@/utils/gallery.utils";
+import { defaultImage } from "@/utils/gallery.types";
 
-// Get images using the new API endpoint
-const { data: images = [], error } = await fetchGalleryImages(Astro.url);
+const { data: fetchedImages = [], error } = await fetchGalleryImages(Astro.url);
+const images = fetchedImages.length > 0
+  ? fetchedImages
+  : Array.from({ length: 8 }, (_, index) => ({
+      ...defaultImage,
+      alt: `${defaultImage.alt} ${index + 1}`,
+    }));
 
-// Check if there's an image in the URL to open the modal
 const urlParams = new URL(Astro.request.url).searchParams;
-const sharedImageUrl = urlParams.get('image');
+const sharedImageUrl = urlParams.get("image");
+const featuredImage = images[0] || defaultImage;
+const secondaryImage = images[1] || defaultImage;
 
+const pattern = [
+  "md:col-span-5 md:row-span-2",
+  "md:col-span-3",
+  "md:col-span-4 md:row-span-2",
+  "md:col-span-4",
+  "md:col-span-4",
+  "md:col-span-4 md:row-span-2",
+  "md:col-span-5",
+  "md:col-span-3",
+  "md:col-span-4",
+  "md:col-span-4",
+];
 
+const cleanAlt = (alt: string) => alt.replace(/^Nails\//, "").replace(/[_-]/g, " ");
 ---
 
 <Layout>
-<style is:global>
-  /* Estilos críticos que necesitan estar disponibles inmediatamente */
-  .gallery-grid-item {
-    opacity: 0;
-    transform: translateY(4px);
-    background-color: #f3f4f6;
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    will-change: transform, opacity;
+  <main class="gallery-page bg-[#f7f5f2] text-[#171313]">
+    <section class="gallery-hero px-4 pb-20 pt-32 md:pb-28 md:pt-36">
+      <div class="mx-auto grid max-w-6xl gap-10 md:grid-cols-[0.95fr_1.05fr] md:items-end">
+        <div>
+          <p class="mb-5 w-max rounded-full border border-[#171313]/12 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#5d5350]">
+            Gallery
+          </p>
+          <h1 class="max-w-4xl text-balance text-[clamp(3.25rem,7vw,6rem)] font-semibold leading-[0.96] tracking-[-0.038em]">
+            Nails, up close.
+          </h1>
+          <p class="mt-6 max-w-[62ch] text-pretty text-lg leading-8 text-[#5d5350]">
+            Browse real manicures, acrylic sets, gel finishes and color details before booking your appointment in Playas del Coco.
+          </p>
+          <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+            <a
+              href="https://wa.link/8xem3n"
+              target="_blank"
+              rel="noreferrer"
+              class="group inline-flex h-12 w-max items-center gap-2 rounded-full bg-[#171313] py-1 pl-6 pr-1 text-sm font-semibold text-[#f7f5f2] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 active:scale-[0.98]"
+            >
+              <span>Book Now</span>
+              <span class="grid h-10 w-10 place-items-center rounded-full bg-[#8f1713] text-[#f7f5f2] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                <span aria-hidden="true">↗</span>
+              </span>
+            </a>
+            <a
+              href="#all-work"
+              class="inline-flex h-12 w-max items-center rounded-full border border-[#171313]/14 px-6 text-sm font-semibold text-[#171313] transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:border-[#171313]/45"
+            >
+              View Gallery
+            </a>
+          </div>
+        </div>
+
+        <div class="gallery-feature-grid grid gap-3 sm:grid-cols-[0.78fr_1.22fr]">
+          <button
+            type="button"
+            class="gallery-feature-primary gallery-open group relative h-[300px] overflow-hidden rounded-lg bg-[#e8e3de] text-left md:h-full"
+            data-image={featuredImage.url}
+            data-alt={featuredImage.alt}
+            data-image-id={featuredImage.alt}
+            aria-label={`Open ${cleanAlt(featuredImage.alt)}`}
+          >
+            <Image
+              src={featuredImage.url}
+              alt={cleanAlt(featuredImage.alt)}
+              width={900}
+              height={1150}
+              loading="eager"
+              class="h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105"
+            />
+          </button>
+          <div class="gallery-feature-stack grid gap-3">
+            <button
+              type="button"
+              class="gallery-feature-secondary gallery-open group relative h-[240px] overflow-hidden rounded-lg bg-[#e8e3de] text-left md:h-auto"
+              data-image={secondaryImage.url}
+              data-alt={secondaryImage.alt}
+              data-image-id={secondaryImage.alt}
+              aria-label={`Open ${cleanAlt(secondaryImage.alt)}`}
+            >
+              <Image
+                src={secondaryImage.url}
+                alt={cleanAlt(secondaryImage.alt)}
+                width={900}
+                height={700}
+                loading="eager"
+                class="h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105"
+              />
+            </button>
+            <div class="rounded-lg bg-[#171313] p-6 text-[#f7f5f2] md:p-8">
+              <p class="text-5xl font-semibold tracking-[-0.04em]">{images.length}</p>
+              <p class="mt-4 max-w-[34ch] text-sm leading-7 text-[#d8d0ca]">
+                Real examples from the nail portfolio, ready to inspect before choosing your look.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {error && (
+      <section class="mx-auto max-w-6xl px-4 pb-8">
+        <div class="rounded-lg border border-[#8f1713]/25 bg-white p-5 text-sm text-[#5d0d0b]">
+          The gallery is using fallback images because Cloudinary returned an error.
+        </div>
+      </section>
+    )}
+
+    {fetchedImages.length === 0 && !error && (
+      <section class="mx-auto max-w-6xl px-4 pb-8">
+        <div class="rounded-lg border border-[#171313]/10 bg-white p-5">
+          <p class="font-semibold">No gallery images are available yet.</p>
+          <p class="mt-2 text-sm leading-6 text-[#5d5350]">Add images to the Cloudinary Nails folder to populate this page.</p>
+        </div>
+      </section>
+    )}
+
+    <section id="all-work" class="px-4 pb-24 md:pb-32">
+      <div class="mx-auto max-w-6xl">
+        <div class="mb-8 flex flex-col justify-between gap-5 border-t border-[#171313]/10 pt-8 md:flex-row md:items-end">
+          <div>
+            <h2 class="text-balance text-4xl font-semibold leading-[1.04] tracking-[-0.03em] md:text-6xl">
+              The full portfolio.
+            </h2>
+            <p class="mt-4 max-w-[58ch] text-lg leading-8 text-[#5d5350]">
+              Tap any image to inspect the finish, share it, or save it as a reference for your appointment.
+            </p>
+          </div>
+          <a
+            href="/"
+            class="inline-flex h-12 w-max items-center rounded-full border border-[#171313]/14 px-6 text-sm font-semibold text-[#171313] transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:border-[#171313]/45"
+          >
+            Back Home
+          </a>
+        </div>
+
+        <div class="gallery-mosaic grid auto-rows-[190px] grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-12 md:auto-rows-[155px]">
+          {images.map((image, index) => (
+            <figure class:list={[
+              "gallery-item group relative overflow-hidden rounded-lg bg-[#e8e3de]",
+              pattern[index % pattern.length],
+            ]}>
+              <button
+                type="button"
+                class="gallery-open block h-full w-full text-left"
+                data-image={image.url}
+                data-alt={image.alt}
+                data-image-id={image.alt}
+                aria-label={`Open ${cleanAlt(image.alt)}`}
+              >
+                <span class="gallery-skeleton absolute inset-0"></span>
+                <Image
+                  src={image.url}
+                  alt={cleanAlt(image.alt)}
+                  width={index % 5 === 0 ? 1100 : 820}
+                  height={index % 5 === 0 ? 980 : 760}
+                  loading={index < 6 ? "eager" : "lazy"}
+                  class="gallery-image h-full w-full object-cover opacity-0 transition duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105"
+                />
+              </button>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="scroll-mt-28 px-4 pb-24">
+      <div class="mx-auto grid max-w-6xl gap-8 rounded-lg bg-[#171313] p-6 text-[#f7f5f2] md:grid-cols-[1.1fr_0.9fr] md:p-10 lg:p-14">
+        <div>
+          <h2 class="max-w-3xl text-balance text-4xl font-semibold leading-[1.04] tracking-[-0.03em] md:text-6xl">
+            Bring a reference. Leave with your own version.
+          </h2>
+          <p class="mt-5 max-w-[58ch] text-lg leading-8 text-[#d8d0ca]">
+            Send the image you like through WhatsApp and confirm availability before visiting Five Star Salon & Spa.
+          </p>
+        </div>
+        <div class="grid content-end gap-3 md:justify-end">
+          <a
+            href="https://wa.link/8xem3n"
+            target="_blank"
+            rel="noreferrer"
+            class="group inline-flex h-12 w-max items-center gap-2 rounded-full bg-[#f7f5f2] py-1 pl-6 pr-1 text-sm font-semibold text-[#171313] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 active:scale-[0.98]"
+          >
+            <span>Book Now</span>
+            <span class="grid h-10 w-10 place-items-center rounded-full bg-[#8f1713] text-[#f7f5f2] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+              <span aria-hidden="true">↗</span>
+            </span>
+          </a>
+          <a class="text-sm text-[#d8d0ca] transition-colors hover:text-[#f7f5f2]" href="tel:+50670967912">
+            (+506) 7096 7912
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <ImageModal initialImage={sharedImageUrl} images={images} />
+</Layout>
+
+<script>
+  function openModal(imageUrl: string, alt: string, imageId: string) {
+    window.dispatchEvent(new CustomEvent("openModal", {
+      detail: { imageUrl, alt, imageId },
+    }));
   }
 
-  .gallery-grid-item.loaded {
+  document.querySelectorAll<HTMLButtonElement>(".gallery-open").forEach((button) => {
+    button.addEventListener("click", () => {
+      const imageUrl = button.dataset.image;
+      const alt = button.dataset.alt;
+      const imageId = button.dataset.imageId;
+      if (imageUrl && alt) {
+        openModal(imageUrl, alt, imageId || alt);
+      }
+    });
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const item = entry.target;
+      item.classList.add("is-visible");
+      observer.unobserve(item);
+    });
+  }, {
+    rootMargin: "120px 0px",
+    threshold: 0.12,
+  });
+
+  document.querySelectorAll(".gallery-item").forEach((item) => {
+    observer.observe(item);
+    const image = item.querySelector("img");
+    if (image && image.complete) {
+      item.classList.add("is-loaded");
+    }
+    image?.addEventListener("load", () => {
+      item.classList.add("is-loaded");
+    }, { once: true });
+  });
+
+</script>
+
+<style>
+  .gallery-page {
+    min-height: 100dvh;
+  }
+
+  .gallery-mosaic {
+    grid-auto-flow: dense;
+  }
+
+  @media (min-width: 768px) {
+    .gallery-feature-grid {
+      height: clamp(580px, 48vw, 700px);
+    }
+
+    .gallery-feature-stack {
+      grid-template-rows: minmax(0, 1fr) auto;
+      min-height: 0;
+    }
+
+    .gallery-feature-primary,
+    .gallery-feature-secondary {
+      min-height: 0;
+    }
+  }
+
+  .gallery-item {
+    opacity: 0;
+    transform: translateY(22px);
+    transition:
+      opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .gallery-item.is-visible {
     opacity: 1;
     transform: translateY(0);
   }
 
-  .gallery-grid-item img {
-    opacity: 0;
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    will-change: opacity, transform;
-  }
-
-  .gallery-grid-item.loaded img {
+  .gallery-item.is-loaded .gallery-image {
     opacity: 1;
   }
 
-  .gallery-grid-item .loading-placeholder {
-    position: absolute;
-    inset: 0;
-    background-color: #e5e7eb;
-    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  .gallery-skeleton {
+    background:
+      linear-gradient(90deg, transparent, rgb(255 255 255 / 0.42), transparent),
+      #e8e3de;
+    background-size: 220% 100%;
+    animation: gallery-shimmer 1.6s ease-in-out infinite;
   }
 
-  .gallery-grid-item.loaded .loading-placeholder {
+  .gallery-item.is-loaded .gallery-skeleton {
     opacity: 0;
+    animation: none;
+    transition: opacity 420ms ease;
   }
 
-  @keyframes pulse {
-    0%, 100% {
+  @keyframes gallery-shimmer {
+    from {
+      background-position: 120% 0;
+    }
+    to {
+      background-position: -120% 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gallery-item,
+    .gallery-image,
+    .gallery-skeleton {
+      animation: none;
       opacity: 1;
-    }
-    50% {
-      opacity: .5;
-    }
-  }
-</style>
-
-{images.length === 0 && (
-  <div class="text-gray-500 text-center my-8 p-4 bg-gray-50 rounded-lg">
-    <p class="font-semibold">No images available</p>
-    <p class="text-sm mt-2">Make sure you have images in the "Nails" folder on Cloudinary.</p>
-  </div>
-)}
-
-<section aria-label="Image gallery" class="relative mt-32 z-0 mb-20 md:mt-52">
-  <header>
-    <h2 class="font-special text-5xl md:text-7xl mb-10">
-      Complete gallery of 
-      <span class="bg-gradient-to-r from-theme-red to-[#7a00b3] bg-clip-text text-transparent">designs</span>
-    </h2>
-  </header>
-
-  <section 
-    class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-10" 
-    aria-label="Complete nail designs gallery"
-    id="gallery-grid"
-  >
-    {images.map((image, index) => (
-      <figure 
-        class="gallery-grid-item relative h-96 overflow-hidden rounded-md transform transition-all duration-500 hover:scale-[1.02] hover:shadow-xl cursor-pointer" 
-        data-image={image.url}
-        data-alt={image.alt}
-        data-index={index}
-      >
-        <div class="loading-placeholder"></div>
-        <Image
-          src={image.url.replace('/upload/', '/upload/w_800,c_scale/')}
-          alt={image.alt.replace('Nails/', '')}
-          width={800}
-          height={600}
-          class="absolute inset-0 h-full w-full object-cover"
-          loading={index < 6 ? "eager" : "lazy"}
-        />
-        <figcaption class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 translate-y-full transition-transform duration-300 group-hover:translate-y-0">
-          <span class="text-white font-special text-lg">{image.alt.split('/').pop()}</span>
-        </figcaption>
-      </figure>
-    ))}
-  </section>
-</section>
-
-<a 
-  href="/" 
-  class="fixed bottom-8 right-8 button-red shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 z-50 flex items-center gap-2"
-  aria-label="Back to home"
->
-  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-    <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
-  </svg>
-  Back
-</a>
-
-<ImageModal client:load />
-
-<Contact/>
-</Layout>
-
-<script>
-  import { 
-    updateUrlWithImage, 
-    animateImageEntry, 
-    createIntersectionObserver, 
-    handleSharedImage 
-  } from '@/utils/gallery.utils';
-
-  // Function to open the modal
-  function openModal(imageUrl: string, alt: string) {
-    updateUrlWithImage(imageUrl);
-    const event = new CustomEvent('openModal', { 
-      detail: { imageUrl, alt }
-    });
-    window.dispatchEvent(event);
-  }
-
-  // Listen for modal close event
-  window.addEventListener('closeModal', () => {
-    updateUrlWithImage(null);
-  });
-
-  // Also listen for clicks outside the modal
-  window.addEventListener('click', (e) => {
-    const modalBackdrop = document.querySelector('.fixed.inset-0.z-50');
-    if (modalBackdrop && e.target === modalBackdrop) {
-      updateUrlWithImage(null);
-    }
-  });
-
-  // Set up image animations and loading
-  document.querySelectorAll('.gallery-grid-item').forEach((figure, index) => {
-    const img = figure.querySelector('img');
-    if (!img) return;
-
-    // When the image loads
-    img.addEventListener('load', () => {
-      setTimeout(() => {
-        figure.classList.add('loaded');
-      }, index * 100);
-    });
-
-    // Add click event to open modal
-    figure.addEventListener('click', () => {
-      const imageUrl = figure.getAttribute('data-image');
-      const alt = figure.getAttribute('data-alt');
-      if (imageUrl && alt) {
-        openModal(imageUrl, alt);
-      }
-    });
-
-    // Si la imagen ya está cargada (desde caché)
-    if (img.complete) {
-      setTimeout(() => {
-        figure.classList.add('loaded');
-      }, index * 100);
-    }
-  });
-
-  // Observer for progressive appearance
-  const observer = createIntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const figure = entry.target;
-        const img = figure.querySelector('img');
-        if (img && img.complete) {
-          figure.classList.add('loaded');
-        }
-        observer.unobserve(figure);
-      }
-    });
-  });
-
-  // Observe all figures
-  document.querySelectorAll('.gallery-grid-item').forEach(figure => {
-    observer.observe(figure);
-  });
-
-  // Handle shared images
-  window.addEventListener('load', () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const sharedImageUrl = urlParams.get('image');
-    handleSharedImage(sharedImageUrl, openModal);
-  });
-</script>
-
-<style>
-  @media (min-width: 768px) {
-    .gallery-section figure:nth-child(3n+1) {
-      grid-column: span 1;
-    }
-    
-    .gallery-section figure:nth-child(3n+2) {
-      grid-column: span 1;
-    }
-    
-    .gallery-section figure:nth-child(3n) {
-      grid-column: span 1;
+      transform: none;
+      transition: none;
     }
   }
 </style>
-

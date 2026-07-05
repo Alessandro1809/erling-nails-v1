@@ -1,149 +1,60 @@
 ---
-import ShareIcon from './icons/ShareIcon.astro'
-import StellarIcon from './icons/Stellar.svg'
-import { Image } from 'astro:assets';
+import { Image } from "astro:assets";
+import icon from "@/assets/ENWhite.png";
 ---
 
-<style>
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .footer-animate {
-    animation: fadeInUp 0.6s ease-out forwards;
-  }
-
-  .footer-animate-delay-1 {
-    animation-delay: 0.2s;
-  }
-
-  .footer-animate-delay-2 {
-    animation-delay: 0.4s;
-  }
-
-  .footer-animate-delay-3 {
-    animation-delay: 0.6s;
-  }
-</style>
-
-<script>
-  const handleShare = async () => {
-    try {
-      const shareData = {
-        title: 'Erling Nails - Diseño de uñas',
-        text: 'Visita el sitio web de Erling Nails para ver nuestros hermosos diseños de uñas',
-        url: window.location.href
-      };
-
-      if (navigator.share) {
-        await navigator.share(shareData);
-      } else {
-        await navigator.clipboard.writeText(shareData.url);
-        alert('¡Enlace copiado al portapapeles!');
-      }
-    } catch (error) {
-      console.error('Error al compartir:', error);
-    }
-  };
-
-  document.querySelector('#share-button')?.addEventListener('click', handleShare);
-</script>
-
-<footer class="text-theme-white bg-black relative -z-10">
-  <div class="absolute -top-2 left-0 w-full h-12 bg-theme-white rounded-b-[100%] z-0"></div>
-  
-  <section class="container mx-auto px-4 py-8">
-    <div class="flex flex-col items-center justify-center h-full pt-16 footer-animate">
-      <h2 class="text-4xl md:text-5xl font-bold mb-4 font-special tracking-wider text-center">
-        <span class="bg-gradient-to-r from-theme-red to-[#7a00b3] bg-clip-text text-transparent">Erling Nails</span>
-        </br> 
-        <span class="text-2xl md:text-3xl">Expert in acrylic nails, gel and much more</span>
-      </h2>
-  
-      <p class="text-center mt-4 text-sm md:text-base">
-        &copy; 2023 Erling Nails. All rights reserved.
-      </p>
-      <p class="text-center my-4 text-sm md:text-base px-4">
-        If you liked my content, feel free to leave a review on our social media and share our website.   
-      </p>
-  
-      <button 
-        id="share-button"
-        class="flex items-center justify-center hover:scale-105 transition-all duration-300 hover:cursor-pointer"
-        aria-label="Compartir sitio web"
-      >
-        <ShareIcon class="w-10 h-10 md:w-12 md:h-12 mt-4" />
-      </button>
-    </div>
-  
-    <div class="flex flex-col md:flex-row justify-between mt-8 gap-8">
-      <div class="space-y-6 footer-animate footer-animate-delay-1">
-        <nav aria-label="Footer navigation">
-          <h3 class="text-2xl font-special mb-4 bg-gradient-to-r from-theme-red to-[#7a00b3] bg-clip-text text-transparent">
-            Quick Links
-          </h3>
-          <ul class="flex flex-col space-y-2">
-            <li><a href="/NailGallery" class="hover:text-theme-red transition-colors">Gallery</a></li>
-            <li><a href="/About" class="hover:text-theme-red transition-colors">About</a></li>
-          </ul>
-        </nav>
-  
-        <section itemscope itemtype="https://schema.org/LocalBusiness" class="space-y-4">
-          <meta itemprop="name" content="Erling Nails" />
-          <meta itemprop="image" content="https://erling-nails-v1.pages.dev/EN.png" />
-          <meta itemprop="description" content="Professional manicure and pedicure in Playas del Coco, Guanacaste. Unique designs, personalized attention and results that you'll love." />
-          <meta itemprop="url" content="https://erling-nails-v1.pages.dev" />
-  
-          <h3 class="text-2xl font-special mb-4 bg-gradient-to-r from-theme-red to-[#7a00b3] bg-clip-text text-transparent">
-            Location
-          </h3>
-
-          <address itemprop="address" itemscope itemtype="https://schema.org/PostalAddress" class="not-italic">
-            <p class="text-sm md:text-base"><strong>Address:</strong> 
-              <span itemprop="streetAddress">Five Star Salón & Spa</span>, 
-              <span itemprop="addressLocality">Playas del Coco</span>, 
-              <span itemprop="addressRegion">Guanacaste</span>, 
-              <span itemprop="addressCountry">Costa Rica</span>
-            </p>
-          </address>
-  
-          <div itemprop="geo" itemscope itemtype="https://schema.org/GeoCoordinates">
-            <meta itemprop="latitude" content="10.55069" />
-            <meta itemprop="longitude" content="-85.69696" />
-          </div>
-  
-          <p class="text-sm md:text-base"><strong>Phone:</strong> <a href="tel:+50670967912" itemprop="telephone" class="hover:text-theme-red transition-colors">(+506) 7096 7912</a></p>
-  
-          <div itemprop="contactPoint" itemscope itemtype="https://schema.org/ContactPoint">
-            <meta itemprop="contactType" content="customer service" />
-            <meta itemprop="telephone" content="+50670967912" />
-            <meta itemprop="areaServed" content="CR" />
-            <meta itemprop="availableLanguage" content="Spanish" />
-            <meta itemprop="availableLanguage" content="English" />
-          </div>
-  
-          <div class="space-y-2">
-            <h3 class="text-2xl font-special mb-4 bg-gradient-to-r from-theme-red to-[#7a00b3] bg-clip-text text-transparent">
-              Social Media
-            </h3>
-            <a href="https://www.facebook.com/share/1AZsuy7ysc/" itemprop="sameAs" class="hover:text-theme-red transition-colors">Facebook</a>
-          </div>
-        </section>
+<footer class="footer-shell bg-[#171313] text-[#f7f5f2]">
+  <section class="mx-auto grid max-w-6xl gap-12 px-4 py-16 md:grid-cols-[1.15fr_0.85fr] md:py-24">
+    <div>
+      <div class="mb-8 flex items-center gap-3">
+        <span class="grid h-11 w-11 place-items-center rounded-full bg-[#8f1713]">
+          <Image src={icon} alt="" class="h-7 w-auto" />
+        </span>
+        <span class="text-lg font-semibold">Erling Nails</span>
       </div>
-  
-      <div class="flex items-center justify-center md:justify-end pt-4 md:pt-0 border-t md:border-t-0 border-gray-800 footer-animate footer-animate-delay-2">
-        <a class="font-special flex items-center text-sm md:text-base hover:text-theme-red transition-colors" href="https://www.stellarcr.net">
-          Powered by <Image src={StellarIcon} alt="Web design by Stellar" class="mx-2 w-auto h-6" />
+      <h2 class="max-w-3xl text-balance text-4xl font-semibold leading-[1.05] tracking-[-0.03em] md:text-6xl">
+        Manicure and pedicure care in Playas del Coco.
+      </h2>
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+        <a
+          href="https://wa.link/8xem3n"
+          target="_blank"
+          rel="noreferrer"
+          class="group inline-flex h-12 w-max items-center gap-2 rounded-full bg-[#f7f5f2] py-1 pl-6 pr-1 text-sm font-semibold text-[#171313] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 active:scale-[0.98]"
+        >
+          <span>Book Now</span>
+          <span class="grid h-10 w-10 place-items-center rounded-full bg-[#8f1713] text-[#f7f5f2] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+            <span aria-hidden="true">↗</span>
+          </span>
         </a>
+        <a
+          href="/NailGallery"
+          class="inline-flex h-12 w-max items-center rounded-full border border-[#f7f5f2]/22 px-6 text-sm font-semibold text-[#f7f5f2] transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:border-[#f7f5f2]/60"
+        >
+          View Work
+        </a>
+      </div>
+    </div>
+
+    <div class="grid content-end gap-8 text-sm text-[#d8d0ca]">
+      <div class="grid gap-3">
+        <p class="font-semibold text-[#f7f5f2]">Location</p>
+        <address class="not-italic leading-7">
+          Five Star Salón & Spa<br />
+          Playas del Coco, Guanacaste<br />
+          Costa Rica
+        </address>
+      </div>
+      <div class="grid gap-3">
+        <p class="font-semibold text-[#f7f5f2]">Contact</p>
+        <a class="transition-colors hover:text-[#f7f5f2]" href="tel:+50670967912">(+506) 7096 7912</a>
+        <a class="transition-colors hover:text-[#f7f5f2]" href="https://www.facebook.com/share/1AZsuy7ysc/" target="_blank" rel="noreferrer">Facebook</a>
+      </div>
+      <div class="flex flex-wrap gap-x-6 gap-y-2 border-t border-[#f7f5f2]/12 pt-6 text-xs text-[#bfb6af]">
+        <span>© 2026 Erling Nails</span>
+        <a class="transition-colors hover:text-[#f7f5f2]" href="/About">About</a>
+        <a class="transition-colors hover:text-[#f7f5f2]" href="/NailGallery">Gallery</a>
       </div>
     </div>
   </section>
 </footer>
-  

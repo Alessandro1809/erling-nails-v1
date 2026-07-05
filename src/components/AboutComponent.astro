@@ -1,199 +1,388 @@
 ---
-import type { SocialLink, Service } from '@/utils/AboutComponent.data';
-import { socialLinks, services } from '@/utils/AboutComponent.data';
-import { Image } from 'astro:assets';
-import AboutImage from '../assets/AboutImage.jpeg';
+import { Image } from "astro:assets";
+import AboutImage from "../assets/AboutImage.jpeg";
+
+const principles = [
+  {
+    title: "Steady technique",
+    body: "Classic manicure and pedicure foundations refined through years of hands-on care.",
+  },
+  {
+    title: "Personal references",
+    body: "Each set starts with your shape, color, lifestyle, and the finish you want to keep looking at.",
+  },
+  {
+    title: "Clean finish",
+    body: "Calm pacing, careful prep, and detailed edges so the final result feels polished up close.",
+  },
+];
+
+const services = [
+  {
+    title: "Manicure",
+    body: "Prep, shape, cuticle care, color, and detail work for everyday or statement finishes.",
+  },
+  {
+    title: "Pedicure",
+    body: "Foot care, nail shaping, polish, and comfort-focused finishing for sandal weather.",
+  },
+  {
+    title: "Nail art",
+    body: "Reference-led color, line work, accents, and custom details for a look that feels yours.",
+  },
+];
 ---
 
-<section class="relative py-20">
-  <!-- Botón Flotante para Volver -->
-  <a 
-    href="/" 
-    class="fixed bottom-8 right-8 bg-gradient-to-r from-theme-red to-[#7a00b3] text-white p-4 rounded-full shadow-lg hover:scale-110 transition-all duration-300 z-50 group"
-    aria-label="Volver a la página principal"
-  >
-    <svg 
-      xmlns="http://www.w3.org/2000/svg" 
-      class="h-6 w-6 transform group-hover:-translate-x-1 transition-transform duration-300" 
-      fill="none" 
-      viewBox="0 0 24 24" 
-      stroke="currentColor"
-    >
-      <path 
-        stroke-linecap="round" 
-        stroke-linejoin="round" 
-        stroke-width="2" 
-        d="M10 19l-7-7m0 0l7-7m-7 7h18"
-      />
-    </svg>
-  </a>
+<main class="about-page bg-[#f7f5f2] text-[#171313]">
+  <section class="about-hero px-4 pb-20 pt-24 md:pb-24 md:pt-24 lg:pb-28">
+    <div class="about-frame about-hero-grid mx-auto">
+      <div class="about-reveal about-hero-copy">
+        <p class="mb-5 w-max rounded-full border border-[#171313]/12 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#5d5350]">
+          About Erling
+        </p>
+        <h1 class="about-hero-title max-w-4xl text-balance font-semibold leading-[0.94] tracking-[-0.045em]">
+          Meet Erling.
+        </h1>
+        <p class="mt-6 max-w-[56ch] text-pretty text-lg leading-8 text-[#5d5350]">
+          Detail-led manicures, pedicures, and nail art in Playas del Coco.
+        </p>
 
-  <article class="container mx-auto px-4" data-aos="fade-in">
-    <!-- Header -->
-    <header class="text-center md:text-left mb-16">
-      <main class="flex flex-col md:grid md:grid-cols-2 gap-8 items-center">
-        <!-- Mobile image -->
-        <figure class="md:hidden w-52 h-52 mx-auto mb-6 rounded-full bg-gradient-to-r from-theme-red to-[#7a00b3] p-2 shadow-xl animate-glow transform hover:scale-[1.02] transition-transform duration-500">
-          <div class="w-full h-full rounded-full overflow-hidden">
-            <Image 
-              src={AboutImage}
-              alt="Erling working on a nail design"
-              class="w-full h-full object-cover transition-opacity duration-300"
-              width={208}
-              height={208}
-              loading="eager"
-            />
-          </div>
-        </figure>
-
-        <!-- Desktop image -->
-        <figure class="hidden md:block w-full aspect-square max-w-[400px] rounded-full bg-gradient-to-r from-theme-red to-[#7a00b3] p-2.5 shadow-xl animate-glow transform hover:scale-[1.02] transition-transform duration-500">
-          <div class="w-full h-full rounded-full overflow-hidden">
-            <Image 
-              src={AboutImage}
-              alt="Erling working on a nail design"
-              class="w-full h-full object-cover transition-opacity duration-300"
-              width={400}
-              height={400}
-              loading="eager"
-            />
-          </div>
-        </figure>
-
-        <article>
-          <h1 class="font-special text-5xl md:text-7xl mb-6">
-            Hi, I'm 
-            <span class="bg-gradient-to-r from-theme-red to-[#7a00b3] bg-clip-text text-transparent">Erling</span>
-          </h1>
-          <p class="text-xl text-gray-600 max-w-5xl mx-auto m-6">
-            With over a decade immersed in the world of hand and foot care, I've focused on perfecting every skill, covering both traditional techniques that always work and the latest industry innovations. I'm committed to delivering first-class, customized service with attention to every detail, ensuring each person feels unique and completely satisfied with the result.
-          </p>
-          <p class="text-xl text-gray-600 max-w-5xl mx-auto">
-            I firmly believe that continuous training is essential to give my best, so I stay up-to-date by participating in courses, seminars, and training that help me develop professionally and enhance the experience of those who trust in me. Here, I not only beautify your nails but also value your time, enhance your personal style, and promote your overall well-being.
-          </p>
-        </article>
-      </main>
-    </header>
-
-    <!-- Services Grid -->
-    <section class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-      {services.map((service: Service) => (
-        <article class="bg-white p-8 rounded-lg shadow-lg transform hover:-translate-y-1 transition-all duration-300">
-          <div class="text-theme-red mb-4" set:html={service.icon} />
-          <h2 class="text-2xl font-special mb-4">{service.name}</h2>
-          <p class="text-gray-600">{service.description}</p>
-        </article>
-      ))}
-    </section>
-
-    <!-- Contact Information -->
-    <section class="bg-white rounded-2xl shadow-xl overflow-hidden">
-      <div class="grid md:grid-cols-2">
-        <!-- Image -->
-        <figure class="relative h-64 md:h-auto">
-          <img 
-            src="https://res.cloudinary.com/drwd1wtvt/image/upload/v1725497288/unas4_pawj3w.jpg"
-            alt="Erling Nails workspace"
-            class="absolute inset-0 w-full h-full object-cover"
-          />
-        </figure>
-
-        <!-- Information -->
-        <article id="contact" class="p-12">
-          <h2 class="font-special text-4xl mb-6">Contact Me</h2>
-          
-          <address class="space-y-6 not-italic">
-            <!-- Location -->
-            <div class="flex items-start space-x-4">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-theme-red flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-              </svg>
-              <div>
-                <h3 class="font-semibold text-lg">Location</h3>
-                <p class="text-gray-600">Playas del Coco, Guanacaste<br/>Costa Rica</p>
-              </div>
-            </div>
-
-            <!-- Schedule -->
-            <div class="flex items-start space-x-4">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-theme-red flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-              </svg>
-              <div>
-                <h3 class="font-semibold text-lg">Hours</h3>
-                <p class="text-gray-600">
-                  Monday to Saturday<br/>
-                  9:00 AM - 6:00 PM
-                </p>
-              </div>
-            </div>
-
-            <!-- Social Media -->
-            <nav class="flex items-center space-x-4 pt-4">
-              {socialLinks.map((link: SocialLink) => (
-                <a 
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-gray-600 hover:text-theme-red transition-colors duration-300"
-                  aria-label={`Follow us on ${link.name}`}
-                  set:html={link.icon}
-                />
-              ))}
-            </nav>
-          </address>
-        </article>
+        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+          <a
+            href="https://wa.link/8xem3n"
+            target="_blank"
+            rel="noreferrer"
+            class="group inline-flex h-12 w-max items-center gap-2 rounded-full bg-[#171313] py-1 pl-6 pr-1 text-sm font-semibold text-[#f7f5f2] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 active:scale-[0.98]"
+          >
+            <span>Book Now</span>
+            <span class="grid h-10 w-10 place-items-center rounded-full bg-[#8f1713] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+              <span aria-hidden="true">↗</span>
+            </span>
+          </a>
+          <a
+            href="/NailGallery"
+            class="inline-flex h-12 w-max items-center rounded-full border border-[#171313]/14 px-6 text-sm font-semibold text-[#171313] transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:border-[#171313]/45"
+          >
+            View Gallery
+          </a>
+        </div>
       </div>
-    </section>
-  </article>
-</section>
+
+      <div class="about-reveal about-media-shell rounded-[2rem] bg-[#171313]/5 p-2 ring-1 ring-[#171313]/7">
+        <div class="about-media-core relative overflow-hidden rounded-[calc(2rem-0.5rem)] bg-[#ded8d0] shadow-[inset_0_1px_0_rgba(255,255,255,0.55)]">
+          <Image
+            src={AboutImage}
+            alt="Erling preparing a nail service"
+            width={1200}
+            height={1208}
+            loading="eager"
+            class="about-hero-image h-full w-full object-cover"
+          />
+          <div class="absolute bottom-4 left-4 right-4 grid gap-2 rounded-2xl bg-[#171313]/86 p-4 text-[#f7f5f2] shadow-[0_16px_48px_rgba(23,19,19,0.22)] md:left-auto md:w-64">
+            <p class="text-4xl font-semibold tracking-[-0.04em]">10+</p>
+            <p class="text-sm leading-6 text-[#d8d0ca]">Years focused on hand and foot care.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-4 pb-20 md:pb-28">
+    <div class="about-frame mx-auto grid gap-6 md:grid-cols-[0.72fr_1.28fr]">
+      <div class="about-reveal">
+        <h2 class="text-balance text-4xl font-semibold leading-[1.04] tracking-[-0.03em] md:text-6xl">
+          Built around trust, not rush.
+        </h2>
+      </div>
+      <div class="about-reveal grid gap-5 text-lg leading-8 text-[#5d5350]">
+        <p>
+          Erling brings more than a decade of manicure and pedicure experience to a quiet, appointment-led service in Playas del Coco.
+        </p>
+        <p>
+          The work combines reliable traditional care with current nail art references, so every appointment feels considered from prep to final shine.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-4 pb-20 md:pb-28">
+    <div class="about-frame about-principles-grid mx-auto">
+      <article class="about-reveal about-principles-lead rounded-2xl bg-[#171313] p-6 text-[#f7f5f2] md:p-8">
+        <div class="flex h-full flex-col justify-between gap-10">
+          <div>
+            <h2 class="max-w-sm text-balance text-4xl font-semibold leading-[1.04] tracking-[-0.03em] md:text-5xl">
+              What shapes the appointment.
+            </h2>
+            <p class="mt-6 max-w-[40ch] text-sm leading-7 text-[#d8d0ca]">
+              A strong set is not only color. It is prep, proportion, wearability, and a finish that looks clean in real life.
+            </p>
+          </div>
+
+          <div class="flex flex-col gap-3 sm:flex-row">
+            <a
+              href="https://wa.link/8xem3n"
+              target="_blank"
+              rel="noreferrer"
+              class="group inline-flex h-12 w-max items-center gap-2 rounded-full bg-[#f7f5f2] py-1 pl-6 pr-1 text-sm font-semibold text-[#171313] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 active:scale-[0.98]"
+            >
+              <span>Book Now</span>
+              <span class="grid h-10 w-10 place-items-center rounded-full bg-[#8f1713] text-[#f7f5f2] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                <span aria-hidden="true">↗</span>
+              </span>
+            </a>
+            <a
+              href="/NailGallery"
+              class="inline-flex h-12 w-max items-center rounded-full border border-[#f7f5f2]/18 px-6 text-sm font-semibold text-[#f7f5f2] transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:border-[#f7f5f2]/48 active:scale-[0.98]"
+            >
+              View Gallery
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <div class="about-principles-list">
+        {principles.map((item) => (
+          <article class="about-reveal about-principle-card rounded-2xl border border-[#171313]/9 bg-white/62 p-6 shadow-[0_18px_60px_rgba(23,19,19,0.06)] md:p-7">
+            <h3 class="text-2xl font-semibold leading-tight tracking-[-0.02em]">{item.title}</h3>
+            <p class="mt-3 max-w-[54ch] text-sm leading-7 text-[#5d5350]">{item.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="px-4 pb-20 md:pb-28">
+    <div class="about-frame mx-auto">
+      <div class="about-reveal mb-8 max-w-3xl">
+        <h2 class="text-balance text-4xl font-semibold leading-[1.04] tracking-[-0.03em] md:text-6xl">
+          Services with a clear role.
+        </h2>
+        <p class="mt-5 max-w-[58ch] text-lg leading-8 text-[#5d5350]">
+          Choose the care you need, then bring a color, texture, or reference image to guide the final look.
+        </p>
+      </div>
+
+      <div class="grid gap-3 md:grid-cols-[1.1fr_0.9fr_1fr]">
+        {services.map((service, index) => (
+          <article class:list={[
+            "about-reveal rounded-2xl p-6 md:p-8",
+            index === 1
+              ? "bg-[#e8e3de] text-[#171313]"
+              : "border border-[#171313]/9 bg-white/62 text-[#171313] shadow-[0_18px_60px_rgba(23,19,19,0.06)]",
+          ]}>
+            <h3 class="text-3xl font-semibold tracking-[-0.03em]">{service.title}</h3>
+            <p class="mt-4 text-sm leading-7 text-[#5d5350]">{service.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="px-4 pb-24">
+    <div class="about-frame about-reveal mx-auto grid overflow-hidden rounded-[2rem] bg-[#171313] p-2 text-[#f7f5f2] md:grid-cols-[0.95fr_1.05fr]">
+      <figure class="relative min-h-[340px] overflow-hidden rounded-[calc(2rem-0.5rem)] bg-[#0f0d0d] md:min-h-[560px]">
+        <img
+          src="https://res.cloudinary.com/drwd1wtvt/image/upload/v1725497288/unas4_pawj3w.jpg"
+          alt="Finished nail design by Erling Nails"
+          width="1200"
+          height="1500"
+          loading="lazy"
+          class="absolute inset-0 h-full w-full object-cover"
+        />
+      </figure>
+
+      <div class="grid content-between gap-10 p-6 md:p-10 lg:p-14">
+        <div>
+          <h2 class="max-w-2xl text-balance text-4xl font-semibold leading-[1.04] tracking-[-0.03em] md:text-6xl">
+            Book with a reference, leave with your version.
+          </h2>
+          <p class="mt-5 max-w-[52ch] text-lg leading-8 text-[#d8d0ca]">
+            Send the image or idea before your appointment and confirm the best service for your nails.
+          </p>
+        </div>
+
+        <address class="grid gap-6 not-italic text-sm leading-7 text-[#d8d0ca] sm:grid-cols-2">
+          <div>
+            <p class="font-semibold text-[#f7f5f2]">Location</p>
+            <p class="mt-2">
+              Five Star Salon & Spa<br />
+              Playas del Coco, Guanacaste<br />
+              Costa Rica
+            </p>
+          </div>
+          <div>
+            <p class="font-semibold text-[#f7f5f2]">Hours</p>
+            <p class="mt-2">
+              Monday to Saturday<br />
+              9:00 AM - 6:00 PM
+            </p>
+          </div>
+          <div>
+            <p class="font-semibold text-[#f7f5f2]">Phone</p>
+            <a class="mt-2 block transition-colors hover:text-[#f7f5f2]" href="tel:+50670967912">
+              (+506) 7096 7912
+            </a>
+          </div>
+          <div>
+            <p class="font-semibold text-[#f7f5f2]">Social</p>
+            <a class="mt-2 block transition-colors hover:text-[#f7f5f2]" href="https://www.facebook.com/share/1AZsuy7ysc/" target="_blank" rel="noreferrer">
+              Facebook
+            </a>
+          </div>
+        </address>
+
+        <a
+          href="https://wa.link/8xem3n"
+          target="_blank"
+          rel="noreferrer"
+          class="group inline-flex h-12 w-max items-center gap-2 rounded-full bg-[#f7f5f2] py-1 pl-6 pr-1 text-sm font-semibold text-[#171313] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 active:scale-[0.98]"
+        >
+          <span>Book Now</span>
+          <span class="grid h-10 w-10 place-items-center rounded-full bg-[#8f1713] text-[#f7f5f2] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+            <span aria-hidden="true">↗</span>
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+  const revealItems = document.querySelectorAll<HTMLElement>(".about-reveal");
+
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add("is-visible");
+      revealObserver.unobserve(entry.target);
+    });
+  }, {
+    rootMargin: "120px 0px",
+    threshold: 0.12,
+  });
+
+  revealItems.forEach((item) => revealObserver.observe(item));
+</script>
 
 <style>
-  .container {
-    max-width: 1280px;
+  .about-page {
+    min-height: 100dvh;
   }
 
-  @keyframes glow {
-    0%, 100% {
-      box-shadow: 0 0 15px rgba(255, 41, 117, 0.3),
-                  0 0 30px rgba(255, 41, 117, 0.2),
-                  0 0 45px rgba(122, 0, 179, 0.1);
-    }
-    50% {
-      box-shadow: 0 0 20px rgba(255, 41, 117, 0.4),
-                  0 0 40px rgba(255, 41, 117, 0.3),
-                  0 0 60px rgba(122, 0, 179, 0.2);
-    }
+  .about-frame {
+    max-width: 72rem;
   }
 
-  .animate-glow {
-    animation: glow 3s ease-in-out infinite;
+  .about-hero-grid {
+    display: grid;
+    gap: clamp(2rem, 4vw, 4.75rem);
+    min-height: min(720px, calc(100dvh - 116px));
+    align-items: center;
+  }
+
+  .about-hero-copy {
+    max-width: 42rem;
+    padding-block: clamp(1rem, 4vh, 3.5rem);
+  }
+
+  .about-hero-title {
+    font-size: clamp(3.75rem, 4.8vw, 5.75rem);
+  }
+
+  .about-media-shell {
+    width: 100%;
+  }
+
+  .about-media-core {
+    height: clamp(480px, calc(100dvh - 184px), 720px);
+  }
+
+  .about-hero-image {
+    object-position: 52% 44%;
+  }
+
+  .about-principles-grid {
+    display: grid;
+    gap: 0.875rem;
+  }
+
+  .about-principles-lead {
+    min-height: 420px;
+  }
+
+  .about-principles-list {
+    display: grid;
+    gap: 0.875rem;
+  }
+
+  .about-principle-card {
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .about-reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+      opacity 820ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 820ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .about-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .animate-glow {
-      animation: none;
-      box-shadow: 0 0 15px rgba(255, 41, 117, 0.3),
-                  0 0 30px rgba(255, 41, 117, 0.2),
-                  0 0 45px rgba(122, 0, 179, 0.1);
+    .about-reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .about-principles-grid {
+      grid-template-columns: minmax(0, 1.03fr) minmax(390px, 0.97fr);
+      align-items: stretch;
+    }
+
+    .about-principles-list {
+      grid-template-rows: repeat(3, minmax(0, 1fr));
+    }
+
+    .about-principle-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+  }
+
+  @media (min-width: 900px) {
+    .about-hero-grid {
+      grid-template-columns: minmax(0, 0.86fr) minmax(480px, 1.14fr);
+    }
+  }
+
+  @media (max-width: 767px) {
+    .about-hero-grid {
+      min-height: auto;
+    }
+
+    .about-hero-title {
+      font-size: clamp(3.25rem, 15vw, 5rem);
+    }
+
+    .about-media-core {
+      height: auto;
+    }
+
+    .about-hero-image {
+      aspect-ratio: 1 / 1.05;
+    }
+
+    .about-principles-lead {
+      min-height: 360px;
     }
   }
 </style>
-
-<script>
-  document.addEventListener('astro:page-load', () => {
-    const images = document.querySelectorAll('.image-fade');
-    images.forEach(img => {
-      if (img instanceof HTMLImageElement) {
-        if (img.complete) {
-          img.classList.add('loaded');
-        } else {
-          img.addEventListener('load', () => {
-            img.classList.add('loaded');
-          });
-        }
-      }
-    });
-  });
-</script> 

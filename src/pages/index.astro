@@ -1,28 +1,492 @@
 ---
-import Layout from '@/layouts/Layout.astro';
-import Bento from '@/components/Bento.astro';
-import Gallery from '@/components/Gallery.astro';
-import Quotes from '@/components/Quotes.astro';
-import Contact from '@/components/Contact.astro';
-import HeroSection from '@/components/HeroSection.astro';
-import CallToAction from '@/components/CallToAction.astro';
-import MobileFeatureGrid from '@/components/MobileFeatureGrid.astro';
+import { Image } from "astro:assets";
+import Layout from "@/layouts/Layout.astro";
+import HeroVideo from "@/assets/video/HeroVideo.webm";
+import AboutImage from "@/assets/AboutImage.jpeg";
+import { fetchGalleryImages } from "@/utils/gallery.utils";
+import { defaultImage } from "@/utils/gallery.types";
 
+const { data = [] } = await fetchGalleryImages(Astro.url);
+const galleryImages = data.length > 0
+  ? data.slice(0, 8)
+  : Array.from({ length: 8 }, (_, index) => ({
+      ...defaultImage,
+      alt: `${defaultImage.alt} ${index + 1}`,
+    }));
+
+const heroImage = galleryImages[0] || defaultImage;
+const featureImages = [
+  galleryImages[1] || defaultImage,
+  galleryImages[2] || defaultImage,
+  galleryImages[3] || defaultImage,
+];
+
+const services = [
+  {
+    title: "Custom Nail Art",
+    body: "Detailed designs shaped around your style, occasion, and nail length.",
+  },
+  {
+    title: "Acrylic and Gel",
+    body: "Clean structure, careful prep, and finishes that keep their shape.",
+  },
+  {
+    title: "Manicure and Pedicure",
+    body: "Hands and feet treated with steady detail in one calm appointment.",
+  },
+  {
+    title: "Color Guidance",
+    body: "Polish choices, shape advice, and finish recommendations before the work starts.",
+  },
+];
+
+const story = [
+  {
+    title: "Prep with care",
+    body: "The appointment starts with nail health, shape, and the small details that decide how the finish wears.",
+  },
+  {
+    title: "Design with restraint",
+    body: "Fine lines, clean color, and controlled shine keep the final look personal without feeling overdone.",
+  },
+  {
+    title: "Leave ready",
+    body: "You leave with the location, care notes, and a direct WhatsApp line for your next visit.",
+  },
+];
+
+const reviews = [
+  {
+    quote: "My nails last for weeks, and the design always feels personal.",
+    name: "Camila R.",
+  },
+  {
+    quote: "Clean space, calm attention, and beautiful detail every time.",
+    name: "Valentina M.",
+  },
+  {
+    quote: "I found the manicurist I trust in Playas del Coco.",
+    name: "Andrea L.",
+  },
+];
 ---
 
 <Layout>
-  <main>
-    <HeroSection />
-    <div class="hidden md:block">
-      <Bento />
-    </div>
-    <div class="md:hidden">
-      <MobileFeatureGrid />
-    </div>
-    <Gallery />
-    
-    <Quotes />
-    <CallToAction />
-    <Contact />
+  <main class="premium-home w-full">
+    <section class="hero-stage relative isolate min-h-[100dvh] overflow-hidden bg-[#171313] text-[#f7f5f2]">
+      <video
+        class="hero-video absolute inset-0 h-full w-full object-cover opacity-58"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        aria-hidden="true"
+      >
+        <source src={HeroVideo} type="video/webm" />
+      </video>
+      <div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(23,19,19,0.90),rgba(23,19,19,0.52)_48%,rgba(23,19,19,0.26))]"></div>
+      <div class="absolute inset-x-0 bottom-0 h-44 bg-[linear-gradient(0deg,#171313,rgba(23,19,19,0))]"></div>
+
+      <div class="relative z-10 mx-auto grid min-h-[100dvh] max-w-6xl items-start gap-10 px-4 pb-16 pt-40 md:grid-cols-[1.05fr_0.95fr] md:items-center md:pt-24">
+        <div class="hero-copy max-w-4xl">
+          <p class="hero-kicker mb-5 w-max rounded-full border border-[#f7f5f2]/20 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#e8e3de]">
+            Playas del Coco
+          </p>
+          <h1 class="max-w-5xl text-balance text-[clamp(3.1rem,6.4vw,5.7rem)] font-semibold leading-[0.98] tracking-[-0.035em]">
+            Nails in Playas del Coco.
+          </h1>
+          <p class="mt-6 max-w-[58ch] text-pretty text-lg leading-8 text-[#e8e3de] md:text-xl">
+            Manicure, pedicure, acrylic and gel work in Guanacaste with direct booking through WhatsApp.
+          </p>
+          <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+            <a
+              href="https://wa.link/8xem3n"
+              target="_blank"
+              rel="noreferrer"
+              class="group inline-flex h-13 w-max items-center gap-2 rounded-full bg-[#f7f5f2] py-1 pl-6 pr-1 text-sm font-semibold text-[#171313] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 active:scale-[0.98]"
+            >
+              <span>Book Now</span>
+              <span class="grid h-11 w-11 place-items-center rounded-full bg-[#8f1713] text-[#f7f5f2] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                <span aria-hidden="true">↗</span>
+              </span>
+            </a>
+            <a
+              href="/NailGallery"
+              class="inline-flex h-13 w-max items-center rounded-full border border-[#f7f5f2]/24 px-6 text-sm font-semibold text-[#f7f5f2] transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:border-[#f7f5f2]/70"
+            >
+              View Work
+            </a>
+          </div>
+        </div>
+
+        <figure class="hero-media hidden md:block">
+          <div class="media-shell">
+            <Image
+              src={heroImage.url}
+              alt={heroImage.alt}
+              width={920}
+              height={1120}
+              class="h-[64dvh] min-h-[520px] w-full rounded-lg object-cover"
+              loading="eager"
+            />
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section-shell bg-[#f7f5f2] px-4 py-24 md:py-32" data-reveal>
+      <div class="mx-auto grid max-w-6xl gap-10 md:grid-cols-[0.9fr_1.1fr] md:items-end">
+        <div>
+          <h2 class="max-w-2xl text-balance text-4xl font-semibold leading-[1.02] tracking-[-0.03em] md:text-6xl">
+            Care that looks polished up close.
+          </h2>
+          <p class="mt-5 max-w-[62ch] text-lg leading-8 text-[#5d5350]">
+            Choose the service, share the look you want, and book directly when the timing works.
+          </p>
+        </div>
+        <div class="grid gap-3 sm:grid-cols-2">
+          {services.map((service) => (
+            <article class="service-tile rounded-lg border border-[#171313]/10 bg-white p-6">
+              <h3 class="text-xl font-semibold tracking-[-0.01em]">{service.title}</h3>
+              <p class="mt-4 text-sm leading-7 text-[#5d5350]">{service.body}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="gallery-chapter bg-[#f7f5f2] px-4 pb-24 md:pb-36" data-reveal>
+      <div class="mx-auto max-w-6xl">
+        <div class="mb-10 flex flex-col justify-between gap-5 md:flex-row md:items-end">
+          <div>
+            <h2 class="text-balance text-4xl font-semibold leading-[1.04] tracking-[-0.03em] md:text-6xl">
+              Recent work with real detail.
+            </h2>
+            <p class="mt-4 max-w-[58ch] text-lg leading-8 text-[#5d5350]">
+              Browse real appointments before choosing your shape, color, and finish.
+            </p>
+          </div>
+          <a href="/NailGallery" class="inline-flex h-12 w-max items-center rounded-full bg-[#171313] px-6 text-sm font-semibold text-[#f7f5f2] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 active:scale-[0.98]">
+            View Work
+          </a>
+        </div>
+
+        <div class="gallery-grid grid auto-rows-[180px] grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-4 md:auto-rows-[170px]">
+          {galleryImages.slice(0, 7).map((image, index) => (
+            <figure class:list={[
+              "work-frame group relative overflow-hidden rounded-lg bg-[#e8e3de]",
+              index === 0 && "md:col-span-2 md:row-span-2",
+              index === 3 && "md:row-span-2",
+              index === 5 && "md:col-span-2",
+            ]}>
+              <Image
+                src={image.url}
+                alt={image.alt}
+                width={900}
+                height={900}
+                loading={index < 2 ? "eager" : "lazy"}
+                class="h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105"
+              />
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="service-story relative bg-[#171313] px-4 py-24 text-[#f7f5f2] md:py-32">
+      <div class="mx-auto grid max-w-6xl gap-12 md:grid-cols-[0.88fr_1.12fr] md:items-start">
+        <div class="story-pin md:sticky md:top-28">
+          <div class="max-w-xl">
+            <h2 class="text-balance text-4xl font-semibold leading-[1.02] tracking-[-0.03em] md:text-6xl">
+              A calmer way to book beauty.
+            </h2>
+            <p class="mt-6 text-lg leading-8 text-[#d8d0ca]">
+              From prep to finish, each step is handled with enough calm to protect the detail.
+            </p>
+          </div>
+        </div>
+
+        <div class="story-rail grid gap-5">
+          {story.map((item, index) => (
+            <article class="story-card rounded-lg border border-[#f7f5f2]/12 bg-[#211c1a] p-4 md:p-5">
+              <div class="grid gap-5 md:grid-cols-[0.8fr_1.2fr] md:items-center">
+                <Image
+                  src={featureImages[index].url}
+                  alt={featureImages[index].alt}
+                  width={760}
+                  height={620}
+                  loading="lazy"
+                  class="h-64 w-full rounded-md object-cover md:h-80"
+                />
+                <div class="p-1">
+                  <h3 class="text-3xl font-semibold tracking-[-0.025em]">{item.title}</h3>
+                  <p class="mt-4 text-base leading-8 text-[#d8d0ca]">{item.body}</p>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-[#f7f5f2] px-4 py-24 md:py-32" data-reveal>
+      <div class="mx-auto grid max-w-6xl gap-10 md:grid-cols-[0.8fr_1.2fr] md:items-start">
+        <div>
+          <h2 class="text-balance text-4xl font-semibold leading-[1.04] tracking-[-0.03em] md:text-6xl">
+            Clients who come back.
+          </h2>
+          <p class="mt-5 max-w-[55ch] text-lg leading-8 text-[#5d5350]">
+            Short notes from people who trust the detail, the care, and the way the work lasts.
+          </p>
+        </div>
+        <div class="grid gap-3">
+          {reviews.map((review) => (
+            <figure class="review-row rounded-lg border border-[#171313]/10 bg-white p-6">
+              <blockquote class="text-xl leading-8 tracking-[-0.01em] text-[#171313]">
+                “{review.quote}”
+              </blockquote>
+              <figcaption class="mt-5 text-sm font-semibold text-[#8f1713]">
+                {review.name}
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="booking-section bg-[#f7f5f2] px-4 pb-28" data-reveal>
+      <div class="mx-auto grid max-w-6xl overflow-hidden rounded-lg bg-[#171313] text-[#f7f5f2] md:grid-cols-[0.92fr_1.08fr]">
+        <div class="p-6 md:p-10 lg:p-14">
+          <p class="mb-5 w-max rounded-full border border-[#f7f5f2]/16 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#d8d0ca]">
+            Book in Coco
+          </p>
+          <h2 class="text-balance text-4xl font-semibold leading-[1.02] tracking-[-0.03em] md:text-6xl">
+            Your next appointment starts on WhatsApp.
+          </h2>
+          <p class="mt-6 max-w-[58ch] text-lg leading-8 text-[#d8d0ca]">
+            Ask for availability, share your nail idea, or confirm the location at Five Star Salón & Spa.
+          </p>
+          <div class="mt-8 grid gap-3 text-sm text-[#d8d0ca]">
+            <a class="transition-colors hover:text-[#f7f5f2]" href="tel:+50670967912">(+506) 7096 7912</a>
+            <span>Five Star Salón & Spa, Playas del Coco, Guanacaste</span>
+          </div>
+          <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+            <a
+              href="https://wa.link/8xem3n"
+              target="_blank"
+              rel="noreferrer"
+              class="inline-flex h-12 w-max items-center rounded-full bg-[#f7f5f2] px-6 text-sm font-semibold text-[#171313] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 active:scale-[0.98]"
+            >
+              Book Now
+            </a>
+            <a
+              href="https://www.google.com/maps?ll=10.551524,-85.697851&z=19&t=m&hl=es-419&gl=CR&mapclient=embed&cid=8024717726398156106"
+              target="_blank"
+              rel="noreferrer"
+              class="inline-flex h-12 w-max items-center rounded-full border border-[#f7f5f2]/20 px-6 text-sm font-semibold text-[#f7f5f2] transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:border-[#f7f5f2]/60"
+            >
+              Open Map
+            </a>
+          </div>
+        </div>
+        <figure class="min-h-[420px]">
+          <Image
+            src={AboutImage}
+            alt="Erling Nails specialist in Playas del Coco"
+            width={920}
+            height={1100}
+            loading="lazy"
+            class="h-full min-h-[420px] w-full object-cover"
+          />
+        </figure>
+      </div>
+    </section>
   </main>
 </Layout>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (!reduceMotion) {
+    const ease = "power3.out";
+
+    gsap.from(".hero-copy > *", {
+      y: 34,
+      opacity: 0,
+      duration: 1,
+      ease,
+      stagger: 0.08,
+      delay: 0.12,
+    });
+
+    gsap.from(".hero-media", {
+      y: 48,
+      scale: 0.96,
+      opacity: 0,
+      duration: 1.1,
+      ease,
+      delay: 0.2,
+    });
+
+    gsap.to(".hero-video", {
+      scale: 1.08,
+      ease: "none",
+      scrollTrigger: {
+        trigger: ".hero-stage",
+        start: "top top",
+        end: "bottom top",
+        scrub: 1,
+      },
+    });
+
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: ".hero-stage",
+        start: "top top",
+        end: "45% top",
+        scrub: 0.7,
+      },
+    })
+      .to(".hero-copy", { y: -76, opacity: 0, ease: "none" }, 0)
+      .to(".hero-media", { y: -48, scale: 0.96, opacity: 0, ease: "none" }, 0);
+
+    gsap.utils.toArray("[data-reveal]").forEach((section) => {
+      gsap.from(section, {
+        y: 56,
+        opacity: 0,
+        duration: 0.9,
+        ease,
+        scrollTrigger: {
+          trigger: section,
+          start: "top 78%",
+          once: true,
+        },
+      });
+    });
+
+    gsap.utils.toArray(".work-frame").forEach((frame) => {
+      const image = frame.querySelector("img");
+      if (!image) return;
+      gsap.fromTo(
+        image,
+        { scale: 0.92, opacity: 0.72 },
+        {
+          scale: 1,
+          opacity: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: frame,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 0.8,
+          },
+        }
+      );
+    });
+
+    const mm = gsap.matchMedia();
+
+    mm.add("(min-width: 900px)", () => {
+      gsap.utils.toArray(".story-card").forEach((card) => {
+        gsap.fromTo(
+          card,
+          { y: 42, scale: 0.98, opacity: 0.68 },
+          {
+            y: 0,
+            scale: 1,
+            opacity: 1,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: card,
+              start: "top 84%",
+              end: "top 56%",
+              scrub: 0.45,
+            },
+          }
+        );
+      });
+    });
+
+    document.addEventListener("astro:before-swap", () => {
+      mm.revert();
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    });
+  }
+</script>
+
+<style>
+  .premium-home {
+    --ink: #171313;
+    --soft-ink: #3b3432;
+    --surface: #f7f5f2;
+    --mist: #e8e3de;
+    --accent: #8f1713;
+  }
+
+  .hero-stage,
+  .section-shell,
+  .gallery-chapter,
+  .service-story,
+  .booking-section {
+    position: relative;
+  }
+
+  .media-shell {
+    border-radius: 0.5rem;
+    background: rgb(247 245 242 / 0.12);
+    padding: 0.375rem;
+    box-shadow: 0 18px 48px rgb(0 0 0 / 0.24);
+  }
+
+  .service-tile,
+  .review-row {
+    transition:
+      transform 520ms cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 520ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .service-tile:hover,
+  .review-row:hover {
+    transform: translateY(-3px);
+    border-color: rgb(143 23 19 / 0.28);
+  }
+
+  .gallery-grid {
+    grid-auto-flow: dense;
+  }
+
+  .story-card {
+    box-shadow: inset 0 1px 0 rgb(247 245 242 / 0.08);
+  }
+
+  @media (min-width: 768px) {
+    .story-pin {
+      position: sticky;
+      top: 7rem;
+      align-self: start;
+      z-index: 1;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .hero-video {
+      opacity: 0.42;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-video,
+    .work-frame img,
+    .service-tile,
+    .review-row {
+      transition: none;
+      transform: none;
+    }
+  }
+</style>
